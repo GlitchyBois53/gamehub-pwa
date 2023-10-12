@@ -8,11 +8,12 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'game-grad': 'linear-gradient(94deg, #00D1FF 0.48%, #7E43DF 100%)',
+      },
+      minHeight: {
+        screen: '100svh',
       },
     },
   },
   plugins: [],
-}
+};
