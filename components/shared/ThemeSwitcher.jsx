@@ -19,7 +19,7 @@ export default function ThemeSwitcher() {
   }
 
   return (
-    <div className="flex gap-2 items-center justify-self-end">
+    <div className="flex gap-2 items-center justify-self-end md:-rotate-90 md:translate-y-[-16px]">
       <button
         onClick={handleTheme}
         className={`w-[53px] h-[27px] border rounded-full relative flex items-center ${
@@ -36,6 +36,7 @@ export default function ThemeSwitcher() {
             alt="theme-icon"
             width={11}
             height={11}
+            className='md:rotate-90'
           />
         </m.span>
       </button>

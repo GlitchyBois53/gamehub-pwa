@@ -11,10 +11,12 @@
   "dependencies": {
     "@clerk/nextjs": "^4.25.4",
     "framer-motion": "^10.16.4",
+    "@uploadthing/react": "^5.2.0",
     "mongoose": "^7.6.1",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
+    "uploadthing": "^5.7.1",
     "zustand": "^4.4.3"
   },
   "devDependencies": {

@@ -1,10 +1,10 @@
-import { UserButton, currentUser } from '@clerk/nextjs';
+import { currentUser } from '@clerk/nextjs';
 import { fetchGameData } from '../../lib/fetchGameData.js';
 import { fetchUser } from '../../lib/actions/user.actions.js';
 import { redirect } from 'next/navigation.js';
 
 export default async function Home() {
-  const searchLine = "Assassin's Creed";
+  const searchLine = "Pokémon";
 
   // import userdata from clerk, to check whether the user is logged in or not
   const clerkUser = await currentUser();
@@ -14,7 +14,7 @@ export default async function Home() {
   if (clerkUser) {
     dbUser = await fetchUser(clerkUser.id);
     // if the user is not onboarded, redirect to the onboarding page
-    if (!dbUser.onboarded) {
+    if (!dbUser) {
       redirect('/onboarding/profile-setup');
     }
   }
@@ -31,7 +31,6 @@ export default async function Home() {
 
   return (
     <main>
-      <UserButton afterSignOutUrl="/" />
       {games.map((game) => (
         <h2>{game.name}</h2>
       ))}
