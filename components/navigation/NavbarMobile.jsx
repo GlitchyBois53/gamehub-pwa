@@ -29,7 +29,7 @@ export default async function NavbarMobile() {
 
 function Top({ image, clerkId, email, username }) {
   return (
-    <div className="grid grid-cols-3 justify-between items-center py-[24px] px-[32px] shadow-nav shadow-black/25">
+    <div className="grid grid-cols-3 justify-between items-center py-[24px] px-[32px] shadow-nav bg shadow-black/25">
       <SignedIn>
         <ProfileButton
           avatar={image}
@@ -58,7 +58,7 @@ function Top({ image, clerkId, email, username }) {
 
 function Bottom({ clerkUser }) {
   return (
-    <div className="flex justify-between items-center py-[24px] px-[32px] shadow-nav shadow-black/25">
+    <div className="flex justify-between items-center py-[24px] px-[32px] shadow-nav bg shadow-black/25">
       <NavLinks clerkUser={clerkUser} />
     </div>
   );
