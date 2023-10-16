@@ -18,9 +18,9 @@ export default function OnboardingModal({
     <article
       className={`${
         theme === "light"
-          ? "bg-back-light shadow-black/25"
-          : "bg-back-dark shadow-black/50"
-      } p-[32px] max-w-[575px] w-full shadow-nav `}
+          ? "bg-back-light md:shadow-black/25"
+          : "bg-back-dark md:shadow-black/50"
+      } p-[32px] md:max-w-[575px] w-full md:shadow-nav `}
     >
       <section className="flex items-center justify-between pb-[24px]">
         <h1 className="text-[24px] uppercase tracking-[1.8px] font-bold">

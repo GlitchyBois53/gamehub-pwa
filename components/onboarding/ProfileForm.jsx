@@ -56,7 +56,6 @@ export default function ProfileForm({ username, image, email, clerkId }) {
         error={error}
         setError={setError}
       />
-
       <Input
         name="username"
         value={form.username}
@@ -64,7 +63,6 @@ export default function ProfileForm({ username, image, email, clerkId }) {
         handleChange={handleChange}
         title="Username"
       />
-
       <hr
         className={`w-full border-t-[0.5px] my-[24px] ${
           theme === "light" ? "border-black/20" : "border-white/20"

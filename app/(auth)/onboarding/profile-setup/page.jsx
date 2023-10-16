@@ -20,8 +20,8 @@ export default async function ProfileSetup() {
     >
       <ProfileForm
         email={user.emailAddresses[0].emailAddress}
-        username={dbUser.username || user.username || ""}
-        image={dbUser.image || user.imageUrl}
+        username={dbUser?.username || user.username || ""}
+        image={dbUser?.image || user.imageUrl}
         clerkId={user.id}
       />
     </OnboardingModal>

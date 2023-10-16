@@ -8,13 +8,13 @@ import { useRouter } from "next/navigation";
 
 export default function ProfileButton({ avatar, username, email, clerkId }) {
   const theme = useStore((store) => store.theme);
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className={`p-[2px] rounded-full ${
+        className={`p-[2px] rounded-full w-max ${
           isMenuOpen
             ? "bg-game-grad"
             : theme === "light"
@@ -29,14 +29,17 @@ export default function ProfileButton({ avatar, username, email, clerkId }) {
         />
       </button>
       {isMenuOpen && (
-        <ProfileMenu
-          username={username}
-          email={email}
-          avatar={avatar}
-          theme={theme}
-          clerkId={clerkId}
-          setIsMenuOpen={setIsMenuOpen}
-        />
+        <>
+          <ProfileMenu
+            username={username}
+            email={email}
+            avatar={avatar}
+            theme={theme}
+            clerkId={clerkId}
+            setIsMenuOpen={setIsMenuOpen}
+          />
+          <MenuCloser setIsMenuOpen={setIsMenuOpen} />
+        </>
       )}
     </>
   );
@@ -81,7 +84,7 @@ function ProfileMenu({
 
   return (
     <article
-      className={`fixed z-20 flex flex-col gap-[24px] md:bottom-[18px] md:left-[118px] md:top-auto md:right-auto top-[116px] left-[24px] p-[24px] right-[24px] shadow-profile rounded-[7px] ${
+      className={`fixed z-20 flex flex-col gap-[24px] md:bottom-[18px] md:left-[118px] md:top-auto md:right-auto top-[118px] left-[18px] p-[24px] right-[18px] shadow-profile rounded-[7px] ${
         theme === "light"
           ? "bg-back-light shadow-black/10"
           : "bg-back-dark shadow-black/30"
@@ -108,7 +111,7 @@ function ProfileMenu({
         </p>
       </section>
       <hr
-        className={`w-[230px] border-t-[0.5px] ${
+        className={`w-full md:w-[230px] border-t-[0.5px] ${
           theme === "light" ? "border-black/20" : "border-white/20"
         }`}
       />
@@ -143,5 +146,14 @@ function ProfileLink({ icon, name }) {
         {name}
       </p>
     </span>
+  );
+}
+
+function MenuCloser({ setIsMenuOpen }) {
+  return (
+    <div
+      onClick={() => setIsMenuOpen(false)}
+      className="fixed inset-0 top-[96px] bottom-[86px] md:top-0 md:bottom-0 md:left-[100px] bg-black/20 z-10"
+    />
   );
 }

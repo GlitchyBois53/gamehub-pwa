@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <Head isOnboarding={true} />
         <ThemeProvider font={barlow.className}>
-          <main className="flex items-center justify-center min-h-screen">
+          <main className="flex md:items-center justify-center min-h-screen">
             {children}
           </main>
         </ThemeProvider>

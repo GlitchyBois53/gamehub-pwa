@@ -13,7 +13,7 @@ export default function Logo() {
         <p className="text-[12px] tracking-[0.8px] font-bold">GAMEHUB</p>
       </Link>
       <hr
-        className={`w-full mt-[12px] mb-[24px] border-t-[0.5px] ${
+        className={`hidden md:block w-full mt-[12px] mb-[24px] border-t-[0.5px] ${
           theme === "light" ? "border-black/20" : "border-white/20"
         }`}
       />
