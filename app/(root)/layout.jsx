@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider font={barlow.className}>
           <NavbarMobile />
           <NavbarDesktop />
-          <main className="md:ml-[100px] mt-[92px] md:mt-0 p-[24px] md:pl-[32px]">{children}</main>
+          <main className="md:ml-[100px] mt-[96px] md:mt-0 p-[24px] md:pl-[32px]">{children}</main>
         </ThemeProvider>
       </html>
     </ClerkProvider>

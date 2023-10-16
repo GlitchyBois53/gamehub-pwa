@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useStore } from '../../app/store';
-import { shallow } from 'zustand/shallow';
-import { useEffect } from 'react';
+import { useStore } from "../../app/store";
+import { shallow } from "zustand/shallow";
+import { useEffect } from "react";
 
 export default function ThemeProvider({ children, font }) {
   let themeMatch = null;
 
   // setting the theme based on the user's system preferences
-  if (typeof window !== 'undefined') {
-    themeMatch = window.matchMedia('(prefers-color-scheme: light)');
+  if (typeof window !== "undefined") {
+    themeMatch = window.matchMedia("(prefers-color-scheme: light)");
   }
 
   // importing the theme from the store
@@ -20,13 +20,13 @@ export default function ThemeProvider({ children, font }) {
 
   // setting the theme based on either the user's system preferences or the user's preference
   useEffect(() => {
-    if (localStorage.getItem('theme') === null) {
-      setTheme(themeMatch.matches ? 'light' : 'dark');
+    if (localStorage.getItem("theme") === null) {
+      setTheme(themeMatch.matches ? "light" : "dark");
     } else {
-      if (localStorage.getItem('theme') === 'light') {
-        setTheme('light');
+      if (localStorage.getItem("theme") === "light") {
+        setTheme("light");
       } else {
-        setTheme('dark');
+        setTheme("dark");
       }
     }
   }, []);
@@ -34,10 +34,10 @@ export default function ThemeProvider({ children, font }) {
   return (
     <body
       className={`${
-        theme === 'light'
-          ? 'bg-back-light text-txt-light'
-          : 'bg-back-dark text-white dark'
-      } ${font} min-h-screen transition-colors`}
+        theme === "light"
+          ? "bg-back-light text-txt-light"
+          : "bg-back-dark text-white dark"
+      } ${font} md:min-h-screen min-h-mobile transition-colors`}
     >
       {children}
     </body>
