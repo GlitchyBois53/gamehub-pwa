@@ -8,10 +8,15 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'game-grad': 'linear-gradient(94deg, #00D1FF 0.48%, #7E43DF 100%)',
+        'game-grad': 'linear-gradient(94deg, #7E43DF 0.48%, #00D1FF 100%)',
       },
       minHeight: {
         screen: '100svh',
+      },
+      colors: {
+        'back-dark': '#151515',
+        'back-light': '#f9f9f9',
+        'txt-light': '#202020',
       },
     },
   },
