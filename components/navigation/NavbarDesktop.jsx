@@ -13,7 +13,6 @@ export default async function NavbarDesktop() {
 
   if (clerkUser) {
     dbUser = await fetchUser(clerkUser.id);
-    console.log(dbUser);
   }
 
   return (

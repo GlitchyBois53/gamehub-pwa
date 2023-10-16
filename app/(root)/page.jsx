@@ -1,7 +1,7 @@
-import { currentUser } from '@clerk/nextjs';
-import { fetchGameData } from '../../lib/fetchGameData.js';
-import { fetchUser } from '../../lib/actions/user.actions.js';
-import { redirect } from 'next/navigation.js';
+import { currentUser } from "@clerk/nextjs";
+import { fetchGameData } from "../../lib/fetchGameData.js";
+import { fetchUser } from "../../lib/actions/user.actions.js";
+import { redirect } from "next/navigation.js";
 
 export default async function Home() {
   const searchLine = "Pokémon";
@@ -15,12 +15,12 @@ export default async function Home() {
     dbUser = await fetchUser(clerkUser.id);
     // if the user is not onboarded, redirect to the onboarding page
     if (!dbUser) {
-      redirect('/onboarding/profile-setup');
+      redirect("/onboarding/profile-setup");
     }
   }
 
   const games = await fetchGameData(
-    'games',
+    "games",
     `
       fields name, rating, aggregated_rating, genres, total_rating, first_release_date, keywords; 
       where name ~ *"${searchLine}"* & version_parent = null & first_release_date != null & keywords != (2004, 2555) & category = (0, 10); 

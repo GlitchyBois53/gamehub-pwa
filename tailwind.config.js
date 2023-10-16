@@ -20,7 +20,6 @@ module.exports = {
       },
       boxShadow: {
         "nav": "0px 0px 30px",
-        "profile": "0px 0px 60px 0px"
       }
     },
   },

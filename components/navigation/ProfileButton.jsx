@@ -5,8 +5,15 @@ import { useStore } from "../../app/store";
 import { useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { motion as m, AnimatePresence } from "framer-motion";
 
-export default function ProfileButton({ avatar, username, email, clerkId }) {
+export default function ProfileButton({
+  avatar,
+  username,
+  email,
+  clerkId,
+  isMobile,
+}) {
   const theme = useStore((store) => store.theme);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -28,19 +35,22 @@ export default function ProfileButton({ avatar, username, email, clerkId }) {
           alt={`${username}'s avatar`}
         />
       </button>
-      {isMenuOpen && (
-        <>
-          <ProfileMenu
-            username={username}
-            email={email}
-            avatar={avatar}
-            theme={theme}
-            clerkId={clerkId}
-            setIsMenuOpen={setIsMenuOpen}
-          />
-          <MenuCloser setIsMenuOpen={setIsMenuOpen} />
-        </>
-      )}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            <ProfileMenu
+              username={username}
+              email={email}
+              avatar={avatar}
+              theme={theme}
+              clerkId={clerkId}
+              isMobile={isMobile}
+              setIsMenuOpen={setIsMenuOpen}
+            />
+            <MenuCloser setIsMenuOpen={setIsMenuOpen} />
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }
@@ -52,6 +62,7 @@ function ProfileMenu({
   theme,
   clerkId,
   setIsMenuOpen,
+  isMobile,
 }) {
   const { signOut } = useClerk();
   const router = useRouter();
@@ -83,8 +94,15 @@ function ProfileMenu({
   }
 
   return (
-    <article
-      className={`fixed z-20 flex flex-col gap-[24px] md:bottom-[18px] md:left-[118px] md:top-auto md:right-auto top-[118px] left-[18px] p-[24px] right-[18px] shadow-profile rounded-[7px] ${
+    <m.article
+      initial={{
+        opacity: 0,
+        scale: 0,
+        transformOrigin: `${isMobile ? "top" : "bottom"} left`,
+      }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0 }}
+      className={`fixed z-20 flex flex-col gap-[24px] md:bottom-[18px] md:left-[118px] md:top-auto md:right-auto top-[118px] left-[18px] p-[24px] right-[18px] shadow-nav rounded-[7px] ${
         theme === "light"
           ? "bg-back-light shadow-black/10"
           : "bg-back-dark shadow-black/30"
@@ -130,7 +148,7 @@ function ProfileMenu({
           </div>
         ))}
       </nav>
-    </article>
+    </m.article>
   );
 }
 
@@ -151,7 +169,10 @@ function ProfileLink({ icon, name }) {
 
 function MenuCloser({ setIsMenuOpen }) {
   return (
-    <div
+    <m.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       onClick={() => setIsMenuOpen(false)}
       className="fixed inset-0 top-[96px] bottom-[86px] md:top-0 md:bottom-0 md:left-[100px] bg-black/20 z-10"
     />

@@ -36,6 +36,7 @@ function Top({ image, clerkId, email, username }) {
           clerkId={clerkId}
           email={email}
           username={username}
+          isMobile={true}
         />
       </SignedIn>
 
