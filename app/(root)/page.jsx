@@ -2,6 +2,8 @@ import { currentUser } from "@clerk/nextjs";
 import { fetchGameData } from "../../lib/fetchGameData.js";
 import { fetchUser } from "../../lib/actions/user.actions.js";
 import { redirect } from "next/navigation.js";
+import Search from "../../components/shared/Search.jsx";
+import GameCard from "../../components/shared/GameCard.jsx";
 
 export default async function Home() {
   const searchLine = "Pokémon";
@@ -17,23 +19,39 @@ export default async function Home() {
     if (!dbUser) {
       redirect("/onboarding/profile-setup");
     }
+    if (dbUser?.onboarded === false) {
+      redirect("/onboarding/profile-setup");
+    }
   }
 
-  const games = await fetchGameData(
-    "games",
-    `
-      fields name, rating, aggregated_rating, genres, total_rating, first_release_date, keywords; 
-      where name ~ *"${searchLine}"* & version_parent = null & first_release_date != null & keywords != (2004, 2555) & category = (0, 10); 
+  const genreIdArr = dbUser?.genres.map((genre) => genre.genreId);
+
+  let recommendedGames = null;
+
+  if (genreIdArr && genreIdArr.length !== 0) {
+    recommendedGames = await fetchGameData(
+      "games",
+      `
+      fields name, rating, genres, total_rating, first_release_date, slug; 
+      where genres = (${genreIdArr}) & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 10) & total_rating > 80; 
       limit 20; 
-      sort first_release_date desc;
-    `
-  );
+      sort total_rating desc;
+      `
+    );
+  }
 
   return (
     <main>
-      {games.map((game) => (
-        <h2>{game.name}</h2>
-      ))}
+      <Search />
+      {dbUser &&
+        dbUser.genres.length !== 0 &&
+        Array.isArray(recommendedGames) && (
+          <>
+            {recommendedGames.map((game) => (
+              <GameCard game={game} />
+            ))}
+          </>
+        )}
     </main>
   );
 }

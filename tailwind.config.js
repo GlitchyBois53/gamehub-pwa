@@ -21,6 +21,7 @@ module.exports = {
       },
       boxShadow: {
         nav: "0px 0px 30px",
+        search: "0px 0px 10px",
       },
     },
   },

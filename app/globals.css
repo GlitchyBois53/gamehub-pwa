@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,4 +10,13 @@
 
 .dark .bg {
   background-color: #151515;
+}
+
+.toast {
+  font-family: "Barlow", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: #202020;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
 }

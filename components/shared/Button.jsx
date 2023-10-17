@@ -15,6 +15,7 @@ export default function Button({
   // setting default values for the attributes
   attributes = "px-[18px] py-[8px] text-[12px] tracking-[0.72px]",
   borderAttributes = "border-[2px]",
+  buttonWidth,
 }) {
   return (
     <>
@@ -33,7 +34,7 @@ export default function Button({
       ) : (
         <button
           onClick={handleClick}
-          className="block w-full"
+          className={`block ${buttonWidth || "w-max"}`}
           type={type || "button"}
         >
           <ButtonBody

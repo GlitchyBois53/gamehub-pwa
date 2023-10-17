@@ -3,6 +3,7 @@
 import { useStore } from '../../app/store';
 import { shallow } from 'zustand/shallow';
 import { motion as m } from 'framer-motion';
+import { toast } from 'sonner';
 
 export default function ThemeSwitcher() {
 
@@ -14,8 +15,10 @@ export default function ThemeSwitcher() {
 
   // function that toggles the theme
   function handleTheme() {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-    localStorage.setItem('theme', theme === 'dark' ? 'light' : 'dark');
+    const toggle = theme === "dark" ? "light" : "dark";
+    setTheme(toggle);
+    localStorage.setItem("theme", toggle);
+    toast.success(`Theme set to ${toggle} mode`);
   }
 
   return (

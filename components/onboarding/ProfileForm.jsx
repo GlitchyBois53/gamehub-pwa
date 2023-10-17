@@ -7,6 +7,7 @@ import UploadImage from "./UploadImage";
 import Button from "../shared/Button";
 import { useStore } from "../../app/store";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function ProfileForm({ username, image, email, clerkId }) {
   const theme = useStore((state) => state.theme);
@@ -31,8 +32,13 @@ export default function ProfileForm({ username, image, email, clerkId }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (form.username == "") {
+      toast.error("Please enter a username");
+      return;
+    }
     submitUserToDB();
     router.push("/onboarding/genres");
+    toast.success("Profile is updated");
   }
 
   async function submitUserToDB() {
@@ -40,9 +46,12 @@ export default function ProfileForm({ username, image, email, clerkId }) {
       email: email,
       username: form.username,
       image: images[0]?.fileUrl || image,
-      onboarded: true,
       clerkId: clerkId,
     });
+  }
+
+  if (error.isActive) {
+    toast.error(error.message);
   }
 
   return (
@@ -72,7 +81,9 @@ export default function ProfileForm({ username, image, email, clerkId }) {
         type={"submit"}
         text={"next"}
         attributes="text-[16px] tracking-[0.96px] py-[13px] w-full"
+        buttonWidth={"w-full"}
       />
+      {/* TODO validation of username input, username can't be an empty string */}
     </form>
   );
 }

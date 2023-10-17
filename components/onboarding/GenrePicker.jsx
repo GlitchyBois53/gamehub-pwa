@@ -1,0 +1,71 @@
+"use client";
+
+import { genres } from "../../constants";
+import Button from "../../components/shared/Button";
+import { useStore } from "../../app/store";
+import { useState } from "react";
+import { updateGenres } from "../../lib/actions/user.actions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+export default function GenrePicker({ clerkId, genreArr }) {
+  const theme = useStore((store) => store.theme);
+  const router = useRouter();
+
+  const [pickGenres, setPickGenres] = useState(genreArr);
+  const pickedGenresIdArray = pickGenres.map((genre) => genre.genreId);
+
+  function handleClick(id, name) {
+    if (pickedGenresIdArray.includes(id)) {
+      setPickGenres(pickGenres.filter((genre) => genre.genreId !== id));
+    } else {
+      setPickGenres([...pickGenres, { genreId: id, name: name }]);
+    }
+  }
+
+  async function handleSubmit() {
+    if (pickGenres.length < 3) {
+      toast.error("Please pick at least 3 genres");
+      return;
+    }
+    if (pickGenres.length > 10) {
+      toast.error("Please pick max. 10 genres");
+      return;
+    }
+    toast.success("Genres updated");
+    await updateGenres({ clerkId: clerkId, genres: pickGenres });
+    router.push("/onboarding/appearance");
+  }
+
+  return (
+    <>
+      <article className="flex flex-wrap gap-[10px] justify-center pt-[70px] pb-[46px]">
+        {genres.map((genre) => (
+          <Button
+            key={genre.genreId}
+            text={genre.name}
+            variant={
+              !pickedGenresIdArray.includes(genre.genreId.toString()) &&
+              "tertiary"
+            }
+            attributes="text-[12px] py-[6px] px-[14px] w-max"
+            handleClick={() =>
+              handleClick(genre.genreId.toString(), genre.name)
+            }
+          />
+        ))}
+      </article>
+      <hr
+        className={`w-full border-t-[0.5px] my-[24px] ${
+          theme === "light" ? "border-black/20" : "border-white/20"
+        }`}
+      />
+      <Button
+        text={"next"}
+        attributes="text-[16px] tracking-[0.96px] py-[13px]"
+        buttonWidth={"w-full"}
+        handleClick={handleSubmit}
+      />
+    </>
+  );
+}

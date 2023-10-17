@@ -105,6 +105,7 @@ export default function UploadImage({
             });
           }}
         />
+        {/* TODO Make error message if image is not supported or larger than 4 mb */}
       </div>
     </div>
   );

@@ -22,8 +22,8 @@ export default function Loading() {
               y2="31.85"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#7E43DF" />
-              <stop offset="1" stop-color="#00D1FF" />
+              <stop stopColor="#7E43DF" />
+              <stop offset="1" stopColor="#00D1FF" />
             </linearGradient>
           </defs>
         </svg>

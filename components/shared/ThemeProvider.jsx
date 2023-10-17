@@ -2,7 +2,7 @@
 
 import { useStore } from "../../app/store";
 import { shallow } from "zustand/shallow";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ThemeProvider({ children, font }) {
   let themeMatch = null;
@@ -18,6 +18,8 @@ export default function ThemeProvider({ children, font }) {
     shallow
   );
 
+  const [isClient, setIsClient] = useState(false);
+
   // setting the theme based on either the user's system preferences or the user's preference
   useEffect(() => {
     if (localStorage.getItem("theme") === null) {
@@ -31,15 +33,23 @@ export default function ThemeProvider({ children, font }) {
     }
   }, []);
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
-    <body
-      className={`${
-        theme === "light"
-          ? "bg-back-light text-txt-light"
-          : "bg-back-dark text-white dark"
-      } ${font} md:min-h-screen min-h-mobile transition-colors`}
-    >
-      {children}
-    </body>
+    <>
+      {isClient && (
+        <body
+          className={`${
+            theme === "light"
+              ? "bg-back-light text-txt-light"
+              : "bg-back-dark text-white dark"
+          } ${font} md:min-h-screen min-h-mobile transition-colors`}
+        >
+          {children}
+        </body>
+      )}
+    </>
   );
 }

@@ -1,14 +1,11 @@
 "use client";
 
 import { useStore } from "../../app/store";
-import Button from "../shared/Button";
 import Dot from "../shared/Dot";
 
 export default function OnboardingModal({
   title,
   description,
-  buttonText,
-  href,
   step,
   children,
 }) {
@@ -40,21 +37,6 @@ export default function OnboardingModal({
         {description}
       </p>
       <div>{children}</div>
-      {href && buttonText && (
-        <>
-          <hr
-            className={`w-full border-t-[0.5px] my-[24px] ${
-              theme === "light" ? "border-black/20" : "border-white/20"
-            }`}
-          />
-          <Button
-            text={buttonText}
-            isLink={true}
-            href={href}
-            attributes="text-[16px] tracking-[0.96px] py-[13px]"
-          />
-        </>
-      )}
       <div className="flex gap-[18px] mt-[32px] justify-center">
         <Dot isActive={step === 1} />
         <Dot isActive={step === 2} />
