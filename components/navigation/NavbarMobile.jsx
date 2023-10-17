@@ -15,7 +15,7 @@ export default async function NavbarMobile() {
   }
 
   return (
-    <div className="fixed inset-0 flex flex-col justify-between md:hidden">
+    <div className="fixed inset-0 flex flex-col justify-between md:hidden pointer-events-none">
       <Top
         image={dbUser?.image}
         clerkId={dbUser?.clerkId}
