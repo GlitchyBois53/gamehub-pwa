@@ -38,12 +38,18 @@ export default async function Home() {
     );
   }
 
+  const game = await fetchGameData(
+    "games",
+    `fields name, rating, genres, total_rating, first_release_date, slug, cover; where version_parent = null & rating_count > 50 & parent_game = null & aggregated_rating != null & aggregated_rating_count > 5; sort aggregated_rating desc; limit 10;`
+  );
+
   return (
     <main>
       <Search />
       {dbUser && dbUser.genres.length !== 0 && (
         <GameContainer title={"Recommended for you"} arr={recommendedGames} />
       )}
+      <GameContainer title={"Recommended for you"} arr={game} />
     </main>
   );
 }
