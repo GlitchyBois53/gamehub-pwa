@@ -3,11 +3,9 @@ import { fetchGameData } from "../../lib/fetchGameData.js";
 import { fetchUser } from "../../lib/actions/user.actions.js";
 import { redirect } from "next/navigation.js";
 import Search from "../../components/shared/Search.jsx";
-import GameCard from "../../components/shared/GameCard.jsx";
+import GameContainer from "../../components/shared/GameContainer.jsx";
 
 export default async function Home() {
-  const searchLine = "Pokémon";
-
   // import userdata from clerk, to check whether the user is logged in or not
   const clerkUser = await currentUser();
   let dbUser = null;
@@ -32,9 +30,9 @@ export default async function Home() {
     recommendedGames = await fetchGameData(
       "games",
       `
-      fields name, rating, genres, total_rating, first_release_date, slug; 
+      fields name, rating, genres, total_rating, first_release_date, slug, cover; 
       where genres = (${genreIdArr}) & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 10) & total_rating > 80; 
-      limit 20; 
+      limit 15; 
       sort total_rating desc;
       `
     );
@@ -43,15 +41,9 @@ export default async function Home() {
   return (
     <main>
       <Search />
-      {dbUser &&
-        dbUser.genres.length !== 0 &&
-        Array.isArray(recommendedGames) && (
-          <>
-            {recommendedGames.map((game) => (
-              <GameCard game={game} />
-            ))}
-          </>
-        )}
+      {dbUser && dbUser.genres.length !== 0 && (
+        <GameContainer title={"Recommended for you"} arr={recommendedGames} />
+      )}
     </main>
   );
 }
