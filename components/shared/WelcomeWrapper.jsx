@@ -3,16 +3,23 @@
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 import Toast from './Toast';
+import { useStore } from '../../app/store';
+import { shallow } from 'zustand/shallow';
 
 export default function WelcomeWrapper({ children, clerkUser, username }) {
   let count = 0;
+  const [isWelcomed, setIsWelcomed] = useStore(
+    (store) => [store.isWelcomed, store.setIsWelcomed],
+    shallow
+  );
 
   useEffect(() => {
-    if (clerkUser && count < 1) {
+    if (clerkUser && count < 1 && !isWelcomed) {
       toast.custom((t) => (
         <Toast t={t} type={'message'} message={`Welcome ${username}`} />
       ));
       count = count + 1;
+      setIsWelcomed(true);
     }
   }, []);
 

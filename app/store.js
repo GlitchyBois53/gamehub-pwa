@@ -2,7 +2,6 @@
 
 import { createWithEqualityFn } from 'zustand/traditional';
 
-
 // initiailizing theme from local storage, to make sure it only runs on the client
 if (typeof window !== 'undefined') {
   const themeStorage = localStorage.getItem('theme');
@@ -11,8 +10,10 @@ if (typeof window !== 'undefined') {
 // creating store
 export const useStore = createWithEqualityFn()(
   (set) => ({
-    theme: "null",
+    theme: 'null',
     setTheme: (theme) => set(() => ({ theme: theme })),
+    isWelcomed: false,
+    setIsWelcomed: (isWelcomed) => set(() => ({ isWelcomed: isWelcomed })),
   }),
   Object.is
 );

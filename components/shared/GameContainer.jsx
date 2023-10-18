@@ -12,8 +12,8 @@ export default async function GameContainer({ arr, title, isScrollable }) {
     `fields image_id; where id = (${coverIdArr}); limit 100;`
   );
   return (
-    <>
-      <h2 className="text-[24px] uppercase tracking-[1.44px] font-bold bg-game-grad bg-clip-text text-transparent">
+    <article>
+      <h2 className="text-[24px] uppercase tracking-[1.44px] font-bold bg-game-grad bg-clip-text text-transparent w-max">
         {title}
       </h2>
       <div
@@ -35,6 +35,6 @@ export default async function GameContainer({ arr, title, isScrollable }) {
           </>
         )}
       </div>
-    </>
+    </article>
   );
 }

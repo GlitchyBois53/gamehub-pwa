@@ -59,29 +59,41 @@ export default async function Home() {
     >
       <main>
         <Search />
-        {dbUser && dbUser.genres.length !== 0 && (
-          <GameContainer title={'Recommended for you'} arr={recommendedGames} isScrollable={true} />
-        )}
-        {genreChoices.map(async (genre) => {
-          const randomLetterIndex = getRandomIndex(alphabet);
-          const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
-          const randomSortMethodOrder = getRandomIndex(igdbSortOrders);
+        <div className="flex flex-col gap-[12px] mt-[24px]">
+          {dbUser && dbUser.genres.length !== 0 && (
+            <GameContainer
+              title={'Recommended for you'}
+              arr={recommendedGames}
+              isScrollable={true}
+            />
+          )}
+          {genreChoices.map(async (genre) => {
+            const randomLetterIndex = getRandomIndex(alphabet);
+            const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
+            const randomSortMethodOrder = getRandomIndex(igdbSortOrders);
 
-          const genreData = await fetchGameData(
-            'games',
-            `
+            const genreData = await fetchGameData(
+              'games',
+              `
             fields name, genres, total_rating, first_release_date, slug, cover; 
             where genres = (${genre}) & name ~*"${alphabet[randomLetterIndex]}"* & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 10) & total_rating > 80; 
             limit 15; 
             sort ${igdbSortMethods[randomSortMethodIndex]} ${igdbSortOrders[randomSortMethodOrder]};
             `
-          );
-          const title = genres.find(
-            (genreArr) => genreArr.genreId == genre
-          ).name;
+            );
+            const title = genres.find(
+              (genreArr) => genreArr.genreId == genre
+            ).name;
 
-          return <GameContainer arr={genreData} title={title} isScrollable={true} />;
-        })}
+            return (
+              <GameContainer
+                arr={genreData}
+                title={title}
+                isScrollable={true}
+              />
+            );
+          })}
+        </div>
       </main>
     </WelcomeWrapper>
   );

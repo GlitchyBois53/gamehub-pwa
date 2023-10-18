@@ -1,4 +1,4 @@
-import { ClerkProvider } from '@clerk/nextjs';
+import { ClerkProvider, currentUser } from '@clerk/nextjs';
 import '../globals.css';
 import { Barlow } from 'next/font/google';
 import NavbarDesktop from '../../components/navigation/NavbarDesktop';
@@ -12,7 +12,7 @@ const barlow = Barlow({
   weight: ['400', '500', '600', '700'],
 });
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">

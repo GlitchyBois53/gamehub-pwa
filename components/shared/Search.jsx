@@ -30,7 +30,7 @@ export default function Search() {
         theme === 'light'
           ? 'bg-back-light border-black/20 shadow-black/25'
           : 'bg-back-dark border-white/20 shadow-black/50'
-      } transition-colors border rounded-[2px] max-w-[573px] shadow-search`}
+      } transition-colors border rounded-[2px] md:max-w-[573px] shadow-search`}
     >
       <img
         src={`${
