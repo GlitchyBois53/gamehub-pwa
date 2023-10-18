@@ -6,6 +6,12 @@ import Search from '../../components/shared/Search.jsx';
 import GameContainer from '../../components/shared/GameContainer.jsx';
 import WelcomeWrapper from '../../components/shared/WelcomeWrapper.jsx';
 import { genres } from '../../constants/index.js';
+import { getRandomIndex } from '../../lib/getRandomIndex.js';
+import {
+  alphabet,
+  igdbSortMethods,
+  igdbSortOrders,
+} from '../../constants/index.js';
 
 export default async function Home() {
   // import userdata from clerk, to check whether the user is logged in or not
@@ -30,14 +36,18 @@ export default async function Home() {
 
   let recommendedGames = null;
 
+  const randomLetterIndex = getRandomIndex(alphabet);
+  const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
+  const randomSortMethodOrder = getRandomIndex(igdbSortOrders);
+
   if (genreIdArr && genreIdArr.length !== 0) {
     recommendedGames = await fetchGameData(
       'games',
       `
       fields name, genres, total_rating, first_release_date, slug, cover; 
-      where genres = (${genreIdArr}) & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 10) & total_rating > 80; 
+      where genres = (${genreIdArr}) & name ~*"${alphabet[randomLetterIndex]}"* & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 10) & total_rating > 80; 
       limit 15; 
-      sort total_rating desc;
+      sort ${igdbSortMethods[randomSortMethodIndex]} ${igdbSortOrders[randomSortMethodOrder]};
       `
     );
   }
@@ -50,22 +60,27 @@ export default async function Home() {
       <main>
         <Search />
         {dbUser && dbUser.genres.length !== 0 && (
-          <GameContainer title={'Recommended for you'} arr={recommendedGames} />
+          <GameContainer title={'Recommended for you'} arr={recommendedGames} isScrollable={true} />
         )}
         {genreChoices.map(async (genre) => {
+          const randomLetterIndex = getRandomIndex(alphabet);
+          const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
+          const randomSortMethodOrder = getRandomIndex(igdbSortOrders);
+
           const genreData = await fetchGameData(
             'games',
             `
             fields name, genres, total_rating, first_release_date, slug, cover; 
-            where genres = (${genre}) & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 10) & total_rating > 80; 
+            where genres = (${genre}) & name ~*"${alphabet[randomLetterIndex]}"* & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 10) & total_rating > 80; 
             limit 15; 
-            sort total_rating desc;
+            sort ${igdbSortMethods[randomSortMethodIndex]} ${igdbSortOrders[randomSortMethodOrder]};
             `
           );
-          const title = genres.find((genreArr) => genreArr.genreId == genre).name;
-          console.log(title)
+          const title = genres.find(
+            (genreArr) => genreArr.genreId == genre
+          ).name;
 
-          return <GameContainer arr={genreData} title={title} />;
+          return <GameContainer arr={genreData} title={title} isScrollable={true} />;
         })}
       </main>
     </WelcomeWrapper>

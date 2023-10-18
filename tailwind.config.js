@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        pagination: "34px 1fr 34px"
+      },
       backgroundImage: {
         'game-grad': 'linear-gradient(94deg, #7E43DF 0.48%, #00D1FF 100%)',
         'success-grad': 'linear-gradient(94deg, #3AED4C 0.48%, #6FF27D 100%)',

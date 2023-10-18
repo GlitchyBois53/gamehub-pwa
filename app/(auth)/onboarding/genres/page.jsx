@@ -22,7 +22,7 @@ export default async function GenreSetup() {
   return (
     <OnboardingModal
       title={"Genre"}
-      description={"Choose 3-10 of your favorite genres:"}
+      description={"Choose 1-3 of your favorite genres:"}
       step={2}
     >
       <GenrePicker clerkId={clerkUser.id} genreArr={genres} />
