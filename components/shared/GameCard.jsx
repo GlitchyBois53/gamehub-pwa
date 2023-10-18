@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { fetchGameData } from '../../lib/fetchGameData';
 import { genres } from '../../constants';
 
 export default async function GameCard({ game, imageId }) {

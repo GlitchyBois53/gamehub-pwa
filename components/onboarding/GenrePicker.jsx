@@ -1,12 +1,13 @@
-"use client";
+'use client';
 
-import { genres } from "../../constants";
-import Button from "../../components/shared/Button";
-import { useStore } from "../../app/store";
-import { useState } from "react";
-import { updateGenres } from "../../lib/actions/user.actions";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { genres } from '../../constants';
+import Button from '../../components/shared/Button';
+import { useStore } from '../../app/store';
+import { useState } from 'react';
+import { updateGenres } from '../../lib/actions/user.actions';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import Toast from '../shared/Toast';
 
 export default function GenrePicker({ clerkId, genreArr }) {
   const theme = useStore((store) => store.theme);
@@ -25,16 +26,22 @@ export default function GenrePicker({ clerkId, genreArr }) {
 
   async function handleSubmit() {
     if (pickGenres.length < 3) {
-      toast.error("Please pick at least 3 genres");
+      toast.custom((t) => (
+        <Toast t={t} type={'error'} message={'Please pick min. 3 genres'} />
+      ));
       return;
     }
     if (pickGenres.length > 10) {
-      toast.error("Please pick max. 10 genres");
+      toast.custom((t) => (
+        <Toast t={t} type={'error'} message={'Please pick max. 10 genres'} />
+      ));
       return;
     }
-    toast.success("Genres updated");
+    toast.custom((t) => (
+      <Toast t={t} type={'success'} message={'Genres updated'} />
+    ));
     await updateGenres({ clerkId: clerkId, genres: pickGenres });
-    router.push("/onboarding/appearance");
+    router.push('/onboarding/appearance');
   }
 
   return (
@@ -46,7 +53,7 @@ export default function GenrePicker({ clerkId, genreArr }) {
             text={genre.name}
             variant={
               !pickedGenresIdArray.includes(genre.genreId.toString()) &&
-              "tertiary"
+              'tertiary'
             }
             attributes="text-[12px] py-[6px] px-[14px] w-max"
             handleClick={() =>
@@ -57,13 +64,13 @@ export default function GenrePicker({ clerkId, genreArr }) {
       </article>
       <hr
         className={`w-full border-t-[0.5px] my-[24px] ${
-          theme === "light" ? "border-black/20" : "border-white/20"
+          theme === 'light' ? 'border-black/20' : 'border-white/20'
         }`}
       />
       <Button
-        text={"next"}
+        text={'next'}
         attributes="text-[16px] tracking-[0.96px] py-[13px]"
-        buttonWidth={"w-full"}
+        buttonWidth={'w-full'}
         handleClick={handleSubmit}
       />
     </>

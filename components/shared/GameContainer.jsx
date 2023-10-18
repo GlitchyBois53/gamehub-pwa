@@ -2,8 +2,11 @@ import { fetchGameData } from '../../lib/fetchGameData';
 import GameCard from './GameCard';
 
 export default async function GameContainer({ arr, title }) {
-  const coverIdArr = arr.map((game) => game.cover);
+  let coverIdArr = null;
 
+  if (Array.isArray(arr)) {
+    coverIdArr = arr.map((game) => game.cover);
+  }
   const coverArr = await fetchGameData(
     'covers',
     `fields image_id; where id = (${coverIdArr}); limit 100;`
@@ -17,11 +20,13 @@ export default async function GameContainer({ arr, title }) {
         {Array.isArray(arr) && (
           <>
             {arr.map((game) => {
-              let imageId = null;
+              let cover = null;
               if (Array.isArray(coverArr) && coverArr.length > 0) {
-                imageId = coverArr.find((cover) => cover.id === game.cover);
+                cover = coverArr.find(
+                  (cover) => cover.id === game.cover
+                ).image_id;
               }
-              return <GameCard game={game} imageId={imageId.image_id} />;
+              return <GameCard game={game} imageId={cover} />;
             })}
           </>
         )}

@@ -11,3 +11,7 @@
 .dark .bg {
   background-color: #151515;
 }
+
+.toast-error {
+  background-color: #f44336;
+}

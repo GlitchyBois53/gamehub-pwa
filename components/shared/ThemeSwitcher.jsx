@@ -4,6 +4,7 @@ import { useStore } from '../../app/store';
 import { shallow } from 'zustand/shallow';
 import { motion as m } from 'framer-motion';
 import { toast } from 'sonner';
+import Toast from './Toast';
 
 export default function ThemeSwitcher() {
 
@@ -18,7 +19,9 @@ export default function ThemeSwitcher() {
     const toggle = theme === "dark" ? "light" : "dark";
     setTheme(toggle);
     localStorage.setItem("theme", toggle);
-    toast.success(`Theme set to ${toggle} mode`);
+    toast.custom((t) => (
+      <Toast t={t} type={'success'} message={`Theme set to ${toggle} mode`} />
+    ));
   }
 
   return (

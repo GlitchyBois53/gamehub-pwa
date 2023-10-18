@@ -40,7 +40,7 @@ export default function ThemeProvider({ children, font }) {
   return (
     <>
       {isClient && (
-        <body
+        <div
           className={`${
             theme === "light"
               ? "bg-back-light text-txt-light"
@@ -48,7 +48,7 @@ export default function ThemeProvider({ children, font }) {
           } ${font} md:min-h-screen min-h-mobile transition-colors`}
         >
           {children}
-        </body>
+        </div>
       )}
     </>
   );
