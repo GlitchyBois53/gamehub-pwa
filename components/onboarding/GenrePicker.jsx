@@ -25,15 +25,15 @@ export default function GenrePicker({ clerkId, genreArr }) {
   }
 
   async function handleSubmit() {
-    if (pickGenres.length < 3) {
+    if (pickGenres.length < 1) {
       toast.custom((t) => (
-        <Toast t={t} type={'error'} message={'Please pick min. 3 genres'} />
+        <Toast t={t} type={'error'} message={'Please pick min. 1 genres'} />
       ));
       return;
     }
-    if (pickGenres.length > 10) {
+    if (pickGenres.length > 3) {
       toast.custom((t) => (
-        <Toast t={t} type={'error'} message={'Please pick max. 10 genres'} />
+        <Toast t={t} type={'error'} message={'Please pick max. 3 genres'} />
       ));
       return;
     }
