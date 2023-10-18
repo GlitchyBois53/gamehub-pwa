@@ -12,6 +12,8 @@
     "@clerk/nextjs": "^4.25.4",
     "@uploadthing/react": "^5.2.0",
     "framer-motion": "^10.16.4",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "mongoose": "^7.6.1",
     "next": "13.5.4",
     "react": "^18",

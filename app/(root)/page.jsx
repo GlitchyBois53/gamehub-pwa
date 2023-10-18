@@ -12,6 +12,7 @@ import {
   igdbSortMethods,
   igdbSortOrders,
 } from '../../constants/index.js';
+import ImageSliderContainer from '../../components/home/ImageSliderContainer.jsx';
 
 export default async function Home() {
   // import userdata from clerk, to check whether the user is logged in or not
@@ -36,11 +37,10 @@ export default async function Home() {
 
   let recommendedGames = null;
 
-  const randomLetterIndex = getRandomIndex(alphabet);
-  const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
-  const randomSortMethodOrder = getRandomIndex(igdbSortOrders);
-
   if (genreIdArr && genreIdArr.length !== 0) {
+    const randomLetterIndex = getRandomIndex(alphabet);
+    const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
+    const randomSortMethodOrder = getRandomIndex(igdbSortOrders);
     recommendedGames = await fetchGameData(
       'games',
       `
@@ -52,6 +52,20 @@ export default async function Home() {
     );
   }
 
+  const randomLetterIndex = getRandomIndex(alphabet);
+  const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
+  const randomSortMethodOrder = getRandomIndex(igdbSortOrders);
+
+  const heroGames = await fetchGameData(
+    'games',
+    `
+    fields screenshots, name, cover, total_rating, involved_companies;
+    where screenshots != null & involved_companies != null & name ~*"${alphabet[randomLetterIndex]}"* & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 10) & total_rating > 80; 
+    limit 4; 
+    sort ${igdbSortMethods[randomSortMethodIndex]} ${igdbSortOrders[randomSortMethodOrder]};
+    `
+  );
+
   return (
     <WelcomeWrapper
       clerkUser={clerkUser ? true : false}
@@ -59,7 +73,8 @@ export default async function Home() {
     >
       <main>
         <Search />
-        <div className="flex flex-col gap-[12px] mt-[24px]">
+        <ImageSliderContainer games={heroGames} />
+        <div className="flex flex-col gap-[12px] mt-[72px]">
           {dbUser && dbUser.genres.length !== 0 && (
             <GameContainer
               title={'Recommended for you'}

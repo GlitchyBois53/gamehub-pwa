@@ -6,7 +6,7 @@ export default function Dot({ isActive }) {
   const theme = useStore((store) => store.theme);
   return (
     <div
-      className={`w-[10px] aspect-square rounded-full ${
+      className={`w-[12px] aspect-square rounded-full ${
         isActive
           ? "bg-game-grad"
           : theme === "light"
