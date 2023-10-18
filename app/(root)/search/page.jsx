@@ -4,6 +4,8 @@ import GameContainer from '../../../components/shared/GameContainer';
 import Pagination from '../../../components/shared/Pagination';
 
 export default async function Search({ searchParams }) {
+  const resultsPerPage = 21;
+
   const games = await fetchGameData(
     'games',
     `
@@ -11,7 +13,7 @@ export default async function Search({ searchParams }) {
     where name ~ *"${
       searchParams.search
     }"* & version_parent = null & genres != null & cover != null & first_release_date != null & keywords != (2004, 2555) & category = (0, 10); 
-    limit 21;
+    limit ${resultsPerPage};
     offset ${searchParams.offset || '0'}; 
     sort first_release_date desc;
     `
@@ -22,7 +24,7 @@ export default async function Search({ searchParams }) {
 
   return (
     <div>
-      <SearchBar />
+      <SearchBar isSearchPage={true} searchParams={searchParams} />
       {isGipperish ? (
         <p>NO RESULT DUMMY</p>
       ) : isNoMoreResults ? (
@@ -31,7 +33,11 @@ export default async function Search({ searchParams }) {
         <GameContainer arr={games} title={''} />
       )}
       {!isGipperish && (
-        <Pagination searchParams={searchParams} results={games?.length} />
+        <Pagination
+          searchParams={searchParams}
+          results={games?.length}
+          resultsPerPage={resultsPerPage}
+        />
       )}
     </div>
   );

@@ -1,21 +1,43 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useStore } from '../../app/store';
 import { usePathname, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import Toast from './Toast';
 
-export default function Search() {
-  const [value, setValue] = useState('');
+export default function Search({ isSearchPage, searchParams }) {
+  const [searchValue, setSearchValue] = useState('');
   const pathname = usePathname();
   const theme = useStore((state) => state.theme);
   const router = useRouter();
 
+  // Get a new searchParams string by merging the current
+  // searchParams with a provided key/value pair
+
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   function handleSearch(e) {
     e.preventDefault();
-    if (value) {
-      router.push(`/search/?search=${value.toLowerCase()}`);
+    if (searchValue && !isSearchPage) {
+      router.push(`/search/?search=${searchValue.toLowerCase()}`);
+      return;
+    } else if (searchValue && isSearchPage) {
+      let path =
+        pathname + '?' + createQueryString('search', searchValue.toLowerCase());
+
+      if (path.includes('offset')) {
+        path = path.replace(/&offset=\d+/g, '');
+      }
+      router.push(path + '&offset=0');
       return;
     }
     toast.custom((t) => (
@@ -41,14 +63,16 @@ export default function Search() {
       />
       <input
         type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
         className="bg-transparent outline-none uppercase text-[14px] px-[16px] tracking-[0.84px] max-w-[573px] w-full"
         placeholder="Search for a game..."
       />
       {pathname.includes('/search') && (
         <img
-          src={`/filter-icon${theme === 'dark' ? '-dark' : ''}.png`}
+          src={`${
+            theme === 'dark' ? '/filter-icon-dark.png' : '/filter-icon.png'
+          }`}
           alt="filter-icon"
           className="w-[18px] object-contain"
         />

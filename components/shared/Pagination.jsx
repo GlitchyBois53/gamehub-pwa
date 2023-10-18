@@ -4,16 +4,17 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { useStore } from '../../app/store';
 
-export default function Pagination({ searchParams, results }) {
+export default function Pagination({ searchParams, results, resultsPerPage }) {
   const router = useRouter();
-  const pathname = usePathname();
   const theme = useStore((state) => state.theme);
+  const pathname = usePathname();
 
   let offset = parseInt(searchParams.offset) || 0;
-  const pageNumber = offset / 21;
+  const pageNumber = offset / resultsPerPage;
 
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
+
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -35,7 +36,9 @@ export default function Pagination({ searchParams, results }) {
           offset !== 0
             ? () => {
                 router.push(
-                  pathname + '?' + createQueryString('offset', offset - 21)
+                  pathname +
+                    '?' +
+                    createQueryString('offset', offset - resultsPerPage)
                 );
               }
             : null
@@ -47,7 +50,7 @@ export default function Pagination({ searchParams, results }) {
         <img
           src="/arrow-icon-grad.svg"
           className={`h-[14px] object-contain rotate-180 ${
-            offset == 0 && 'opacity-30'
+            offset == 0 && 'opacity-30 cursor-not-allowed'
           }`}
         />
       </button>
@@ -56,10 +59,12 @@ export default function Pagination({ searchParams, results }) {
       </p>
       <button
         onClick={
-          results === 21
+          results === resultsPerPage
             ? () => {
                 router.push(
-                  pathname + '?' + createQueryString('offset', offset + 21)
+                  pathname +
+                    '?' +
+                    createQueryString('offset', offset + resultsPerPage)
                 );
               }
             : null
@@ -68,9 +73,12 @@ export default function Pagination({ searchParams, results }) {
           theme === 'light' ? 'border-l-black/20' : 'border-l-white/20'
         }`}
       >
-        <img src="/arrow-icon-grad.svg" className={`h-[14px] object-contain ${
-            results != 21 && 'opacity-30'
-          }`} />
+        <img
+          src="/arrow-icon-grad.svg"
+          className={`h-[14px] object-contain ${
+            results != resultsPerPage && 'opacity-30 cursor-not-allowed'
+          }`}
+        />
       </button>
     </div>
   );
