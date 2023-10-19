@@ -3,8 +3,21 @@ import { yearConverter } from '../../lib/yearConverter';
 import Button from '../shared/Button';
 import { genres, gameModes } from '../../constants';
 import Rating from './Rating';
+import { currentUser } from '@clerk/nextjs';
+import GameButtons from './GameButtons';
+import { fetchUser } from '../../lib/actions/user.actions';
 
 export default async function GameBanner({ game, screenshot }) {
+  const clerkUser = await currentUser();
+  let dbUser = null;
+
+  if (clerkUser) {
+    dbUser = await fetchUser(clerkUser.id);
+  }
+
+  const libraryIdArr = dbUser?.library.map((game) => game.gameId);
+  const wishlistIdArr = dbUser?.wishlist.map((game) => game.gameId);
+
   const releaseYear = yearConverter(game?.first_release_date);
 
   const cover = await fetchGameData(
@@ -102,24 +115,20 @@ export default async function GameBanner({ game, screenshot }) {
                 );
               })}
             </div>
-            <div className="flex gap-[12px] mt-[24px]">
-              <Button
-                text="add to library"
-                icon={'/library-icon-dark.svg'}
-                attributes="py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px]"
-              />
-              <Button
-                text="add to wishlist"
-                icon={'/wishlist-icon-dark.png'}
-                lightIcon={'/wishlist-icon.png'}
-                variant={'secondary'}
-                attributes="py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px]"
-              />
-            </div>
+            <GameButtons
+              clerkId={clerkUser?.id}
+              gameId={game?.id}
+              libraryArr={libraryIdArr}
+              wishlistArr={wishlistIdArr}
+            />
           </div>
           <div className="flex items-end mr-[-14px]">
             <Rating rating={userRating} ratingCount={userRatingCount} />
-            <Rating rating={criticRating} isBig={true} ratingCount={criticRatingCount} />
+            <Rating
+              rating={criticRating}
+              isBig={true}
+              ratingCount={criticRatingCount}
+            />
           </div>
         </section>
       </article>
