@@ -1,20 +1,21 @@
-import { fetchGameData } from "../../lib/fetchGameData";
-import { yearConverter } from "../../lib/yearConverter";
-import Button from "../shared/Button";
-import { genres, gameModes } from "../../constants";
+import { fetchGameData } from '../../lib/fetchGameData';
+import { yearConverter } from '../../lib/yearConverter';
+import Button from '../shared/Button';
+import { genres, gameModes } from '../../constants';
+import Rating from './Rating';
 
 export default async function GameBanner({ game, screenshot }) {
   const releaseYear = yearConverter(game?.first_release_date);
 
   const cover = await fetchGameData(
-    "covers",
+    'covers',
     `fields image_id; where id = ${game?.cover}; limit 1;`
   );
 
   const involvedCompanyId = game?.involved_companies?.[0];
   const involvedCompany = involvedCompanyId
     ? await fetchGameData(
-        "involved_companies",
+        'involved_companies',
         `fields company; where id = ${involvedCompanyId}; limit 1;`
       )
     : null;
@@ -22,7 +23,7 @@ export default async function GameBanner({ game, screenshot }) {
   const companyId = involvedCompany?.[0]?.company;
   const company = companyId
     ? await fetchGameData(
-        "companies",
+        'companies',
         `fields name, logo; where id = ${companyId}; limit 1;`
       )
     : null;
@@ -30,7 +31,7 @@ export default async function GameBanner({ game, screenshot }) {
   const logoId = company?.[0]?.logo;
   const companyLogo = logoId
     ? await fetchGameData(
-        "company_logos",
+        'company_logos',
         `fields image_id; where id = ${logoId}; limit 1;`
       )
     : null;
@@ -40,6 +41,9 @@ export default async function GameBanner({ game, screenshot }) {
 
   const criticRating = game?.aggregated_rating;
   const userRating = game?.rating;
+
+  const criticRatingCount = game?.aggregated_rating_count;
+  const userRatingCount = game?.rating_count;
 
   return (
     <section className="mt-[24px] bg shadow-search shadow-black/25 rounded-[2px] relative pt-[250px]">
@@ -80,7 +84,7 @@ export default async function GameBanner({ game, screenshot }) {
                 return (
                   <Button
                     text={game.name}
-                    variant={"tertiary"}
+                    variant={'tertiary'}
                     attributes="px-[13px] py-[6px] text-[12px] tracking-[0.72px]"
                   />
                 );
@@ -92,7 +96,7 @@ export default async function GameBanner({ game, screenshot }) {
                 return (
                   <Button
                     text={game.name}
-                    variant={"tertiary"}
+                    variant={'tertiary'}
                     attributes="px-[13px] py-[6px] text-[12px] tracking-[0.72px]"
                   />
                 );
@@ -101,21 +105,21 @@ export default async function GameBanner({ game, screenshot }) {
             <div className="flex gap-[12px] mt-[24px]">
               <Button
                 text="add to library"
-                icon={"/library-icon-dark.svg"}
+                icon={'/library-icon-dark.svg'}
                 attributes="py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px]"
               />
               <Button
                 text="add to wishlist"
-                icon={"/wishlist-icon-dark.png"}
-                lightIcon={"/wishlist-icon.png"}
-                variant={"secondary"}
+                icon={'/wishlist-icon-dark.png'}
+                lightIcon={'/wishlist-icon.png'}
+                variant={'secondary'}
                 attributes="py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px]"
               />
             </div>
           </div>
-          <div className="flex items-end">
-            <Rating rating={userRating} size={"118px"} />
-            <Rating rating={criticRating} size={"156px"} />
+          <div className="flex items-end mr-[-14px]">
+            <Rating rating={userRating} ratingCount={userRatingCount} />
+            <Rating rating={criticRating} isBig={true} ratingCount={criticRatingCount} />
           </div>
         </section>
       </article>
@@ -134,35 +138,6 @@ function BackgroundImage({ image, name }) {
         />
         <div className="absolute inset-0 bg-black/10" />
       </div>
-    </div>
-  );
-}
-
-function Rating({ rating, size }) {
-  return (
-    <div className="relative">
-      <svg viewBox="0 0 110 110" style={{ width: size, height: size }}>
-        <path
-          strokeLinecap="round"
-          strokeWidth="9"
-          stroke="#F3F3F3"
-          fill="none"
-          strokeDasharray="251.2, 251.2"
-          d="M55 15 a 40 40 0 0 1 0 80 a 40 40 0 0 1 0 -80"
-        ></path>
-        <path
-          strokeLinecap="round"
-          strokeWidth="9"
-          stroke="#44D36C"
-          fill="none"
-          d="M55 15 a 40 40 0 0 1 0 80 a 40 40 0 0 1 0 -80"
-          style={{
-            strokeDasharray: `${(251.2 / 100) * rating || 0}px, 251.2px`,
-            transition: "stroke-dasharray 3s ease 0s",
-          }}
-        ></path>
-      </svg>
-      <div className="absolute inset-0"></div>
     </div>
   );
 }
