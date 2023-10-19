@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { genres } from '../../constants';
+import Link from "next/link";
+import { genres } from "../../constants";
 
 export default async function GameCard({ game, imageId }) {
   const genre = genres.find((genre) => genre.genreId === game?.genres[0])?.name;
@@ -17,7 +17,7 @@ export default async function GameCard({ game, imageId }) {
     <>
       <Link
         href={`/games/${game.slug}`}
-        className="block bg w-max shadow-search shadow-black/25 rounded-b-[2px]"
+        className="block bg game-shadow rounded-b-[2px] min-w-[160px]"
       >
         <img
           src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.png`}

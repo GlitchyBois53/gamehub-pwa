@@ -48,6 +48,7 @@ export default function ImageSlider({ games, coverArr, screenshotArr }) {
               cover={cover}
               name={game.name}
               rating={game.total_rating}
+              slug={game.slug}
               key={game.id}
             />
           );

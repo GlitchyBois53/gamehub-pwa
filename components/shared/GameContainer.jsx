@@ -18,7 +18,7 @@ export default async function GameContainer({ arr, title, isScrollable }) {
       </h2>
       <div
         className={`flex ${
-          isScrollable ? 'overflow-scroll' : 'flex-wrap'
+          isScrollable ? 'overflow-x-scroll' : 'flex-wrap'
         } gap-[24px] md:ml-[-32px] mx-[-24px] md:pl-[32px] p-[24px]`}
       >
         {Array.isArray(arr) && (
@@ -30,7 +30,7 @@ export default async function GameContainer({ arr, title, isScrollable }) {
                   (cover) => cover.id === game.cover
                 ).image_id;
               }
-              return <GameCard game={game} imageId={cover} />;
+              return <GameCard game={game} imageId={cover} key={game.id} />;
             })}
           </>
         )}

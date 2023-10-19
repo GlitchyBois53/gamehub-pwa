@@ -12,6 +12,65 @@
   background-color: #151515;
 }
 
-.toast-error {
-  background-color: #f44336;
+.text-shadow {
+  text-shadow: 0px 4px 17px rgba(0, 0, 0, 0.5);
+}
+
+.game-shadow {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+.dark .game-shadow {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/*---- LIGHT MODE SCROLLBAR ----*/
+
+/* width */
+::-webkit-scrollbar {
+  background: rgba(0, 0, 0, 0.2);
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #f9f9f9;
+  width: 5px;
+  height: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  width: 5px;
+  height: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/*-------- DARK MODE SCROLLBAR --------*/
+
+/* width */
+.dark ::-webkit-scrollbar {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Track - Scrollbar "background" */
+.dark ::-webkit-scrollbar-track {
+  background: #151515;
+}
+
+/* Handle */
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Handle on hover */
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }

@@ -1,15 +1,15 @@
-import { ClerkProvider, currentUser } from '@clerk/nextjs';
-import '../globals.css';
-import { Barlow } from 'next/font/google';
-import NavbarDesktop from '../../components/navigation/NavbarDesktop';
-import NavbarMobile from '../../components/navigation/NavbarMobile';
-import ThemeProvider from '../../components/shared/ThemeProvider';
-import Head from '../../components/shared/Head';
-import { Toaster } from 'sonner';
+import { ClerkProvider, currentUser } from "@clerk/nextjs";
+import "../globals.css";
+import { Barlow } from "next/font/google";
+import NavbarDesktop from "../../components/navigation/NavbarDesktop";
+import NavbarMobile from "../../components/navigation/NavbarMobile";
+import ThemeProvider from "../../components/shared/ThemeProvider";
+import Head from "../../components/shared/Head";
+import { Toaster } from "sonner";
 
 const barlow = Barlow({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export default async function RootLayout({ children }) {
@@ -26,8 +26,8 @@ export default async function RootLayout({ children }) {
             </main>
             <Toaster
               style={{
-                fontFamily: 'Barlow',
-                letterSpacing: '0.72px',
+                fontFamily: "Barlow",
+                letterSpacing: "0.72px",
               }}
             />
           </ThemeProvider>
