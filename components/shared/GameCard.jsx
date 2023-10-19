@@ -1,14 +1,9 @@
 import Link from "next/link";
 import { genres } from "../../constants";
+import { yearConverter } from "../../lib/yearConverter";
 
 export default async function GameCard({ game, imageId }) {
   const genre = genres.find((genre) => genre.genreId === game?.genres[0])?.name;
-
-  function yearConverter(UNIX_rating) {
-    var a = new Date(UNIX_rating * 1000);
-    var year = a.getFullYear();
-    return year;
-  }
 
   const releaseYear = yearConverter(game?.first_release_date);
 
