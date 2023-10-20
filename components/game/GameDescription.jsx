@@ -31,8 +31,8 @@ export default async function GameDescription({
   );
 
   return (
-    <section className="p-[32px] pb-[20px] bg game-shadow mt-[24px] flex gap-[36px]">
-      <article className="md:max-w-[202px] w-full flex flex-col gap-[12px]">
+    <section className="p-[32px] pb-[20px] bg game-shadow mt-[24px] flex gap-[36px] flex-col md:flex-row">
+      <article className="md:min-w-[220px] md:max-w-[224px] flex flex-col gap-[12px]">
         {game?.summary && (
           <>
             <Description description={game?.summary} />
