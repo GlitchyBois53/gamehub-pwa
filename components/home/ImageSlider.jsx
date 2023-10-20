@@ -1,32 +1,32 @@
-'use client';
+"use client";
 
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import './imageSlider.css';
-import HeroCard from './HeroCard';
-import { useStore } from '../../app/store';
-import { getRandomIndex } from '../../lib/getRandomIndex';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./imageSlider.css";
+import HeroCard from "./HeroCard";
+import { useStore } from "../../app/store";
+import { getRandomIndex } from "../../lib/getRandomIndex";
 
 export default function ImageSlider({ games, coverArr, screenshotArr }) {
   const theme = useStore((store) => store.theme);
 
   var settings = {
     infinte: true,
-    speed: 1000,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     accessibility: true,
     pauseOnHover: true,
-    autoplaySpeed: 8000,
+    autoplaySpeed: 5000,
     dots: true,
   };
 
   return (
     <div
       className={`relative rounded-[2px] mt-[24px] shadow-search ${
-        theme === 'dark' ? 'shadow-black/50' : 'shadow-black/25'
+        theme === "dark" ? "shadow-black/50" : "shadow-black/25"
       }`}
     >
       <Slider {...settings}>
@@ -34,7 +34,7 @@ export default function ImageSlider({ games, coverArr, screenshotArr }) {
           let screenshots = null;
           let cover = null;
 
-          if (typeof game !== 'undefined') {
+          if (typeof game !== "undefined") {
             screenshots = screenshotArr.filter((screen) =>
               game.screenshots.includes(screen.id)
             );

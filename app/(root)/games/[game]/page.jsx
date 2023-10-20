@@ -1,10 +1,9 @@
-import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { fetchGameData } from "../../../../lib/fetchGameData";
-import { yearConverter } from "../../../../lib/yearConverter";
 import HeadTextProvider from "../../../../components/shared/HeadTextProvider.jsx";
 import GameBanner from "../../../../components/game/GameBanner";
 import Search from "../../../../components/shared/Search";
-import { getRandomIndex } from "../../../../lib/getRandomIndex";
+import GameDescription from "../../../../components/game/GameDescription";
+import OtherInSeries from "../../../../components/game/OtherInSeries";
 
 export default async function Game({ params }) {
   const gameFetch = await fetchGameData(
@@ -21,8 +20,7 @@ export default async function Game({ params }) {
     `fields image_id; where id = (${screenIdArr}); limit 100;`
   );
 
-
-// TODO Move to description Component
+  // TODO Move to description Component
   const platformId = game?.platforms.map((platform) => platform);
   const platforms = platformId
     ? await fetchGameData(
@@ -31,13 +29,31 @@ export default async function Game({ params }) {
       )
     : null;
 
-
-  const randomScreenshot = getRandomIndex(screenshots);
+  const involvedCompanyId = game?.involved_companies;
+  const involvedCompany = involvedCompanyId
+    ? await fetchGameData(
+        "involved_companies",
+        `fields company, developer, publisher; where id = (${involvedCompanyId});`
+      )
+    : null;
 
   return (
     <HeadTextProvider headText={game?.name}>
       <Search />
-      <GameBanner game={game} screenshot={screenshots[randomScreenshot]} />
+      <GameBanner
+        game={game}
+        screenshotArr={screenshots}
+        involvedCompanies={involvedCompany}
+      />
+      <GameDescription
+        game={game}
+        screenshots={screenshots}
+        involvedCompanies={involvedCompany}
+        platforms={platforms}
+      />
+      {game?.collection && (
+        <OtherInSeries collectionId={game?.collection} gameId={game?.id} />
+      )}
     </HeadTextProvider>
   );
 }

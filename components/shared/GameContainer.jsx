@@ -1,25 +1,38 @@
-import { fetchGameData } from '../../lib/fetchGameData';
-import GameCard from './GameCard';
+import { fetchGameData } from "../../lib/fetchGameData";
+import GameCard from "./GameCard";
 
-export default async function GameContainer({ arr, title, isScrollable }) {
+export default async function GameContainer({
+  arr,
+  title,
+  isScrollable,
+  isOnGamePage,
+}) {
   let coverIdArr = null;
 
   if (Array.isArray(arr)) {
     coverIdArr = arr.map((game) => game.cover);
   }
   const coverArr = await fetchGameData(
-    'covers',
+    "covers",
     `fields image_id; where id = (${coverIdArr}); limit 100;`
   );
   return (
     <article>
-      <h2 className="text-[24px] uppercase tracking-[1.44px] font-bold bg-game-grad bg-clip-text text-transparent w-max">
+      <h2
+        className={`${
+          isOnGamePage
+            ? "text-[16px] tracking-[0.96px]"
+            : "text-[24px] tracking-[1.44px] bg-clip-text text-transparent bg-game-grad"
+        } uppercase font-bold w-max`}
+      >
         {title}
       </h2>
       <div
         className={`flex ${
-          isScrollable ? 'overflow-x-scroll' : 'flex-wrap'
-        } gap-[24px] md:ml-[-32px] mx-[-24px] md:pl-[32px] p-[24px]`}
+          isScrollable ? "overflow-x-scroll" : "flex-wrap"
+        } gap-[24px] md:ml-[-32px] mx-[-24px] md:pl-[32px] p-[24px] ${
+          isOnGamePage && "pt-[18px]"
+        }`}
       >
         {Array.isArray(arr) && (
           <>

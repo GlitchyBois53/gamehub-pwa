@@ -12,6 +12,7 @@ export default function Button({
   href,
   variant,
   type,
+  isLoading,
   // setting default values for the attributes
   attributes = "px-[18px] py-[8px] text-[12px] tracking-[0.72px]",
   borderAttributes = "border-[2px]",
@@ -29,6 +30,7 @@ export default function Button({
             attributes={attributes}
             borderAttributes={borderAttributes}
             lightIcon={lightIcon}
+            isLoading={isLoading}
           />
         </Link>
       ) : (
@@ -44,6 +46,7 @@ export default function Button({
             attributes={attributes}
             borderAttributes={borderAttributes}
             lightIcon={lightIcon}
+            isLoading={isLoading}
           />
         </button>
       )}
@@ -59,8 +62,25 @@ function ButtonBody({
   attributes,
   borderAttributes,
   lightIcon,
+  isLoading,
 }) {
   const theme = useStore((store) => store.theme);
+
+  const whiteLoader = "/loading-white.svg";
+  const blackLoader = "/loading-black.svg";
+
+  const iconBase =
+    theme === "light"
+      ? lightIcon
+        ? isLoading
+          ? blackLoader
+          : lightIcon
+        : isLoading
+        ? whiteLoader
+        : icon
+      : isLoading
+      ? whiteLoader
+      : icon;
 
   return (
     <span
@@ -74,9 +94,11 @@ function ButtonBody({
     >
       {icon && (
         <img
-          src={theme === "light" ? (lightIcon ? lightIcon : icon) : icon}
+          src={iconBase}
           alt="icon"
-          className="w-[12px] object-contain relative z-10"
+          className={`w-[12px] object-contain relative z-10 ${
+            isLoading && "animate-spin"
+          }`}
         />
       )}
       <p className="relative z-10">{text}</p>
