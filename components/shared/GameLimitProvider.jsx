@@ -16,6 +16,7 @@ export default function GameLimitProvider({ children, searchParams }) {
   const [windowWidth, setWindowWidth] = useState(null);
   const [maxPerLine, setMaxPerLine] = useState(null);
   const [maxPerPage, setMaxPerPage] = useState(null);
+  const [maxRows, setMaxRows] = useState(3);
 
   // Define a function to debounce the resize event listener
   function debounce(func, wait, immediate) {
@@ -60,7 +61,7 @@ export default function GameLimitProvider({ children, searchParams }) {
 
   useEffect(() => {
     setMaxPerLine(maxWidth / 184);
-    setMaxPerPage(Math.floor(maxPerLine) * 3);
+    setMaxPerPage(Math.floor(maxPerLine) * maxRows);
     if (maxPerPage) {
       router.push(pathname + "?" + createQueryString("limit", maxPerPage));
     }
@@ -86,8 +87,14 @@ export default function GameLimitProvider({ children, searchParams }) {
 
   useEffect(() => {
     if (maxPerLine) {
-      setMaxPerPage(Math.floor(maxPerLine) * 3);
+      setMaxPerPage(Math.floor(maxPerLine) * maxRows);
       router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+      if (windowWidth < 768) {
+        setMaxRows(6);
+        console.log("bigScreen");
+      } else {
+        setMaxRows(3);
+      }
     }
   }),
     [maxPerLine];
