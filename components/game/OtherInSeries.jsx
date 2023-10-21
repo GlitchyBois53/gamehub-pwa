@@ -20,8 +20,6 @@ export default async function OtherInSeries({ collectionId, gameId }) {
     `
   );
 
-  console.log(collectionGames);
-
   return (
     <GameWrapper>
       <GameContainer

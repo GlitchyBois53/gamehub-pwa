@@ -15,7 +15,6 @@ export default async function GenreSetup() {
         genreId: genre.genreId,
         name: genre.name,
       }));
-      console.log(genres);
     }
   }
 

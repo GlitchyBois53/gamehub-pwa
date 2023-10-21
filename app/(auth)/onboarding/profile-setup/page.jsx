@@ -9,7 +9,6 @@ export default async function ProfileSetup() {
 
   if (user) {
     dbUser = await fetchUser(user.id);
-    console.log(dbUser);
   }
 
   return (
