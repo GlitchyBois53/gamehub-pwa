@@ -6,8 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Toast from "./Toast";
 
-export default function Search({ isSearchPage, searchParams }) {
-  const [searchValue, setSearchValue] = useState("");
+export default function Search({ isSearchPage, searchParams, value }) {
+  const [searchValue, setSearchValue] = useState(value || "");
   const pathname = usePathname();
   const theme = useStore((state) => state.theme);
   const router = useRouter();

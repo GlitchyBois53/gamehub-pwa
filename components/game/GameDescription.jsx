@@ -1,6 +1,7 @@
 import { fetchGameData } from "../../lib/fetchGameData";
 import Hr from "../shared/Hr";
 import { timeConverter } from "../../lib/timeConverter";
+import Description from "./Description";
 
 export default async function GameDescription({
   game,
@@ -53,7 +54,7 @@ export default async function GameDescription({
           ))}
         {platforms && <Platforms platforms={platforms} />}
       </article>
-      <section className="flex flex-col gap-[24px] overflow-hidden mr-[-32px]">
+      <section className="flex flex-col gap-[24px] overflow-hidden ml-[-32px] md:ml-0 mr-[-32px]">
         {game?.videos && <Trailers videos={videos} />}
         {screenshots && <Screenshots screenshots={screenshots} />}
       </section>
@@ -64,8 +65,10 @@ export default async function GameDescription({
 function Trailers({ videos }) {
   return (
     <article>
-      <h2 className="font-bold tracking-[0.96px] uppercase">Trailers</h2>
-      <div className="flex gap-[18px] overflow-x-scroll py-[12px]">
+      <h2 className="font-bold tracking-[0.96px] uppercase pl-[32px] md:pl-0">
+        Trailers
+      </h2>
+      <div className="flex gap-[18px] overflow-x-scroll py-[12px] pl-[32px] md:pl-0 pr-[32px]">
         {videos?.map((video) => (
           <div className="w-[462px]">
             <iframe
@@ -85,8 +88,10 @@ function Trailers({ videos }) {
 function Screenshots({ screenshots }) {
   return (
     <article>
-      <h2 className="font-bold tracking-[0.96px] uppercase">Screenshots</h2>
-      <div className="flex gap-[18px] overflow-x-scroll py-[12px]">
+      <h2 className="font-bold tracking-[0.96px] uppercase pl-[32px] md:pl-0">
+        Screenshots
+      </h2>
+      <div className="flex gap-[18px] overflow-x-scroll py-[12px] pl-[32px] md:pl-0 pr-[32px]">
         {screenshots?.map((screenshot) => (
           <img
             src={`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.png`}
@@ -110,17 +115,6 @@ function Platforms({ platforms }) {
           </p>
         ))}
       </article>
-    </section>
-  );
-}
-
-function Description({ description }) {
-  return (
-    <section>
-      <h2 className="font-bold tracking-[0.96px] uppercase">Description</h2>
-      <p className="text-[12px] font-medium tracking-[0.56px] opacity-60 pt-[12px]">
-        {description}
-      </p>
     </section>
   );
 }

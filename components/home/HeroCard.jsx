@@ -1,8 +1,6 @@
 // Import necessary dependencies
 import Link from "next/link";
-import { useStore } from "../../app/store";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { set } from "mongoose";
 
 // Define the HeroCard component
 export default function HeroCard({ screenshot, cover, rating, name, slug }) {
@@ -54,9 +52,6 @@ export default function HeroCard({ screenshot, cover, rating, name, slug }) {
 
   // Calculate the formatted rating for the game
   const formattedRating = rating / 10;
-
-  // Get the current theme from the store
-  const theme = useStore((store) => store.theme);
 
   // Render the HeroCard component
   return (

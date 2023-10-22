@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import { updateUser } from '../../lib/actions/user.actions';
-import { useState } from 'react';
-import Input from './Input';
-import UploadImage from './UploadImage';
-import Button from '../shared/Button';
-import { useStore } from '../../app/store';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import Toast from '../shared/Toast';
+import { updateUser } from "../../lib/actions/user.actions";
+import { useState } from "react";
+import Input from "./Input";
+import UploadImage from "./UploadImage";
+import Button from "../shared/Button";
+import { useStore } from "../../app/store";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import Toast from "../shared/Toast";
 
 export default function ProfileForm({ username, image, email, clerkId }) {
   const theme = useStore((state) => state.theme);
   const [form, setForm] = useState({
-    username: username || '',
+    username: username || "",
   });
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
-    message: '',
+    message: "",
     isActive: false,
   });
 
@@ -33,16 +33,16 @@ export default function ProfileForm({ username, image, email, clerkId }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (form.username == '') {
+    if (form.username == "") {
       toast.custom((t) => (
-        <Toast t={t} type={'error'} message={'Please enter a username'} />
+        <Toast t={t} type={"error"} message={"Please enter a username"} />
       ));
       return;
     }
     submitUserToDB();
-    router.push('/onboarding/genres');
+    router.push("/onboarding/genres");
     toast.custom((t) => (
-      <Toast t={t} type={'success'} message={'Profile is updated'} />
+      <Toast t={t} type={"success"} message={"Profile is updated"} />
     ));
   }
 
@@ -79,16 +79,15 @@ export default function ProfileForm({ username, image, email, clerkId }) {
       />
       <hr
         className={`w-full border-t-[0.5px] my-[24px] ${
-          theme === 'light' ? 'border-black/20' : 'border-white/20'
+          theme === "light" ? "border-black/20" : "border-white/20"
         }`}
       />
       <Button
-        type={'submit'}
-        text={'next'}
+        type={"submit"}
+        text={"next"}
         attributes="text-[16px] tracking-[0.96px] py-[13px] w-full"
-        buttonWidth={'w-full'}
+        buttonWidth={"w-full"}
       />
-      {/* TODO validation of username input, username can't be an empty string */}
     </form>
   );
 }

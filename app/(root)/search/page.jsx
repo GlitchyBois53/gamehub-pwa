@@ -20,12 +20,23 @@ export default async function Search({ searchParams }) {
     `
   );
 
+  const search = await fetchGameData(
+    "search",
+    `fields *; where name ~ *"${searchParams.search}"; limit 10;`
+  );
+
+  console.log(search);
+
   const isGipperish = games?.length === 0 && searchParams.offset == null;
   const isNoMoreResults = games?.length === 0 && searchParams.offset != null;
 
   return (
     <div>
-      <SearchBar isSearchPage={true} searchParams={searchParams} />
+      <SearchBar
+        value={searchParams.search}
+        isSearchPage={true}
+        searchParams={searchParams}
+      />
       {isGipperish ? (
         <p>NO RESULT DUMMY</p>
       ) : isNoMoreResults ? (

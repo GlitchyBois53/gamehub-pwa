@@ -31,7 +31,7 @@ export default async function GameContainer({
         className={`flex ${
           isScrollable ? "overflow-x-scroll" : "flex-wrap"
         } gap-[24px] md:ml-[-32px] mx-[-24px] md:pl-[32px] p-[24px] ${
-          isOnGamePage && "pt-[18px]"
+          isOnGamePage && "pt-[18px] mx-[-32px] pr-[32px]"
         }`}
       >
         {Array.isArray(arr) && (

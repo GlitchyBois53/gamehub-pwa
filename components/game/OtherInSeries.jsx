@@ -21,13 +21,17 @@ export default async function OtherInSeries({ collectionId, gameId }) {
   );
 
   return (
-    <GameWrapper>
-      <GameContainer
-        arr={collectionGames}
-        title={"Other in the series"}
-        isScrollable={true}
-        isOnGamePage={true}
-      />
-    </GameWrapper>
+    <>
+      {collectionGames?.length > 0 && (
+        <GameWrapper>
+          <GameContainer
+            arr={collectionGames}
+            title={"Other in the series"}
+            isScrollable={true}
+            isOnGamePage={true}
+          />
+        </GameWrapper>
+      )}
+    </>
   );
 }

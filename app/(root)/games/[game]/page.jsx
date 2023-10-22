@@ -4,6 +4,7 @@ import GameBanner from "../../../../components/game/GameBanner";
 import Search from "../../../../components/shared/Search";
 import GameDescription from "../../../../components/game/GameDescription";
 import OtherInSeries from "../../../../components/game/OtherInSeries";
+import SimilarGames from "../../../../components/game/SimilarGames";
 
 export default async function Game({ params }) {
   const gameFetch = await fetchGameData(
@@ -37,6 +38,8 @@ export default async function Game({ params }) {
       )
     : null;
 
+  const similarGameIds = game?.similar_games?.map((game) => game);
+
   return (
     <HeadTextProvider headText={game?.name}>
       <Search />
@@ -54,6 +57,7 @@ export default async function Game({ params }) {
       {game?.collection && (
         <OtherInSeries collectionId={game?.collection} gameId={game?.id} />
       )}
+      <SimilarGames gameIds={similarGameIds} />
     </HeadTextProvider>
   );
 }
