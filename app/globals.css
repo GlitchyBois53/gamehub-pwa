@@ -56,21 +56,21 @@
 /*-------- DARK MODE SCROLLBAR --------*/
 
 /* width */
-.dark ::-webkit-scrollbar {
+html:has(.dark) ::-webkit-scrollbar {
   background: rgba(255, 255, 255, 0.2);
 }
 
 /* Track - Scrollbar "background" */
-.dark ::-webkit-scrollbar-track {
+html:has(.dark) ::-webkit-scrollbar-track {
   background: #151515;
 }
 
 /* Handle */
-.dark ::-webkit-scrollbar-thumb {
+html:has(.dark) ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.2);
 }
 
 /* Handle on hover */
-.dark ::-webkit-scrollbar-thumb:hover {
+html:has(.dark) ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
 }
