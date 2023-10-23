@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useStore } from "../../app/store";
-import { set } from "mongoose";
 
 export default function Rating({ rating, isBig, ratingCount }) {
   const theme = useStore((store) => store.theme);
@@ -19,13 +18,13 @@ export default function Rating({ rating, isBig, ratingCount }) {
   }
 
   useEffect(() => {
-    if (rating >= 90) {
+    if (rating >= 89) {
       setColor("url(#gradientMaster)");
       setText("Masterpiece");
-    } else if (rating >= 75) {
+    } else if (rating >= 74) {
       setColor("url(#gradientGood)");
       setText("Good");
-    } else if (rating >= 60) {
+    } else if (rating >= 59) {
       setColor("url(#gradientMid)");
       setText("Average");
     } else if (rating > 0) {
@@ -44,7 +43,7 @@ export default function Rating({ rating, isBig, ratingCount }) {
     }, 1000);
   }, []);
 
-  const formattedRating = rating / 10;
+  const formattedRating = Math.floor(rating) / 10;
   return (
     <div className={`flex flex-col items-center `}>
       <div className={`relative ${!isBig && "translate-y-[-2.5px]"}`}>
@@ -121,7 +120,7 @@ export default function Rating({ rating, isBig, ratingCount }) {
                 : "text-[24px] tracking-[1.5px]"
             } font-bold`}
           >
-            {rating === 0 ? "N/A" : formattedRating.toFixed(1)}
+            {rating === 0 ? "N/A" : formattedRating}
           </p>
           {isBig && rating !== 0 && (
             <p className="opacity-50 uppercase font-semibold tracking-[0.6px] text-[10px]">

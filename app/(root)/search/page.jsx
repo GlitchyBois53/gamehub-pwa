@@ -1,21 +1,43 @@
 import { fetchGameData } from "../../../lib/fetchGameData";
-import SearchBar from "../../../components/shared/Search";
+import SearchContainer from "../../../components/shared/SearchContainer";
 import GameContainer from "../../../components/shared/GameContainer";
 import Pagination from "../../../components/shared/Pagination";
 import GameLimitProvider from "../../../components/shared/GameLimitProvider";
 
 export default async function Search({ searchParams }) {
+  const search = searchParams?.search;
   const resultsPerPage = searchParams?.limit || 21;
+  const offset = searchParams?.offset || 0;
+  const platforms = searchParams?.platforms;
+  const yearsFrom = searchParams?.yearsFrom;
+  const yearsTo = searchParams?.yearsTo;
+  const genres = searchParams?.genres;
+  const themes = searchParams?.themes;
+  const ratings = searchParams?.ratings;
+  const modes = searchParams?.modes;
 
   const games = await fetchGameData(
     "games",
     `
-    fields name, rating, genres, total_rating, first_release_date, slug, cover; 
-    where name ~ *"${
-      searchParams.search
-    }"* & version_parent = null & genres != null & cover != null & first_release_date != null & keywords != (2004, 2555) & category = (0, 10); 
+    fields name, rating, genres, total_rating, first_release_date, slug, cover;
+    where  
+    ${
+      search ? `name ~ *"${search}"* &` : ""
+    } version_parent = null & genres != null & cover != null & first_release_date != null & keywords != (2004, 2555) & category = (0, 10) ${
+      platforms ? `& platforms = (${platforms})` : ""
+    }
+    ${
+      yearsFrom && yearsTo
+        ? `& first_release_date >= ${yearsFrom} & first_release_date <= ${yearsTo}`
+        : ""
+    }
+    ${genres ? `& genres = (${genres})` : ""}
+    ${themes ? `& themes = (${themes})` : ""}
+    ${ratings ? `& total_rating >= ${ratings}` : ""}
+    ${modes ? `& game_modes = (${modes})` : ""}
+    ; 
     limit ${resultsPerPage};
-    offset ${searchParams.offset || "0"}; 
+    offset ${offset}; 
     sort first_release_date desc;
     `
   );
@@ -25,10 +47,9 @@ export default async function Search({ searchParams }) {
 
   return (
     <div>
-      <SearchBar
-        value={searchParams.search}
-        isSearchPage={true}
+      <SearchContainer
         searchParams={searchParams}
+        value={searchParams.search}
       />
       {isGipperish ? (
         <p>NO RESULT DUMMY</p>

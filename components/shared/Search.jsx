@@ -6,7 +6,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Toast from "./Toast";
 
-export default function Search({ isSearchPage, searchParams, value }) {
+export default function Search({
+  isSearchPage,
+  searchParams,
+  value,
+  handleFilter,
+}) {
   const [searchValue, setSearchValue] = useState(value || "");
   const pathname = usePathname();
   const theme = useStore((state) => state.theme);
@@ -73,7 +78,8 @@ export default function Search({ isSearchPage, searchParams, value }) {
             theme === "dark" ? "/filter-icon-dark.png" : "/filter-icon.png"
           }`}
           alt="filter-icon"
-          className="w-[18px] object-contain"
+          className="w-[18px] object-contain cursor-pointer"
+          onClick={handleFilter}
         />
       )}
     </form>

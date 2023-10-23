@@ -3,11 +3,13 @@ import { genres } from "../../constants";
 import { yearConverter } from "../../lib/yearConverter";
 
 export default async function GameCard({ game, imageId }) {
-  const genre = genres.find((genre) => genre.genreId == game?.genres[0])?.name;
+  const genre = genres?.find(
+    (genre) => genre?.genreId == game?.genres?.[0]
+  )?.name;
 
   const releaseYear = yearConverter(game?.first_release_date);
 
-  const rating = game?.total_rating / 10;
+  const rating = Math.floor(game?.total_rating) / 10;
   return (
     <>
       <Link
@@ -35,7 +37,7 @@ export default async function GameCard({ game, imageId }) {
             </p>
             <div className="flex gap-[2px] items-center">
               <p className="text-[12px] uppercase tracking-[0.72px] font-semibold">
-                {rating.toFixed(1)}
+                {rating}
               </p>
               <img
                 src="/star-icon.png"

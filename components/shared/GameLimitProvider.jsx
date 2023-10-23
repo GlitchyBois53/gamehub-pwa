@@ -1,6 +1,5 @@
 "use client";
 
-import { set } from "mongoose";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect, useCallback } from "react";
 
@@ -71,10 +70,6 @@ export default function GameLimitProvider({ children, searchParams }) {
     setMaxPerLine(maxWidth / 184);
   }, []);
 
-  console.log("MaxWidth:" + maxWidth + " " + typeof maxWidth);
-  console.log("MaxPerLine:" + maxPerLine + " " + typeof maxPerLine);
-  console.log("MaxPerPage:" + maxPerPage + " " + typeof maxPerPage);
-
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -91,7 +86,6 @@ export default function GameLimitProvider({ children, searchParams }) {
       router.push(pathname + "?" + createQueryString("limit", maxPerPage));
       if (windowWidth < 768) {
         setMaxRows(6);
-        console.log("bigScreen");
       } else {
         setMaxRows(3);
       }

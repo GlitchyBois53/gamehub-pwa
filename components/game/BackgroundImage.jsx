@@ -15,7 +15,7 @@ export default function BackgroundImage({ screenshotArr, name }) {
       <div className="overflow-hidden relative rounded-t-[2px]">
         <img
           src={`https://images.igdb.com/igdb/image/upload/t_720p/${
-            screenshotArr[screenshot || 0].image_id
+            screenshotArr[screenshot || 0]?.image_id
           }.png`}
           alt={screenshot ? `${name}-artwork` : ""}
           className="w-full object-cover h-[415px] blur-[8px] scale-105"

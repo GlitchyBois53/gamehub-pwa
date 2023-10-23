@@ -24,6 +24,30 @@ export const genres = [
   { genreId: 36, name: "MOBA" },
 ];
 
+export const themes = [
+  { id: 20, name: "Thriller" },
+  { id: 18, name: "Science fiction" },
+  { id: 1, name: "Action" },
+  { id: 19, name: "Horror" },
+  { id: 21, name: "Survival" },
+  { id: 17, name: "Fantasy" },
+  { id: 22, name: "Historical" },
+  { id: 23, name: "Stealth" },
+  { id: 27, name: "Comedy" },
+  { id: 28, name: "Business" },
+  { id: 31, name: "Drama" },
+  { id: 32, name: "Non-fiction" },
+  { id: 35, name: "Kids" },
+  { id: 33, name: "Sandbox" },
+  { id: 38, name: "Open world" },
+  { id: 39, name: "Warfare" },
+  { id: 34, name: "Educational" },
+  { id: 43, name: "Mystery" },
+  { id: 40, name: "Party" },
+  { id: 44, name: "Romance" },
+  { id: 42, name: "Erotic" },
+];
+
 export const alphabet = [
   "A",
   "B",
@@ -319,4 +343,108 @@ export const platforms = [
   { id: 440, name: "Visual Memory Unit / Visual Memory System" },
   { id: 441, name: "PocketStation" },
   { id: 471, name: "Meta Quest 3" },
+];
+
+export const years = [
+  {
+    name: "1970s",
+    from: 0,
+    to: 315532799,
+  },
+  {
+    name: "1980s",
+    from: 315532800,
+    to: 631152999,
+  },
+  {
+    name: "1990s",
+    from: 631153000,
+    to: 946684799,
+  },
+  {
+    name: "2000s",
+    from: 946684800,
+    to: 1262303999,
+  },
+  {
+    name: "2010s",
+    from: 1262304000,
+    to: 1577836799,
+  },
+  {
+    name: "2020s",
+    from: 1577836800,
+    to: 1893455999,
+  },
+];
+
+export const ratings = [
+  {
+    name: "1.0+",
+    rating: 10,
+  },
+  {
+    name: "2.0+",
+    rating: 20,
+  },
+  {
+    name: "3.0+",
+    rating: 30,
+  },
+  {
+    name: "4.0+",
+    rating: 40,
+  },
+  {
+    name: "5.0+",
+    rating: 50,
+  },
+  {
+    name: "6.0+",
+    rating: 60,
+  },
+  {
+    name: "7.0+",
+    rating: 70,
+  },
+  {
+    name: "8.0+",
+    rating: 80,
+  },
+  {
+    name: "9.0+",
+    rating: 90,
+  },
+];
+
+export const filterPlatforms = [
+  {
+    name: "Playstation",
+    hardware: "7, 8, 9, 38, 46, 48, 165, 167, 390",
+  },
+  {
+    name: "Xbox",
+    hardware: "11, 12, 49, 169",
+  },
+  {
+    name: "Nintendo",
+    hardware:
+      "4, 5, 18, 19, 20, 21, 22, 23, 33, 37, 41, 87, 130, 137, 159, 166, 307, 416",
+  },
+  {
+    name: "PC",
+    hardware: "3, 6, 14, 82",
+  },
+  {
+    name: "Sega",
+    hardware: "29, 30, 32, 35, 64, 78, 339",
+  },
+  {
+    name: "Atari",
+    hardware: "59, 60, 61, 62, 63, 65, 66, 410",
+  },
+  {
+    name: "Commodore",
+    hardware: "15, 71, 90, 93, 94, 158",
+  },
 ];

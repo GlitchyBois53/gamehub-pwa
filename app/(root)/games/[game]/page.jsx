@@ -39,7 +39,7 @@ export default async function Game({ params }) {
     dbUser = await fetchUser(clerkUser?.id);
   }
 
-  const screenIdArr = game?.screenshots.map((screenshot) => screenshot);
+  const screenIdArr = game?.screenshots?.map((screenshot) => screenshot);
 
   const screenshots = await fetchGameData(
     "screenshots",
@@ -47,7 +47,7 @@ export default async function Game({ params }) {
   );
 
   // TODO Move to description Component
-  const platformId = game?.platforms.map((platform) => platform);
+  const platformId = game?.platforms?.map((platform) => platform);
   const platforms = platformId
     ? await fetchGameData(
         "platforms",

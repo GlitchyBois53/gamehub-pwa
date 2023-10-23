@@ -17,8 +17,6 @@ export default async function GameContainer({
     "covers",
     `fields image_id; where id = (${coverIdArr}); limit 100;`
   );
-  console.log(title);
-  console.log(arr);
 
   return (
     <article>
