@@ -7,17 +7,17 @@ export default function Description({ description }) {
 
   useEffect(() => {
     if (description.length > 500) {
-      setParagraph(description.slice(0, 500) + "... <brSHOW MORE");
+      setParagraph(description.slice(0, 500) + "...\n\nSHOW MORE");
     }
   }, []);
 
   function handleClick() {
     if (description.length <= 500) return;
-    if (paragraph === description + "... SHOW LESS") {
-      setParagraph(description.slice(0, 500) + "... SHOW MORE");
+    if (paragraph === description + "\n\nSHOW LESS") {
+      setParagraph(description.slice(0, 500) + "...\n\nSHOW MORE");
       return;
     }
-    setParagraph(description + "... SHOW LESS");
+    setParagraph(description + "\n\nSHOW LESS");
   }
 
   return (
