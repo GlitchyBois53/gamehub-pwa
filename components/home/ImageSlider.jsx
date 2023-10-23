@@ -35,10 +35,10 @@ export default function ImageSlider({ games, coverArr, screenshotArr }) {
           let cover = null;
 
           if (typeof game !== "undefined") {
-            screenshots = screenshotArr.filter((screen) =>
+            screenshots = screenshotArr?.filter((screen) =>
               game.screenshots.includes(screen.id)
             );
-            cover = coverArr.find((cover) => cover.id === game.cover).image_id;
+            cover = coverArr?.find((cover) => cover.id === game.cover).image_id;
           }
 
           const randomScreenShot = getRandomIndex(screenshots);

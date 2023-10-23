@@ -84,7 +84,7 @@ export default async function Home() {
           )}
           {dbUser && dbUser.recentlyViewed.length !== 0 && (
             <GameContainer
-              arr={dbUser?.recentlyViewed}
+              arr={dbUser?.recentlyViewed.reverse()}
               isScrollable={true}
               title={"Recently Viewed"}
             />
