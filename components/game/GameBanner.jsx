@@ -64,14 +64,14 @@ export default async function GameBanner({
         <div className="flex justify-between items-end flex-wrap gap-4">
           <div className="flex items-end gap-[18px] flex-wrap">
             <img
-              src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${cover[0].image_id}.png`}
+              src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${cover[0]?.image_id}.png`}
               alt={`${game?.name}-cover`}
               className="h-[220px] w-[164.5px] object-cover shadow-search shadow-black/25 rounded-[2px]"
             />
             {companyLogo && (
               <div className="p-[6px] bg rounded-[2px] shadow-search shadow-black/20 relative">
                 <img
-                  src={`https://images.igdb.com/igdb/image/upload/t_logo_med/${companyLogo[0].image_id}.png`}
+                  src={`https://images.igdb.com/igdb/image/upload/t_logo_med/${companyLogo[0]?.image_id}.png`}
                   alt={`${game?.name}-cover`}
                   className="max-h-[56px] object-contain rounded-[2px] relative z-20 max-w-[100px]"
                 />

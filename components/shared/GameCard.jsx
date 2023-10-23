@@ -3,7 +3,7 @@ import { genres } from "../../constants";
 import { yearConverter } from "../../lib/yearConverter";
 
 export default async function GameCard({ game, imageId }) {
-  const genre = genres.find((genre) => genre.genreId === game?.genres[0])?.name;
+  const genre = genres.find((genre) => genre.genreId == game?.genres[0])?.name;
 
   const releaseYear = yearConverter(game?.first_release_date);
 

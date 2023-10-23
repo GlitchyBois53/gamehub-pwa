@@ -82,6 +82,13 @@ export default async function Home() {
               isScrollable={true}
             />
           )}
+          {dbUser && dbUser.recentlyViewed.length !== 0 && (
+            <GameContainer
+              arr={dbUser?.recentlyViewed}
+              isScrollable={true}
+              title={"Recently Viewed"}
+            />
+          )}
           {genreChoices.map(async (genre) => {
             const randomLetterIndex = getRandomIndex(alphabet);
             const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
