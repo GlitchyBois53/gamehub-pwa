@@ -28,11 +28,11 @@ export default async function Search({ searchParams }) {
       search ? `name ~ *"${search}"* &` : ''
     } version_parent = null & genres != null & cover != null & ${
       sort === 'total_rating'
-        ? 'total_rating != null &'
+        ? 'total_rating != null & total_rating_count > 5 &'
         : sort === 'aggregated_rating'
-        ? 'aggregated_rating != null &'
+        ? 'aggregated_rating != null & aggregated_rating_count > 5 &'
         : sort === 'rating'
-        ? 'rating != null &'
+        ? 'rating != null & rating_count > 5 &'
         : ''
     } 
    first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 10) ${

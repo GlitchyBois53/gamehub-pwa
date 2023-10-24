@@ -29,11 +29,11 @@ export default function Sort({ searchParams }) {
       value: 'total_rating',
     },
     {
-      name: "Critic Rating",
+      name: 'Critic Rating',
       value: 'aggregated_rating',
     },
     {
-      name: "User Rating",
+      name: 'User Rating',
       value: 'rating',
     },
     {
@@ -48,12 +48,14 @@ export default function Sort({ searchParams }) {
 
   return (
     <article className="mt-[12px] flex justify-between flex-col md:flex-row items-start md:items-center gap-[12px]">
-      {searchParams?.search && (
-        <h2 className="text-[12px] font-semibold tracking-[0.72px] uppercase">
-          Showing results for:{' '}
-          <span className="italic">"{searchParams.search}"</span>
-        </h2>
-      )}
+      <div>
+        {searchParams?.search && (
+          <h2 className="text-[12px] font-semibold tracking-[0.72px] uppercase">
+            Showing results for:{' '}
+            <span className="italic">"{searchParams.search}"</span>
+          </h2>
+        )}
+      </div>
       <div className="flex gap-[18px]">
         <DropDown
           name={'Order'}
