@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion as m } from 'framer-motion';
 
 export default function SearchContainer({ searchParams, value }) {
-  const [isFiltersOpen, setIsFiltersOpen] = useState(true);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   return (
     <>
