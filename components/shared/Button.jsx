@@ -89,7 +89,7 @@ function ButtonBody({
           ? `${theme === 'light' ? 'bg-black/20' : 'bg-white/20'}`
           : 'bg-game-grad'
       } ${attributes} ${variant === 'tertiary' && ''} ${
-        !variant && 'text-white'
+        !variant && 'text-white shadow-search shadow-black/25'
       }`}
     >
       {icon && (
