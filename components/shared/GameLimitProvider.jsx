@@ -15,7 +15,7 @@ export default function GameLimitProvider({ children, searchParams }) {
   const [windowWidth, setWindowWidth] = useState(0);
   const [maxPerLine, setMaxPerLine] = useState(0);
   const [maxPerPage, setMaxPerPage] = useState(0);
-  const [maxRows, setMaxRows] = useState(3);
+  const [maxRows, setMaxRows] = useState(6);
 
   // Define a function to debounce the resize event listener
   function debounce(func, wait, immediate) {

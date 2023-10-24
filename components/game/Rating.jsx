@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useStore } from "../../app/store";
+import { useEffect, useState } from 'react';
+import { useStore } from '../../app/store';
 
 export default function Rating({ rating, isBig, ratingCount }) {
   const theme = useStore((store) => store.theme);
@@ -19,20 +19,20 @@ export default function Rating({ rating, isBig, ratingCount }) {
 
   useEffect(() => {
     if (rating >= 89) {
-      setColor("url(#gradientMaster)");
-      setText("Masterpiece");
+      setColor('url(#gradientMaster)');
+      setText('Masterpiece');
     } else if (rating >= 74) {
-      setColor("url(#gradientGood)");
-      setText("Good");
+      setColor('url(#gradientGood)');
+      setText('Good');
     } else if (rating >= 59) {
-      setColor("url(#gradientMid)");
-      setText("Average");
+      setColor('url(#gradientMid)');
+      setText('Average');
     } else if (rating > 0) {
-      setColor("url(#gradientBad)");
-      setText("Bad");
+      setColor('url(#gradientBad)');
+      setText('Bad');
     } else {
-      setColor("url(#gradientNA)");
-      setText("N/A");
+      setColor('url(#gradientNA)');
+      setText('N/A');
     }
   }, []);
 
@@ -46,12 +46,12 @@ export default function Rating({ rating, isBig, ratingCount }) {
   const formattedRating = Math.floor(rating) / 10;
   return (
     <div className={`flex flex-col items-center `}>
-      <div className={`relative ${!isBig && "translate-y-[-2.5px]"}`}>
+      <div className={`relative ${!isBig && 'translate-y-[-2.5px]'}`}>
         <svg
           viewBox="0 0 110 110"
           style={{
-            width: isBig ? "156px" : "118px",
-            height: isBig ? "156px" : "118px",
+            width: isBig ? '156px' : '118px',
+            height: isBig ? '156px' : '118px',
           }}
         >
           <defs>
@@ -80,18 +80,18 @@ export default function Rating({ rating, isBig, ratingCount }) {
             <linearGradient id="gradientNA" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop
                 offset="0%"
-                stopColor={theme === "light" ? "#E1E1E1" : "#2C2C2C"}
+                stopColor={theme === 'light' ? '#E1E1E1' : '#2C2C2C'}
               />
               <stop
                 offset="100%"
-                stopColor={theme === "light" ? "#E1E1E1" : "#2C2C2C"}
+                stopColor={theme === 'light' ? '#E1E1E1' : '#2C2C2C'}
               />
             </linearGradient>
           </defs>
           <path
             strokeLinecap="round"
             strokeWidth="9"
-            stroke={theme === "light" ? "#E1E1E1" : "#2C2C2C"}
+            stroke={theme === 'light' ? '#E1E1E1' : '#2C2C2C'}
             fill="none"
             strokeDasharray="251.2, 251.2"
             d="M55 15 a 40 40 0 0 1 0 80 a 40 40 0 0 1 0 -80"
@@ -103,24 +103,28 @@ export default function Rating({ rating, isBig, ratingCount }) {
             d="M55 15 a 40 40 0 0 1 0 80 a 40 40 0 0 1 0 -80"
             style={{
               strokeDasharray: `${ratingPercentage}px, 251.2px`,
-              transition: "stroke-dasharray 3s ease 0s",
+              transition: 'stroke-dasharray 3s ease 0s',
               stroke: color,
             }}
           ></path>
         </svg>
         <div
           className={`absolute inset-0 flex flex-col items-center justify-center ${
-            isBig && "translate-y-[-6px]"
+            isBig && 'translate-y-[-6px]'
           }`}
         >
           <p
             className={`${
               isBig
-                ? "text-[36px] tracking-[2.2px] h-[46px]"
-                : "text-[24px] tracking-[1.5px]"
+                ? 'text-[36px] tracking-[2.2px] h-[46px]'
+                : 'text-[24px] tracking-[1.5px]'
             } font-bold`}
           >
-            {rating === 0 ? "N/A" : formattedRating}
+            {rating === 0
+              ? 'N/A'
+              : formattedRating.toString().length !== 1
+              ? formattedRating
+              : `${formattedRating}.0`}
           </p>
           {isBig && rating !== 0 && (
             <p className="opacity-50 uppercase font-semibold tracking-[0.6px] text-[10px]">
@@ -130,7 +134,7 @@ export default function Rating({ rating, isBig, ratingCount }) {
         </div>
       </div>
       <p className="opacity-50 uppercase font-semibold tracking-[0.72px] text-[12px]">
-        {ratingCount} {isBig ? "Critics" : "Users"}
+        {ratingCount} {isBig ? 'Critics' : 'Users'}
       </p>
     </div>
   );

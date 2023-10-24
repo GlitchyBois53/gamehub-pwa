@@ -39,10 +39,10 @@ export default function Sort({ searchParams }) {
   ];
 
   return (
-    <article className="mt-[18px] flex justify-between">
+    <article className="mt-[12px] flex justify-between flex-col md:flex-row items-start md:items-center gap-[12px]">
       {searchParams?.search && (
         <h2 className="text-[12px] font-semibold tracking-[0.72px] uppercase">
-          Showing results for{' '}
+          Showing results for:{' '}
           <span className="italic">"{searchParams.search}"</span>
         </h2>
       )}

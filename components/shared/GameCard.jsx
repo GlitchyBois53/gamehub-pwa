@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { genres } from "../../constants";
-import { yearConverter } from "../../lib/yearConverter";
+import Link from 'next/link';
+import { genres } from '../../constants';
+import { yearConverter } from '../../lib/yearConverter';
 
 export default async function GameCard({ game, imageId }) {
   const genre = genres?.find(
@@ -14,7 +14,7 @@ export default async function GameCard({ game, imageId }) {
     <>
       <Link
         href={`/games/${game.slug}`}
-        className="block bg game-shadow rounded-b-[2px] min-w-[160px]"
+        className="block bg game-shadow rounded-b-[2px] min-w-[160px] max-w-[160px]"
       >
         <img
           src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.png`}
@@ -37,7 +37,7 @@ export default async function GameCard({ game, imageId }) {
             </p>
             <div className="flex gap-[2px] items-center">
               <p className="text-[12px] uppercase tracking-[0.72px] font-semibold">
-                {rating}
+                {rating.toString().length !== 1 ? rating : `${rating}.0`}
               </p>
               <img
                 src="/star-icon.png"
