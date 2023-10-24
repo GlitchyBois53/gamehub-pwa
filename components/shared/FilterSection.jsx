@@ -1,22 +1,35 @@
-import { useRouter, usePathname } from "next/navigation";
-import { useCallback } from "react";
+import { useRouter, usePathname } from 'next/navigation';
+import Button from './Button';
 
-export default function filterSection({ param, value, name, searchParams }) {
-  const createQueryString = useCallback(
-    (name, value) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
+export default function filterSection({
+  param,
+  value,
+  name,
+  fn,
+  searchParams,
+  activeFilter,
+}) {
   const router = useRouter();
   const pathname = usePathname();
-  const route = pathname + "?" + createQueryString("param", value);
+  let route = pathname + '?' + fn(param, value);
+
+  let variant = 'tertiary';
+
+  if (searchParams == value) {
+    variant = '';
+    route = pathname + '?' + fn(param, '');
+  }
+
   return (
-    <div onClick={() => router.push(route)}>
-      <h2>{name}</h2>
-    </div>
+    <>
+      {activeFilter === param && (
+        <Button
+          text={name}
+          handleClick={() => router.push(route)}
+          variant={variant}
+          attributes="text-[10.5px] tracking-[0.7px] py-[6px] px-[16px]"
+        />
+      )}
+    </>
   );
 }

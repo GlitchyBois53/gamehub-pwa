@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useStore } from "../../app/store";
+import Link from 'next/link';
+import { useStore } from '../../app/store';
 
 export default function Button({
   icon,
@@ -14,8 +14,7 @@ export default function Button({
   type,
   isLoading,
   // setting default values for the attributes
-  attributes = "px-[18px] py-[8px] text-[12px] tracking-[0.72px]",
-  borderAttributes = "border-[2px]",
+  attributes = 'px-[18px] py-[8px] text-[12px] tracking-[0.72px]',
   buttonWidth,
 }) {
   return (
@@ -28,7 +27,6 @@ export default function Button({
             text={text}
             variant={variant}
             attributes={attributes}
-            borderAttributes={borderAttributes}
             lightIcon={lightIcon}
             isLoading={isLoading}
           />
@@ -36,15 +34,14 @@ export default function Button({
       ) : (
         <button
           onClick={handleClick}
-          className={`block ${buttonWidth || "w-max"}`}
-          type={type || "button"}
+          className={`block ${buttonWidth || 'w-max'}`}
+          type={type || 'button'}
         >
           <ButtonBody
             icon={icon}
             text={text}
             variant={variant}
             attributes={attributes}
-            borderAttributes={borderAttributes}
             lightIcon={lightIcon}
             isLoading={isLoading}
           />
@@ -55,22 +52,14 @@ export default function Button({
 }
 
 // function used for styling the different variants of buttons
-function ButtonBody({
-  icon,
-  text,
-  variant,
-  attributes,
-  borderAttributes,
-  lightIcon,
-  isLoading,
-}) {
+function ButtonBody({ icon, text, variant, attributes, lightIcon, isLoading }) {
   const theme = useStore((store) => store.theme);
 
-  const whiteLoader = "/loading-white.svg";
-  const blackLoader = "/loading-black.svg";
+  const whiteLoader = '/loading-white.svg';
+  const blackLoader = '/loading-black.svg';
 
   const iconBase =
-    theme === "light"
+    theme === 'light'
       ? lightIcon
         ? isLoading
           ? blackLoader
@@ -85,11 +74,11 @@ function ButtonBody({
   return (
     <span
       className={`flex gap-[6px] relative rounded-[2px] uppercase font-bold justify-center ${
-        variant === "tertiary"
-          ? `${theme === "light" ? "border-black/20" : "border-white/20"}`
-          : "bg-game-grad"
-      } ${attributes} ${variant === "tertiary" && borderAttributes} ${
-        !variant && "text-white"
+        variant === 'tertiary'
+          ? `${theme === 'light' ? 'bg-black/20' : 'bg-white/20'}`
+          : 'bg-game-grad'
+      } ${attributes} ${variant === 'tertiary' && ''} ${
+        !variant && 'text-white'
       }`}
     >
       {icon && (
@@ -97,15 +86,15 @@ function ButtonBody({
           src={iconBase}
           alt="icon"
           className={`w-[12px] object-contain relative z-10 ${
-            isLoading && "animate-spin"
+            isLoading && 'animate-spin'
           }`}
         />
       )}
       <p className="relative z-10">{text}</p>
-      {variant === "secondary" && (
+      {variant && (
         <div
           className={`absolute inset-[2px] ${
-            theme === "light" ? "bg-back-light" : "bg-back-dark"
+            theme === 'light' ? 'bg-back-light' : 'bg-back-dark'
           }`}
         />
       )}

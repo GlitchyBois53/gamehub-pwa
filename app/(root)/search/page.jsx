@@ -1,47 +1,49 @@
-import { fetchGameData } from "../../../lib/fetchGameData";
-import SearchContainer from "../../../components/shared/SearchContainer";
-import GameContainer from "../../../components/shared/GameContainer";
-import Pagination from "../../../components/shared/Pagination";
-import GameLimitProvider from "../../../components/shared/GameLimitProvider";
+import { fetchGameData } from '../../../lib/fetchGameData';
+import SearchContainer from '../../../components/shared/SearchContainer';
+import GameContainer from '../../../components/shared/GameContainer';
+import Pagination from '../../../components/shared/Pagination';
+import GameLimitProvider from '../../../components/shared/GameLimitProvider';
 
 export default async function Search({ searchParams }) {
   const search = searchParams?.search;
   const resultsPerPage = searchParams?.limit || 21;
   const offset = searchParams?.offset || 0;
   const platforms = searchParams?.platforms;
-  const yearsFrom = searchParams?.yearsFrom;
-  const yearsTo = searchParams?.yearsTo;
   const genres = searchParams?.genres;
   const themes = searchParams?.themes;
   const ratings = searchParams?.ratings;
   const modes = searchParams?.modes;
+  const sort = searchParams?.sort || 'total_rating';
+  const order = searchParams?.order || 'desc';
 
   const years = searchParams?.years;
-  const yearsSplit = years?.split("-");
+  const yearsSplit = years?.split('-');
 
   const games = await fetchGameData(
-    "games",
+    'games',
     `
     fields name, rating, genres, total_rating, first_release_date, slug, cover;
     where  
     ${
-      search ? `name ~ *"${search}"* &` : ""
-    } version_parent = null & genres != null & cover != null & first_release_date != null & keywords != (2004, 2555) & category = (0, 10) ${
-      platforms ? `& platforms = (${platforms})` : ""
+      search ? `name ~ *"${search}"* &` : ''
+    } version_parent = null & genres != null & cover != null & ${
+      sort === 'total_rating' ? 'total_rating != null &' : ''
+    } first_release_date != null & keywords != (2004, 2555) & category = (0, 10) ${
+      platforms ? `& platforms = (${platforms})` : ''
     }
     ${
       years
         ? `& first_release_date >= ${yearsSplit[0]} & first_release_date <= ${yearsSplit[1]}`
-        : ""
+        : ''
     }
-    ${genres ? `& genres = (${genres})` : ""}
-    ${themes ? `& themes = (${themes})` : ""}
-    ${ratings ? `& total_rating >= ${ratings}` : ""}
-    ${modes ? `& game_modes = (${modes})` : ""}
+    ${genres ? `& genres = (${genres})` : ''}
+    ${themes ? `& themes = (${themes})` : ''}
+    ${ratings ? `& total_rating >= ${ratings}` : ''}
+    ${modes ? `& game_modes = (${modes})` : ''}
     ; 
     limit ${resultsPerPage};
     offset ${offset}; 
-    sort first_release_date desc;
+    sort ${sort} ${order};
     `
   );
 
@@ -49,7 +51,7 @@ export default async function Search({ searchParams }) {
   const isNoMoreResults = games?.length === 0 && searchParams.offset != null;
 
   return (
-    <div>
+    <div className='relative'>
       <SearchContainer
         searchParams={searchParams}
         value={searchParams.search}
@@ -60,7 +62,7 @@ export default async function Search({ searchParams }) {
         <p>NO MORE RESULT DUMMY</p>
       ) : (
         <GameLimitProvider searchParams={searchParams}>
-          <GameContainer arr={games} title={""} />
+          <GameContainer arr={games} title={''} />
         </GameLimitProvider>
       )}
       {!isGipperish && (

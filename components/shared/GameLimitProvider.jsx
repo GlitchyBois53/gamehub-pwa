@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { usePathname, useRouter } from "next/navigation";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { usePathname, useRouter } from 'next/navigation';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 export default function GameLimitProvider({ children, searchParams }) {
   const pathname = usePathname();
@@ -11,10 +11,10 @@ export default function GameLimitProvider({ children, searchParams }) {
   const ref = useRef(null);
 
   // Create a state variable to store the maximum width of the container and the window width
-  const [maxWidth, setMaxWidth] = useState(null);
-  const [windowWidth, setWindowWidth] = useState(null);
-  const [maxPerLine, setMaxPerLine] = useState(null);
-  const [maxPerPage, setMaxPerPage] = useState(null);
+  const [maxWidth, setMaxWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [maxPerLine, setMaxPerLine] = useState(0);
+  const [maxPerPage, setMaxPerPage] = useState(0);
   const [maxRows, setMaxRows] = useState(3);
 
   // Define a function to debounce the resize event listener
@@ -50,19 +50,19 @@ export default function GameLimitProvider({ children, searchParams }) {
 
   // Add a resize event listener to the window
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     if (maxPerPage) {
-      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+      router.push(pathname + '?' + createQueryString('limit', maxPerPage));
     }
     // Remove the resize event listener when the component unmounts
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [handleResize]);
 
   useEffect(() => {
     setMaxPerLine(maxWidth / 184);
     setMaxPerPage(Math.floor(maxPerLine) * maxRows);
     if (maxPerPage) {
-      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+      router.push(pathname + '?' + createQueryString('limit', maxPerPage));
     }
   }, [maxWidth]);
 
@@ -73,7 +73,7 @@ export default function GameLimitProvider({ children, searchParams }) {
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
-      params.set(name, value);
+      params.set(name, value.toString());
 
       return params.toString();
     },
@@ -83,7 +83,7 @@ export default function GameLimitProvider({ children, searchParams }) {
   useEffect(() => {
     if (maxPerLine) {
       setMaxPerPage(Math.floor(maxPerLine) * maxRows);
-      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+      router.push(pathname + '?' + createQueryString('limit', maxPerPage));
       if (windowWidth < 768) {
         setMaxRows(6);
       } else {
@@ -93,9 +93,5 @@ export default function GameLimitProvider({ children, searchParams }) {
   }),
     [maxPerLine];
 
-  return (
-    <div className={maxPerPage} ref={ref}>
-      {children}
-    </div>
-  );
+  return <div ref={ref}>{children}</div>;
 }

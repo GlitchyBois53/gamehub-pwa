@@ -1,10 +1,10 @@
-import ThemeSwitcher from "../shared/ThemeSwitcher";
-import { currentUser, SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
-import NavLinks from "./NavLinks";
-import Logo from "./Logo";
-import Button from "../shared/Button";
-import ProfileButton from "./ProfileButton";
-import { fetchUser } from "../../lib/actions/user.actions";
+import ThemeSwitcher from '../shared/ThemeSwitcher';
+import { currentUser, SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
+import NavLinks from './NavLinks';
+import Logo from './Logo';
+import Button from '../shared/Button';
+import ProfileButton from './ProfileButton';
+import { fetchUser } from '../../lib/actions/user.actions';
 
 export default async function NavbarDesktop() {
   // import userdata from clerk, to check whether the user is logged in or not
@@ -27,11 +27,11 @@ export default async function NavbarDesktop() {
         <ThemeSwitcher />
         <SignedOut>
           <Button
-            icon={"/login-icon.svg"}
-            text={"Login"}
+            icon={'/login-icon.svg'}
+            text={'Login'}
             attributes="text-[10px] px-[10.5px] py-[8px] tracking-[0.7px]"
             isLink={true}
-            href={"/sign-in"}
+            href={'/sign-in'}
           />
         </SignedOut>
         <SignedIn>
