@@ -27,10 +27,17 @@ export default async function Search({ searchParams }) {
     ${
       search ? `name ~ *"${search}"* &` : ''
     } version_parent = null & genres != null & cover != null & ${
-      sort === 'total_rating' ? 'total_rating != null &' : ''
-    } first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 10) ${
-      platforms ? `& platforms = (${platforms})` : ''
-    }
+      sort === 'total_rating'
+        ? 'total_rating != null &'
+        : sort === 'aggregated_rating'
+        ? 'aggregated_rating != null &'
+        : sort === 'rating'
+        ? 'rating != null &'
+        : ''
+    } 
+   first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 10) ${
+     platforms ? `& platforms = (${platforms})` : ''
+   }
     ${
       years
         ? `& first_release_date >= ${yearsSplit[0]} & first_release_date <= ${yearsSplit[1]}`

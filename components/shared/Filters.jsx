@@ -13,7 +13,7 @@ import Button from './Button';
 import Hr from './Hr';
 import { motion as m } from 'framer-motion';
 
-export default function Filters({ searchParams }) {
+export default function Filters({ searchParams, setFiltersActive }) {
   const router = useRouter();
   const pathname = usePathname();
   const [activeFilters, setActiveFilters] = useState('platforms');
@@ -35,6 +35,7 @@ export default function Filters({ searchParams }) {
     const path =
       pathname + '?search=' + search + '&sort=' + sort + '&order=' + order;
     router.push(path);
+    setFiltersActive(false);
   }
 
   const filters = [
@@ -70,7 +71,7 @@ export default function Filters({ searchParams }) {
       animate={{ opacity: 1, scaleY: 1 }}
       exit={{ opacity: 0, scaleY: 0 }}
       transition={{ duration: 0.5, type: 'spring' }}
-      className="flex flex-col gap-[10px] z-20 bg shadow-search absolute right-0 left-0 shadow-black/25 rounded-[2px] p-[18px] mt-[24px] min-h-[158px]"
+      className="flex flex-col gap-[10px] z-20 bg shadow-search absolute right-0 left-0 shadow-black/25 rounded-[2px] p-[18px] mt-[12px] min-h-[158px]"
     >
       <div className="flex justify-between items-center flex-col md:flex-row gap-[10px]">
         <article className="flex gap-[10px] flex-wrap justify-center md:justify-start">

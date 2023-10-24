@@ -29,6 +29,14 @@ export default function Sort({ searchParams }) {
       value: 'total_rating',
     },
     {
+      name: "Critic Rating",
+      value: 'aggregated_rating',
+    },
+    {
+      name: "User Rating",
+      value: 'rating',
+    },
+    {
       name: 'Name',
       value: 'name',
     },
@@ -46,7 +54,7 @@ export default function Sort({ searchParams }) {
           <span className="italic">"{searchParams.search}"</span>
         </h2>
       )}
-      <div className='flex gap-[18px]'>
+      <div className="flex gap-[18px]">
         <DropDown
           name={'Order'}
           options={orderOptions}

@@ -5,6 +5,7 @@ import Filters from './Filters';
 import { useState } from 'react';
 import { AnimatePresence, motion as m } from 'framer-motion';
 import Sort from './Sort';
+import ActiveFilters from './ActiveFilters';
 
 export default function SearchContainer({ searchParams, value }) {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -20,7 +21,10 @@ export default function SearchContainer({ searchParams, value }) {
       <AnimatePresence>
         {isFiltersOpen && (
           <>
-            <Filters searchParams={searchParams} />
+            <Filters
+              searchParams={searchParams}
+              setFiltersActive={setIsFiltersOpen}
+            />
             <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -33,6 +37,7 @@ export default function SearchContainer({ searchParams, value }) {
         )}
       </AnimatePresence>
       <Sort searchParams={searchParams} />
+      <ActiveFilters searchParams={searchParams} />
     </>
   );
 }

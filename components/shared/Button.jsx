@@ -13,6 +13,7 @@ export default function Button({
   variant,
   type,
   isLoading,
+  iconWidth = 'w-[12px]',
   // setting default values for the attributes
   attributes = 'px-[18px] py-[8px] text-[12px] tracking-[0.72px]',
   buttonWidth,
@@ -29,6 +30,7 @@ export default function Button({
             attributes={attributes}
             lightIcon={lightIcon}
             isLoading={isLoading}
+            iconWidth={iconWidth}
           />
         </Link>
       ) : (
@@ -44,6 +46,7 @@ export default function Button({
             attributes={attributes}
             lightIcon={lightIcon}
             isLoading={isLoading}
+            iconWidth={iconWidth}
           />
         </button>
       )}
@@ -52,7 +55,15 @@ export default function Button({
 }
 
 // function used for styling the different variants of buttons
-function ButtonBody({ icon, text, variant, attributes, lightIcon, isLoading }) {
+function ButtonBody({
+  icon,
+  text,
+  variant,
+  attributes,
+  lightIcon,
+  isLoading,
+  iconWidth,
+}) {
   const theme = useStore((store) => store.theme);
 
   const whiteLoader = '/loading-white.svg';
@@ -85,7 +96,7 @@ function ButtonBody({ icon, text, variant, attributes, lightIcon, isLoading }) {
         <img
           src={iconBase}
           alt="icon"
-          className={`w-[12px] object-contain relative z-10 ${
+          className={`${iconWidth} object-contain relative z-10 ${
             isLoading && 'animate-spin'
           }`}
         />
