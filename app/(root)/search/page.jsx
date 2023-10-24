@@ -16,6 +16,9 @@ export default async function Search({ searchParams }) {
   const ratings = searchParams?.ratings;
   const modes = searchParams?.modes;
 
+  const years = searchParams?.years;
+  const yearsSplit = years?.split("-");
+
   const games = await fetchGameData(
     "games",
     `
@@ -27,8 +30,8 @@ export default async function Search({ searchParams }) {
       platforms ? `& platforms = (${platforms})` : ""
     }
     ${
-      yearsFrom && yearsTo
-        ? `& first_release_date >= ${yearsFrom} & first_release_date <= ${yearsTo}`
+      years
+        ? `& first_release_date >= ${yearsSplit[0]} & first_release_date <= ${yearsSplit[1]}`
         : ""
     }
     ${genres ? `& genres = (${genres})` : ""}
