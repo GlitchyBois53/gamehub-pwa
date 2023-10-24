@@ -23,6 +23,8 @@ export default async function Game({ params }) {
 
   const game = gameFetch[0];
 
+  console.log(game)
+
   if (clerkUser) {
     await setRecentlyViewed({
       clerkId: clerkUser?.id,

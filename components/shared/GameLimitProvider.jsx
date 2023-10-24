@@ -59,7 +59,7 @@ export default function GameLimitProvider({ children, searchParams }) {
   }, [handleResize]);
 
   useEffect(() => {
-    setMaxPerLine(maxWidth / 184);
+    setMaxPerLine((maxWidth + 24) / 184);
     setMaxPerPage(Math.floor(maxPerLine) * maxRows);
     if (maxPerPage) {
       router.push(pathname + '?' + createQueryString('limit', maxPerPage));
@@ -67,7 +67,7 @@ export default function GameLimitProvider({ children, searchParams }) {
   }, [maxWidth]);
 
   useEffect(() => {
-    setMaxPerLine(maxWidth / 184);
+    setMaxPerLine((maxWidth + 24) / 184);
   }, []);
 
   const createQueryString = useCallback(

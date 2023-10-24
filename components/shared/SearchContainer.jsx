@@ -4,6 +4,7 @@ import Search from './Search';
 import Filters from './Filters';
 import { useState } from 'react';
 import { AnimatePresence, motion as m } from 'framer-motion';
+import Sort from './Sort';
 
 export default function SearchContainer({ searchParams, value }) {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -26,11 +27,12 @@ export default function SearchContainer({ searchParams, value }) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, type: 'spring' }}
               onClick={() => setIsFiltersOpen(false)}
-              className="bg-black/20 fixed inset-0 md:left-[100px]"
+              className="bg-black/10 fixed inset-0 md:left-[100px]"
             />
           </>
         )}
       </AnimatePresence>
+      <Sort searchParams={searchParams} />
     </>
   );
 }

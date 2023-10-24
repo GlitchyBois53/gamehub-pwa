@@ -28,7 +28,7 @@ export default async function Search({ searchParams }) {
       search ? `name ~ *"${search}"* &` : ''
     } version_parent = null & genres != null & cover != null & ${
       sort === 'total_rating' ? 'total_rating != null &' : ''
-    } first_release_date != null & keywords != (2004, 2555) & category = (0, 10) ${
+    } first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 10) ${
       platforms ? `& platforms = (${platforms})` : ''
     }
     ${
@@ -51,7 +51,7 @@ export default async function Search({ searchParams }) {
   const isNoMoreResults = games?.length === 0 && searchParams.offset != null;
 
   return (
-    <div className='relative'>
+    <div className="relative">
       <SearchContainer
         searchParams={searchParams}
         value={searchParams.search}

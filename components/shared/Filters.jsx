@@ -64,10 +64,6 @@ export default function Filters({ searchParams }) {
     },
   ];
 
-  function handleFilter(param) {
-    setActiveFilters(param);
-  }
-
   return (
     <m.div
       initial={{ opacity: 0, scaleY: 0, transformOrigin: 'top' }}
@@ -77,12 +73,13 @@ export default function Filters({ searchParams }) {
       className="flex flex-col gap-[10px] z-20 bg shadow-search absolute right-0 left-0 shadow-black/25 rounded-[2px] p-[18px] mt-[24px] min-h-[158px]"
     >
       <div className="flex justify-between items-center flex-col md:flex-row gap-[10px]">
-        <article className="flex gap-[10px] flex-wrap">
+        <article className="flex gap-[10px] flex-wrap justify-center md:justify-start">
           {filters.map((filter) => (
             <Button
-              handleClick={() => handleFilter(filter.param)}
+              handleClick={() => setActiveFilters(filter.param)}
               text={filter.name}
               variant={filter.param === activeFilters ? '' : 'secondary'}
+              key={filter.name}
             />
           ))}
         </article>
@@ -94,7 +91,7 @@ export default function Filters({ searchParams }) {
         </h2>
       </div>
       <Hr />
-      <div className="flex flex-wrap gap-[10px]">
+      <div className="flex flex-wrap gap-[10px] justify-center md:justify-start">
         {filterPlatforms.map((platform) => (
           <FilterSection
             name={platform.name}
