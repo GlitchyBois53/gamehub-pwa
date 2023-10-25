@@ -23,8 +23,6 @@ export default async function Game({ params }) {
 
   const game = gameFetch[0];
 
-  console.log(game)
-
   if (clerkUser) {
     await setRecentlyViewed({
       clerkId: clerkUser?.id,
@@ -64,7 +62,7 @@ export default async function Game({ params }) {
         `fields company, developer, publisher; where id = (${involvedCompanyId});`
       )
     : null;
-
+  
   const similarGameIds = game?.similar_games?.map((game) => game);
 
   return (

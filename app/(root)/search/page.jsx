@@ -1,8 +1,8 @@
-import { fetchGameData } from '../../../lib/fetchGameData';
-import SearchContainer from '../../../components/shared/SearchContainer';
-import GameContainer from '../../../components/shared/GameContainer';
-import Pagination from '../../../components/shared/Pagination';
-import GameLimitProvider from '../../../components/shared/GameLimitProvider';
+import { fetchGameData } from "../../../lib/fetchGameData";
+import SearchContainer from "../../../components/shared/SearchContainer";
+import GameContainer from "../../../components/shared/GameContainer";
+import Pagination from "../../../components/shared/Pagination";
+import GameLimitProvider from "../../../components/shared/GameLimitProvider";
 
 export default async function Search({ searchParams }) {
   const search = searchParams?.search;
@@ -13,40 +13,40 @@ export default async function Search({ searchParams }) {
   const themes = searchParams?.themes;
   const ratings = searchParams?.ratings;
   const modes = searchParams?.modes;
-  const sort = searchParams?.sort || 'total_rating';
-  const order = searchParams?.order || 'desc';
+  const sort = searchParams?.sort || "total_rating";
+  const order = searchParams?.order || "desc";
 
   const years = searchParams?.years;
-  const yearsSplit = years?.split('-');
+  const yearsSplit = years?.split("-");
 
   const games = await fetchGameData(
-    'games',
+    "games",
     `
     fields name, rating, genres, total_rating, first_release_date, slug, cover;
     where  
     ${
-      search ? `name ~ *"${search}"* &` : ''
+      search ? `name ~ *"${search}"* &` : ""
     } version_parent = null & genres != null & cover != null & ${
-      sort === 'total_rating'
-        ? 'total_rating != null & total_rating_count > 5 &'
-        : sort === 'aggregated_rating'
-        ? 'aggregated_rating != null & aggregated_rating_count > 5 &'
-        : sort === 'rating'
-        ? 'rating != null & rating_count > 5 &'
-        : ''
+      sort === "total_rating"
+        ? "total_rating != null & total_rating_count > 5 &"
+        : sort === "aggregated_rating"
+        ? "aggregated_rating != null & aggregated_rating_count > 5 &"
+        : sort === "rating"
+        ? "rating != null & rating_count > 5 &"
+        : ""
     } 
    first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 10) ${
-     platforms ? `& platforms = (${platforms})` : ''
+     platforms ? `& platforms = (${platforms})` : ""
    }
     ${
       years
         ? `& first_release_date >= ${yearsSplit[0]} & first_release_date <= ${yearsSplit[1]}`
-        : ''
+        : ""
     }
-    ${genres ? `& genres = (${genres})` : ''}
-    ${themes ? `& themes = (${themes})` : ''}
-    ${ratings ? `& total_rating >= ${ratings}` : ''}
-    ${modes ? `& game_modes = (${modes})` : ''}
+    ${genres ? `& genres = (${genres})` : ""}
+    ${themes ? `& themes = (${themes})` : ""}
+    ${ratings ? `& total_rating >= ${ratings}` : ""}
+    ${modes ? `& game_modes = (${modes})` : ""}
     ; 
     limit ${resultsPerPage};
     offset ${offset}; 
@@ -69,7 +69,7 @@ export default async function Search({ searchParams }) {
         <p>NO MORE RESULT DUMMY</p>
       ) : (
         <GameLimitProvider searchParams={searchParams}>
-          <GameContainer arr={games} title={''} />
+          <GameContainer arr={games} title={""} />
         </GameLimitProvider>
       )}
       {!isGipperish && (

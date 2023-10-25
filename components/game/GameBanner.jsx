@@ -97,6 +97,8 @@ export default async function GameBanner({
                 return (
                   <Button
                     text={game?.name ?? ""}
+                    isLink={true}
+                    href={`/search?genres=${game?.genreId}`}
                     variant={"tertiary"}
                     attributes="px-[13px] py-[6px] text-[12px] tracking-[0.72px]"
                   />
@@ -110,6 +112,8 @@ export default async function GameBanner({
                 return (
                   <Button
                     text={game?.name ?? ""}
+                    isLink={true}
+                    href={`/search?modes=${game?.id}`}
                     variant={"tertiary"}
                     attributes="px-[13px] py-[6px] text-[12px] tracking-[0.72px]"
                   />

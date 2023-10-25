@@ -63,7 +63,7 @@ export default function Filters({ searchParams, setFiltersActive }) {
       name: 'modes',
       param: 'modes',
     },
-  ];
+];
 
   return (
     <m.div
