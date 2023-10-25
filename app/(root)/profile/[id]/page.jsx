@@ -33,8 +33,6 @@ export default async function Profile({ params }) {
     `
   );
 
-  console.log(library);
-
   return (
     <HeadTextProvider headText={`${user?.username}'s Profile`}>
       <div>
@@ -57,7 +55,6 @@ export default async function Profile({ params }) {
                 </h3>
                 <div className="flex gap-[10px] flex-wrap pt-[6px] pb-[10px]">
                   {genreIdArr.map((genre) => {
-                    console.log(genre);
                     const title = genres.find((g) => g.genreId == genre).name;
                     return (
                       <Button

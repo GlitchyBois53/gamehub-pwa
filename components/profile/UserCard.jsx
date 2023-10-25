@@ -8,7 +8,6 @@ export default function UserCard({
   wishlistLength,
   friendsLength,
 }) {
-  console.log(libraryLength, wishlistLength, friendsLength);
   return (
     <div className="bg py-[10px] px-[8px] game-shadow flex gap-[8px] h-[83px] items-center w-max">
       <Card
