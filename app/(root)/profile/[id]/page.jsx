@@ -1,16 +1,11 @@
-"use client"
+import { currentUser } from "@clerk/nextjs";
+import { fetchUser } from "../../../../lib/actions/user.actions";
 
-import { SignedIn, SignedOut } from '@clerk/nextjs';
+export default async function Profile({ params }) {
+  const clerkUser = await currentUser();
+  const user = await fetchUser(params.id);
 
-export default function Profile({ params }) {
-  return (
-    <div>
-      <SignedIn>
-        <h1 className='text-green-400'>{params.id}</h1>
-      </SignedIn>
-      <SignedOut>
-        <h1 className='text-red-400'>{params.id}</h1>
-      </SignedOut>
-    </div>
-  );
+  console.log(user);
+
+  return <div></div>;
 }
