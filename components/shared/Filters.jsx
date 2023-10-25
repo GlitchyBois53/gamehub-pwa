@@ -1,4 +1,4 @@
-import FilterSection from './FilterSection';
+import FilterSection from "./FilterSection";
 import {
   filterPlatforms,
   years,
@@ -6,17 +6,21 @@ import {
   themes,
   ratings,
   gameModes,
-} from '../../constants';
-import { useCallback, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
-import Button from './Button';
-import Hr from './Hr';
-import { motion as m } from 'framer-motion';
+} from "../../constants";
+import { useCallback, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import Button from "./Button";
+import Hr from "./Hr";
+import { motion as m } from "framer-motion";
 
-export default function Filters({ searchParams, setFiltersActive }) {
+export default function Filters({
+  searchParams,
+  setFiltersActive,
+  isSearchPage,
+}) {
   const router = useRouter();
   const pathname = usePathname();
-  const [activeFilters, setActiveFilters] = useState('platforms');
+  const [activeFilters, setActiveFilters] = useState("platforms");
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -29,49 +33,51 @@ export default function Filters({ searchParams, setFiltersActive }) {
   );
 
   function clearFilters() {
-    const search = searchParams?.search;
-    const sort = searchParams?.sort || 'total_rating';
-    const order = searchParams?.order || 'desc';
+    const search = searchParams?.search || "";
+    const sort = searchParams?.sort || "total_rating";
+    const order = searchParams?.order || "desc";
     const path =
-      pathname + '?search=' + search + '&sort=' + sort + '&order=' + order;
+      pathname + "?search=" + search + "&sort=" + sort + "&order=" + order;
     router.push(path);
     setFiltersActive(false);
   }
 
   const filters = [
     {
-      name: 'platforms',
-      param: 'platforms',
+      name: "platforms",
+      param: "platforms",
     },
     {
-      name: 'years',
-      param: 'years',
+      name: "years",
+      param: "years",
     },
     {
-      name: 'genres',
-      param: 'genres',
+      name: "genres",
+      param: "genres",
     },
     {
-      name: 'themes',
-      param: 'themes',
+      name: "themes",
+      param: "themes",
     },
     {
-      name: 'ratings',
-      param: 'ratings',
+      name: "ratings",
+      param: "ratings",
     },
     {
-      name: 'modes',
-      param: 'modes',
+      name: "modes",
+      param: "modes",
     },
-];
+  ];
 
   return (
     <m.div
-      initial={{ opacity: 0, scaleY: 0, transformOrigin: 'top' }}
+      initial={{ opacity: 0, scaleY: 0, transformOrigin: "top" }}
       animate={{ opacity: 1, scaleY: 1 }}
       exit={{ opacity: 0, scaleY: 0 }}
-      transition={{ duration: 0.5, type: 'spring' }}
-      className="flex flex-col gap-[10px] z-20 bg shadow-search absolute right-0 left-0 shadow-black/25 rounded-[2px] p-[18px] mt-[12px] min-h-[158px]"
+      transition={{ duration: 0.5, type: "spring" }}
+      className={`flex flex-col gap-[10px] z-20 bg shadow-search absolute right-0 left-0 shadow-black/25 rounded-[2px] p-[18px] ${
+        isSearchPage ? "mt-[12px]" : "top-[95px] left-[18px] right-[18px]"
+      } min-h-[158px]`}
     >
       <div className="flex justify-between items-center flex-col md:flex-row gap-[10px]">
         <article className="flex gap-[10px] flex-wrap justify-center md:justify-start">
@@ -79,7 +85,7 @@ export default function Filters({ searchParams, setFiltersActive }) {
             <Button
               handleClick={() => setActiveFilters(filter.param)}
               text={filter.name}
-              variant={filter.param === activeFilters ? '' : 'secondary'}
+              variant={filter.param === activeFilters ? "" : "secondary"}
               key={filter.name}
             />
           ))}
@@ -96,7 +102,7 @@ export default function Filters({ searchParams, setFiltersActive }) {
         {filterPlatforms.map((platform) => (
           <FilterSection
             name={platform.name}
-            param={'platforms'}
+            param={"platforms"}
             value={platform.hardware}
             fn={createQueryString}
             searchParams={searchParams.platforms}
@@ -107,7 +113,7 @@ export default function Filters({ searchParams, setFiltersActive }) {
         {years.map((years) => (
           <FilterSection
             name={years.name}
-            param={'years'}
+            param={"years"}
             value={years.years}
             fn={createQueryString}
             searchParams={searchParams.years}
@@ -118,7 +124,7 @@ export default function Filters({ searchParams, setFiltersActive }) {
         {genres.map((genre) => (
           <FilterSection
             name={genre.name}
-            param={'genres'}
+            param={"genres"}
             value={genre.genreId}
             fn={createQueryString}
             searchParams={searchParams.genres}
@@ -129,7 +135,7 @@ export default function Filters({ searchParams, setFiltersActive }) {
         {themes.map((theme) => (
           <FilterSection
             name={theme.name}
-            param={'themes'}
+            param={"themes"}
             value={theme.id}
             fn={createQueryString}
             searchParams={searchParams.themes}
@@ -140,7 +146,7 @@ export default function Filters({ searchParams, setFiltersActive }) {
         {ratings.map((rating) => (
           <FilterSection
             name={rating.name}
-            param={'ratings'}
+            param={"ratings"}
             value={rating.rating}
             fn={createQueryString}
             searchParams={searchParams.ratings}
@@ -151,7 +157,7 @@ export default function Filters({ searchParams, setFiltersActive }) {
         {gameModes.map((mode) => (
           <FilterSection
             name={mode.name}
-            param={'modes'}
+            param={"modes"}
             value={mode.id}
             fn={createQueryString}
             searchParams={searchParams.modes}

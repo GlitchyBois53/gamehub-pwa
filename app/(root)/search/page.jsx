@@ -60,6 +60,7 @@ export default async function Search({ searchParams }) {
   return (
     <div className="relative">
       <SearchContainer
+        isSearchPage={true}
         searchParams={searchParams}
         value={searchParams.search}
       />

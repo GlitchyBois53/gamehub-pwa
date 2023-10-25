@@ -18,6 +18,8 @@ module.exports = {
       minHeight: {
         screen: "100svh",
         mobile: "calc(100svh - 96px)",
+        container: "calc(100svh - 140px)",
+        "container-mobile": "calc(100svh - 322px)",
       },
       colors: {
         "back-dark": "#151515",

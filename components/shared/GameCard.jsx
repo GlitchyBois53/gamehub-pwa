@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { genres } from '../../constants';
-import { yearConverter } from '../../lib/yearConverter';
+import Link from "next/link";
+import { genres } from "../../constants";
+import { yearConverter } from "../../lib/yearConverter";
 
 export default async function GameCard({ game, imageId }) {
   const genre = genres?.find(
@@ -37,7 +37,11 @@ export default async function GameCard({ game, imageId }) {
             </p>
             <div className="flex gap-[2px] items-center">
               <p className="text-[12px] uppercase tracking-[0.72px] font-semibold">
-                {rating.toString().length !== 1 ? rating : `${rating}.0`}
+                {!rating
+                  ? "N/A"
+                  : rating.toString().length !== 1
+                  ? rating
+                  : `${rating}.0`}
               </p>
               <img
                 src="/star-icon.png"

@@ -37,6 +37,8 @@ export default function NavLink({ href, activeIcon, icon, iconDark, name }) {
     href !== "/"
       ? pathname.includes(href)
         ? activeIcon
+        : pathname.includes("/search") && href === "/games"
+        ? activeIcon
         : theme === "light"
         ? icon
         : iconDark
@@ -45,7 +47,7 @@ export default function NavLink({ href, activeIcon, icon, iconDark, name }) {
       : theme === "light"
       ? icon
       : iconDark;
-
+      
   return (
     <Link className="flex flex-col items-center gap-[3px]" href={href}>
       <img

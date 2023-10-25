@@ -1,4 +1,4 @@
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from "next/navigation";
 import {
   ratings,
   gameModes,
@@ -6,9 +6,9 @@ import {
   themes,
   years,
   filterPlatforms,
-} from '../../constants';
-import { useCallback } from 'react';
-import Button from './Button';
+} from "../../constants";
+import { useCallback } from "react";
+import Button from "./Button";
 
 export default function ActiveFilters({ searchParams }) {
   const activePlatform = filterPlatforms?.find(
@@ -33,37 +33,37 @@ export default function ActiveFilters({ searchParams }) {
       <Filter
         activeFilter={activePlatform}
         searchParams={searchParams}
-        param={'platforms'}
+        param={"platforms"}
         text={activePlatform?.name}
       />
       <Filter
         activeFilter={activeYear}
         searchParams={searchParams}
-        param={'years'}
+        param={"years"}
         text={activeYear?.name}
       />
       <Filter
         activeFilter={activeGenre}
         searchParams={searchParams}
-        param={'genres'}
+        param={"genres"}
         text={activeGenre?.name}
       />
       <Filter
         activeFilter={activeTheme}
         searchParams={searchParams}
-        param={'themes'}
+        param={"themes"}
         text={activeTheme?.name}
       />
       <Filter
         activeFilter={activeRating}
         searchParams={searchParams}
-        param={'ratings'}
+        param={"ratings"}
         text={activeRating?.name}
       />
       <Filter
         activeFilter={activeGameMode}
         searchParams={searchParams}
-        param={'modes'}
+        param={"modes"}
         text={activeGameMode?.name}
       />
     </div>
@@ -82,7 +82,11 @@ function Filter({ param, searchParams, activeFilter, text }) {
   );
   const pathname = usePathname();
   const router = useRouter();
-  const route = pathname + '?' + createQueryString(param, '');
+  const baseRoute = pathname + "?" + createQueryString(param, "");
+  let route = baseRoute;
+  if (baseRoute.includes("title")) {
+    route = baseRoute.replace(/&title=\w+/g, "");
+  }
 
   return (
     <>
@@ -90,9 +94,9 @@ function Filter({ param, searchParams, activeFilter, text }) {
         <Button
           handleClick={() => router.push(route)}
           text={text}
-          icon={'close-icon-dark.svg'}
-          lightIcon={'close-icon.svg'}
-          variant={'secondary'}
+          icon={"/close-icon-dark.svg"}
+          lightIcon={"/close-icon.svg"}
+          variant={"secondary"}
           iconWidth="w-[8px] translate-y-[0.5px]"
         />
       )}

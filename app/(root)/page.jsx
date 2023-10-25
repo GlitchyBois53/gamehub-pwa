@@ -114,7 +114,7 @@ export default async function Home() {
                 isScrollable={true}
                 key={genre}
                 isLink={true}
-                href={`/search/?genres=${genre}`}
+                href={`/search/?genres=${genre}&title=${title}`}
               />
             );
           })}

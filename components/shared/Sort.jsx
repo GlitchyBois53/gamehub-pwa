@@ -1,7 +1,7 @@
-import DropDown from './DropDown';
-import { useCallback } from 'react';
+import DropDown from "./DropDown";
+import { useCallback } from "react";
 
-export default function Sort({ searchParams }) {
+export default function Sort({ searchParams, isSearchPage }) {
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -14,62 +14,71 @@ export default function Sort({ searchParams }) {
 
   const orderOptions = [
     {
-      name: 'Ascending',
-      value: 'asc',
+      name: "Ascending",
+      value: "asc",
     },
     {
-      name: 'Descending',
-      value: 'desc',
+      name: "Descending",
+      value: "desc",
     },
   ];
 
   const sortOptions = [
     {
-      name: 'Total Rating',
-      value: 'total_rating',
+      name: "Total Rating",
+      value: "total_rating",
     },
     {
-      name: 'Critic Rating',
-      value: 'aggregated_rating',
+      name: "Critic Rating",
+      value: "aggregated_rating",
     },
     {
-      name: 'User Rating',
-      value: 'rating',
+      name: "User Rating",
+      value: "rating",
     },
     {
-      name: 'Name',
-      value: 'name',
+      name: "Name",
+      value: "name",
     },
     {
-      name: 'Release Date',
-      value: 'first_release_date',
+      name: "Release Date",
+      value: "first_release_date",
     },
   ];
 
+  const textCheck = searchParams.search || searchParams.title;
+
   return (
     <article className="mt-[12px] flex justify-between flex-col md:flex-row items-start md:items-center gap-[12px]">
-      <div>
-        {searchParams?.search && (
-          <h2 className="text-[12px] font-semibold tracking-[0.72px] uppercase">
-            Showing results for:{' '}
-            <span className="italic">"{searchParams.search}"</span>
-          </h2>
-        )}
-      </div>
+      {isSearchPage && (
+        <div>
+          {textCheck && (
+            <h2 className="text-[12px] font-semibold tracking-[0.72px] uppercase">
+              {searchParams.search ? "Showing results for: " : "Showing "}
+              <span className={`${searchParams.search && "italic"}`}>
+                {searchParams.search
+                  ? `"${searchParams.search}"`
+                  : searchParams.title}
+              </span>
+              {!searchParams.search && searchParams.title && " games"}
+            </h2>
+          )}
+        </div>
+      )}
       <div className="flex gap-[18px]">
         <DropDown
-          name={'Order'}
+          name={"Order"}
           options={orderOptions}
           fn={createQueryString}
-          param={'order'}
-          searchParams={searchParams.order || 'desc'}
+          param={"order"}
+          searchParams={searchParams.order || "desc"}
         />
         <DropDown
-          name={'Sort By'}
+          name={"Sort By"}
           options={sortOptions}
           fn={createQueryString}
-          param={'sort'}
-          searchParams={searchParams.sort || 'total_rating'}
+          param={"sort"}
+          searchParams={searchParams.sort || "total_rating"}
         />
       </div>
     </article>

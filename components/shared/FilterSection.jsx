@@ -1,5 +1,5 @@
-import { useRouter, usePathname } from 'next/navigation';
-import Button from './Button';
+import { useRouter, usePathname } from "next/navigation";
+import Button from "./Button";
 
 export default function filterSection({
   param,
@@ -11,13 +11,17 @@ export default function filterSection({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  let route = pathname + '?' + fn(param, value);
 
-  let variant = 'tertiary';
+  let route = pathname + "?" + fn(param, value);
+  let variant = "tertiary";
+
+  if (route.includes("title")) {
+    route = route.replace(/&title=\w+/g, ``);
+  }
 
   if (searchParams == value) {
-    variant = '';
-    route = pathname + '?' + fn(param, '');
+    variant = "";
+    route = pathname + "?" + fn(param, "");
   }
 
   return (

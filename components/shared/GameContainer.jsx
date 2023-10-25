@@ -38,7 +38,7 @@ export default async function GameContainer({
           <img
             src="/arrow-icon-grad.svg"
             alt="arrow-icon"
-            className="w-[8px] mt-[2px] object-contain"
+            className="w-[8px] mt-[3.1px] object-contain"
           />
         </div>
       ) : (
