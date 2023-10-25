@@ -84,7 +84,7 @@ function ButtonBody({
 
   return (
     <span
-      className={`flex gap-[6px] relative rounded-[2px] uppercase font-bold justify-center ${
+      className={`flex gap-[6px] relative rounded-[2px] uppercase font-bold w-full max-w-[260px] mx-auto bmd:w-max justify-center ${
         variant === 'tertiary'
           ? `${theme === 'light' ? 'bg-black/20' : 'bg-white/20'}`
           : 'bg-game-grad'

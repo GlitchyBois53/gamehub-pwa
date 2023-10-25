@@ -9,7 +9,7 @@ export default function UserCard({
   friendsLength,
 }) {
   return (
-    <div className="bg py-[10px] px-[8px] game-shadow flex gap-[8px] h-[83px] items-center w-max">
+    <div className="bg py-[10px] px-[8px] w-full game-shadow flex flex-col xs:flex-row gap-[8px] xs:h-[83px] my-[12px] xs:my-0 items-center xs:w-max">
       <Card
         icon={"/library-icon.svg"}
         darkIcon={"/library-icon-dark.svg"}
@@ -37,7 +37,7 @@ export default function UserCard({
 function Card({ icon, darkIcon, number, title }) {
   const theme = useStore((store) => store.theme);
   return (
-    <article className="flex items-center flex-col w-[70px] gap-[-4px]">
+    <article className="flex items-center flex-col w-full xs:w-[70px] gap-[-4px]">
       <img
         src={theme === "light" ? icon : darkIcon}
         alt={title}
