@@ -21,6 +21,9 @@ module.exports = {
         container: "calc(100svh - 140px)",
         "container-mobile": "calc(100svh - 322px)",
       },
+      maxHeight: {
+        modal: "calc(100svh - 230px)",
+      },
       colors: {
         "back-dark": "#151515",
         "back-light": "#f9f9f9",

@@ -62,7 +62,9 @@ export default function UserInfo({
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
-  const size = windowWidth > 768 ? maxWidth - 500 : maxWidth - 72;
+  const size = windowWidth > 975 ? maxWidth - 500 : maxWidth - 72;
+
+  console.log(maxWidth);
 
   return (
     <div
