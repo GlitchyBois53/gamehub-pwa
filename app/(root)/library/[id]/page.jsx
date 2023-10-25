@@ -6,6 +6,7 @@ import SearchContainer from "../../../../components/shared/SearchContainer";
 import { fetchUser } from "../../../../lib/actions/user.actions";
 import { fetchGameData } from "../../../../lib/fetchGameData";
 import Heading from "../../../../components/shared/Heading";
+import Container from "../../../../components/shared/Container";
 
 export default async function Library({ params, searchParams }) {
   const user = await fetchUser(params.id);
@@ -71,7 +72,7 @@ export default async function Library({ params, searchParams }) {
   return (
     <HeadTextProvider headText={`${user?.username}'s Library`}>
       <Heading text={"Library"} />
-      <div className="relative bg game-shadow p-[18px] pb-[52px] min-h-container-mobile md:min-h-container">
+      <Container>
         <SearchContainer
           searchParams={searchParams}
           value={searchParams.search}
@@ -95,7 +96,7 @@ export default async function Library({ params, searchParams }) {
             />
           </div>
         )}
-      </div>
+      </Container>
     </HeadTextProvider>
   );
 }

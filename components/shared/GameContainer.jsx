@@ -9,6 +9,7 @@ export default async function GameContainer({
   isOnGamePage,
   isLink,
   href,
+  icon,
 }) {
   let coverIdArr = null;
 
@@ -25,6 +26,13 @@ export default async function GameContainer({
     <article>
       {isLink ? (
         <div className="flex items-center gap-[5px]">
+          {icon && (
+            <img
+              src={icon}
+              alt={`${title}-icon`}
+              className="w-[14px] object-contain translate-y-[1px] ml-[3px]"
+            />
+          )}
           <Link
             href={href}
             className={`${
