@@ -1,6 +1,10 @@
-export default function Container({ children }) {
+export default function Container({ children, noPagination }) {
   return (
-    <div className="relative bg game-shadow p-[18px] pb-[52px] min-h-container-mobile md:min-h-container">
+    <div
+      className={`relative bg game-shadow p-[18px] ${
+        !noPagination ? "pb-[52px]" : "pb-0"
+      } min-h-container-mobile md:min-h-container`}
+    >
       {children}
     </div>
   );

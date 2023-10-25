@@ -37,7 +37,7 @@ export default async function Profile({ params }) {
     <HeadTextProvider headText={`${user?.username}'s Profile`}>
       <div>
         <Heading text={"Profile"} />
-        <Container>
+        <Container noPagination={true}>
           <div className="bg shadow-search game-shadow rounded-[2px] flex justify-between p-[36px] items-start">
             <article className="flex items-center gap-[32px]">
               <img
