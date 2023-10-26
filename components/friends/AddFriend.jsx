@@ -4,6 +4,12 @@ import FriendSearch from "./FriendSearch";
 import FriendInfo from "./FriendInfo";
 import InfoCard from "../shared/InfoCard";
 import Vr from "../shared/Vr";
+import SquareButton from "../shared/SquareButton";
+import {
+  acceptRequest,
+  handleFriendRequest,
+  removeFriend,
+} from "../../lib/actions/user.actions";
 
 export default function AddFriend({
   isAddFriendOpen,
@@ -41,49 +47,93 @@ export default function AddFriend({
         handleSubmit={handleSubmit}
         setSearchValue={setSearchValue}
       />
-      <div className="flex flex-col gap-[12px] pt-[24px] h-[380px] overflow-x-scroll p-[12px]">
+      <div className="flex flex-col gap-[12px] pt-[24px] h-[380px] overflow-y-scroll p-[12px]">
         {searchResults.map((user) => {
           const commonGamesArr = user?.library?.filter((game) =>
-            gunkUser?.library.includes(game)
+            gunkUser?.library?.includes(game)
           );
 
-          console.log(commonGamesArr);
-          return <Card user={user} key={user?.id} gunkUser={gunkUser} />;
+          return (
+            <Card
+              friend={user}
+              currentUser={gunkUser}
+              key={user?.clerkId}
+              commonGames={commonGamesArr.length}
+            />
+          );
         })}
       </div>
     </Modal>
   );
 }
 
-function Card({ user, gunkUser }) {
-  const commonGamesArr = user?.library?.filter((game) =>
-    gunkUser?.library?.includes(game)
-  );
+function Card({ friend, commonGames, currentUser }) {
+  async function sendFriendRequest() {
+    await handleFriendRequest({
+      clerkId: currentUser?.clerkId,
+      targetId: friend?.clerkId,
+    });
+  }
+
+  async function acceptFriendRequest() {
+    await acceptRequest({
+      clerkId: currentUser?.clerkId,
+      targetId: friend?.clerkId,
+    });
+  }
+
+  async function handleRemoveFriend() {
+    await removeFriend({
+      clerkId: currentUser?.clerkId,
+      targetId: friend?.clerkId,
+    });
+  }
+
+  let status = "none";
+
+  if (currentUser?.friends?.includes(friend?.clerkId)) {
+    status = "friend";
+  } else if (currentUser?.sentRequests?.includes(friend?.clerkId)) {
+    status = "requested";
+  } else if (currentUser?.receivedRequests?.includes(friend?.clerkId)) {
+    status = "pending";
+  }
 
   return (
     <article className="bg game-shadow px-[24px] py-[20px] flex justify-between items-center h-full max-h-[98px]">
       <div className="h-full">
         <FriendInfo
-          email={user?.email}
-          id={user?.clerkId}
-          image={user?.image}
-          username={user?.username}
+          email={friend?.email}
+          id={friend?.clerkId}
+          image={friend?.image}
+          username={friend?.username}
         />
       </div>
-      <div className="flex gap-[8px] h-full">
-        <InfoCard
-          number={commonGamesArr?.length}
-          title={"Common"}
-          icon={"/games-icon.png"}
-          darkIcon={"/games-icon-dark.png"}
-        />
-        <Vr />
-        <InfoCard
-          number={user?.library?.length}
-          title={"Total"}
-          icon={"/library-icon.svg"}
-          darkIcon={"/library-icon-dark.svg"}
-        />
+      <div className="flex gap-[18px] items-center">
+        <div className="hidden md:flex gap-[8px] h-full">
+          <InfoCard
+            number={commonGames}
+            title={"Common"}
+            icon={"/games-icon.png"}
+            darkIcon={"/games-icon-dark.png"}
+          />
+          <Vr />
+          <InfoCard
+            number={friend?.library?.length}
+            title={"Total"}
+            icon={"/library-icon.svg"}
+            darkIcon={"/library-icon-dark.svg"}
+          />
+        </div>
+        {status === "none" ? (
+          <SquareButton handleClick={sendFriendRequest} />
+        ) : status === "pending" ? (
+          <SquareButton handleClick={acceptFriendRequest} variant={"check"} />
+        ) : status === "friend" ? (
+          <SquareButton handleClick={handleRemoveFriend} variant={"delete"} />
+        ) : status === "requested" ? (
+          <SquareButton handleClick={sendFriendRequest} isDisabled={true} />
+        ) : null}
       </div>
     </article>
   );

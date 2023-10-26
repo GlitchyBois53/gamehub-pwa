@@ -41,7 +41,7 @@ function Options({ isFriend, handleClick, slug, setIsOptionsOpen }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0 }}
       transition={{ duration: 0.4, type: "spring" }}
-      className="absolute top-[48px] right-0 bg game-shadow py-[2px] flex flex-col items-center gap-[2px]"
+      className="absolute z-[25] top-[48px] right-0 bg game-shadow py-[2px] flex flex-col items-center gap-[2px]"
       onClick={() => setIsOptionsOpen(false)}
     >
       {isFriend ? (

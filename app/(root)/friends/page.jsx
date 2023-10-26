@@ -39,8 +39,6 @@ export default async function Friends() {
     };
   });
 
-  console.log(formattedUsers);
-
   const friends = await fetchFriends(clerkUser?.id);
   const libraryIdArr = dbUser?.library?.map((game) => game.gameId);
 
