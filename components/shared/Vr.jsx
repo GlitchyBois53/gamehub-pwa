@@ -2,13 +2,13 @@
 
 import { useStore } from "../../app/store";
 
-export default function Vr() {
+export default function Vr({ isResponsive }) {
   const theme = useStore((store) => store.theme);
   return (
     <div
-      className={`h-[1px] xs:w-[1px] xs:h-full w-full ${
-        theme === "light" ? "bg-black/20" : "bg-white/20"
-      }`}
+      className={`${
+        isResponsive ? "h-[1px] xs:w-[1px] xs:h-full w-full" : "w-[1px] h-full"
+      } ${theme === "light" ? "bg-black/20" : "bg-white/20"}`}
     />
   );
 }

@@ -64,8 +64,6 @@ export default function UserInfo({
 
   const size = windowWidth > 975 ? maxWidth - 500 : maxWidth - 72;
 
-  console.log(maxWidth);
-
   return (
     <div
       ref={ref}
@@ -114,6 +112,7 @@ export default function UserInfo({
           icon={"/edit-icon.png"}
           text="edit profile"
           isLink={true}
+          buttonWidth={"w-full max-w-[260px] mx-auto bmd:mx-0 bmd:w-max"}
           href={"/onboarding/profile-setup"}
           attributes="text-[10px] tracking-[0.6px] px-[13px] py-[10px] font-semibold"
         />

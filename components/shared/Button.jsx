@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useStore } from '../../app/store';
+import Link from "next/link";
+import { useStore } from "../../app/store";
 
 export default function Button({
   icon,
@@ -13,16 +13,16 @@ export default function Button({
   variant,
   type,
   isLoading,
-  iconWidth = 'w-[12px]',
+  iconWidth = "w-[12px]",
   // setting default values for the attributes
-  attributes = 'px-[18px] py-[8px] text-[12px] tracking-[0.72px]',
+  attributes = "px-[18px] py-[8px] text-[12px] tracking-[0.72px]",
   buttonWidth,
 }) {
   return (
     <>
       {/* rendering button componenent inside either a Link og a button */}
       {isLink ? (
-        <Link href={href} className="block">
+        <Link href={href} className={`block ${buttonWidth || "w-max"}`}>
           <ButtonBody
             icon={icon}
             text={text}
@@ -36,8 +36,8 @@ export default function Button({
       ) : (
         <button
           onClick={handleClick}
-          className={`block ${buttonWidth || 'w-max'}`}
-          type={type || 'button'}
+          className={`block ${buttonWidth || "w-max"}`}
+          type={type || "button"}
         >
           <ButtonBody
             icon={icon}
@@ -66,11 +66,11 @@ function ButtonBody({
 }) {
   const theme = useStore((store) => store.theme);
 
-  const whiteLoader = '/loading-white.svg';
-  const blackLoader = '/loading-black.svg';
+  const whiteLoader = "/loading-white.svg";
+  const blackLoader = "/loading-black.svg";
 
   const iconBase =
-    theme === 'light'
+    theme === "light"
       ? lightIcon
         ? isLoading
           ? blackLoader
@@ -84,12 +84,12 @@ function ButtonBody({
 
   return (
     <span
-      className={`flex gap-[6px] relative rounded-[2px] uppercase font-bold w-full max-w-[260px] mx-auto bmd:w-max justify-center ${
-        variant === 'tertiary'
-          ? `${theme === 'light' ? 'bg-black/20' : 'bg-white/20'}`
-          : 'bg-game-grad'
-      } ${attributes} ${variant === 'tertiary' && ''} ${
-        !variant && 'text-white shadow-search shadow-black/25'
+      className={`flex gap-[6px] relative rounded-[2px] uppercase font-bold w-full justify-center ${
+        variant === "tertiary"
+          ? `${theme === "light" ? "bg-black/20" : "bg-white/20"}`
+          : "bg-game-grad"
+      } ${attributes} ${variant === "tertiary" && ""} ${
+        !variant && "text-white shadow-search shadow-black/25"
       }`}
     >
       {icon && (
@@ -97,7 +97,7 @@ function ButtonBody({
           src={iconBase}
           alt="icon"
           className={`${iconWidth} object-contain relative z-10 ${
-            isLoading && 'animate-spin'
+            isLoading && "animate-spin"
           }`}
         />
       )}
@@ -105,7 +105,7 @@ function ButtonBody({
       {variant && (
         <div
           className={`absolute inset-[2px] ${
-            theme === 'light' ? 'bg-back-light' : 'bg-back-dark'
+            theme === "light" ? "bg-back-light" : "bg-back-dark"
           }`}
         />
       )}

@@ -5,6 +5,7 @@ export default function FriendSearch({
   setSearchValue,
   searchValue,
   placeholder,
+  isLongBoi,
 }) {
   const theme = useStore((state) => state.theme);
   return (
@@ -14,7 +15,9 @@ export default function FriendSearch({
         theme === "light"
           ? "bg-back-light border-black/20 shadow-black/25"
           : "bg-back-dark border-white/20 shadow-black/50"
-      } transition-colors border rounded-[2px] md:max-w-[573px] relative shadow-search`}
+      } transition-colors border rounded-[2px] ${
+        !isLongBoi && "md:max-w-[573px]"
+      } relative shadow-search`}
     >
       <img
         src={`${

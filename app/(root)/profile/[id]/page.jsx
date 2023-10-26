@@ -18,21 +18,26 @@ export default async function Profile({ params }) {
   const libraryIdArr = user?.library?.map((game) => game.gameId);
   const wishlistIdArr = user?.wishlist?.map((game) => game.gameId);
 
-  const library = await fetchGameData(
-    "games",
-    `fields name, rating, genres, total_rating, first_release_date, slug, cover;
-    where id = (${libraryIdArr});
-    limit 20;
-    `
-  );
-
-  const wishlist = await fetchGameData(
-    "games",
-    `fields name, rating, genres, total_rating, first_release_date, slug, cover;
-    where id = (${wishlistIdArr});
-    limit 20;
-    `
-  );
+  let library = [];
+  if (libraryIdArr.length !== 0) {
+    library = await fetchGameData(
+      "games",
+      `fields name, rating, genres, total_rating, first_release_date, slug, cover;
+      where id = (${libraryIdArr});
+      limit 20;
+      `
+    );
+  }
+  let wishlist = [];
+  if (wishlistIdArr.length !== 0) {
+    wishlist = await fetchGameData(
+      "games",
+      `fields name, rating, genres, total_rating, first_release_date, slug, cover;
+      where id = (${wishlistIdArr});
+      limit 20;
+      `
+    );
+  }
 
   return (
     <HeadTextProvider headText={`${user?.username}'s Profile`}>

@@ -15,15 +15,15 @@ export default function Modal({
     <>
       <AnimatePresence>
         {isModalOpen && (
-          <div className="fixed inset-0 z-30 flex items-center justify-center">
+          <div className="fixed inset-0 z-30 flex items-center justify-center pointer-events-none">
             <m.article
               initial={{ opacity: 0, scale: 0, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0, y: -20 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="relative z-40 bg game-shadow p-[24px] rounded-[2px] w-full max-w-[642px] md:ml-[124px] mx-[24px] max-h-modal md:max-h-[548px] h-full mt-[120px] mb-[110px]"
+              className="pointer-events-auto relative z-40 bg game-shadow p-[24px] rounded-[2px] w-full max-w-[642px] md:ml-[124px] mx-[24px] max-h-modal md:max-h-[548px] h-full mt-[120px] mb-[110px]"
             >
-              <div className="flex justify-between items-start mb-[24px]">
+              <div className="flex justify-between items-start mb-[18px]">
                 <h3 className="text-[32px] uppercase font-bold tracking-[1.92px] bg-game-grad bg-clip-text text-transparent">
                   {title}
                 </h3>
@@ -41,7 +41,7 @@ export default function Modal({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="absolute inset-0 md:left-[100px] bg-black/20 z-30"
+              className="absolute inset-0 md:left-[100px] bg-black/20 z-30 pointer-events-auto"
               onClick={() => setIsModalOpen(false)}
             />
           </div>
