@@ -6,7 +6,12 @@ import AddFriend from "./AddFriend";
 import Request from "./Request";
 import { useState } from "react";
 
-export default function FriendContainer({ clerkId, users, friendRequests }) {
+export default function FriendContainer({
+  clerkId,
+  users,
+  friendRequests,
+  searchParams,
+}) {
   const [isAddFriendOpen, setIsAddFriendOpen] = useState(false);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
 
@@ -14,7 +19,11 @@ export default function FriendContainer({ clerkId, users, friendRequests }) {
 
   return (
     <article className="flex justify-between gap-[24px] flex-wrap items-start">
-      <FriendSearch placeholder={"search for a friend..."} />
+      <FriendSearch
+        placeholder={"search for a friend..."}
+        isSearchParams={true}
+        searchParams={searchParams}
+      />
       <div className="flex gap-[12px]">
         <Button
           icon={"/friend-icon-dark.svg"}

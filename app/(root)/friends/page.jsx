@@ -6,17 +6,11 @@ import {
   fetchAllUsers,
   fetchFriendRequests,
   fetchFriends,
-  fetchUser,
 } from "../../../lib/actions/user.actions";
 import { SignedIn, SignedOut, currentUser } from "@clerk/nextjs";
 
-export default async function Friends() {
+export default async function Friends({ searchParams }) {
   const clerkUser = await currentUser();
-  let dbUser = null;
-
-  if (clerkUser) {
-    dbUser = await fetchUser(clerkUser?.id);
-  }
 
   const users = await fetchAllUsers();
 
@@ -88,18 +82,29 @@ export default async function Friends() {
     };
   });
 
+  let searchedFriends = formattedFriends;
+
+  if (searchParams?.search) {
+    searchedFriends = formattedFriends?.filter((friend) =>
+      friend?.username
+        ?.toLowerCase()
+        .includes(searchParams.search?.toLowerCase())
+    );
+  }
+
   return (
     <>
       <Heading text={"Friends"} />
-      <Container noPagination={true}>
+      <Container noPagination={true} overflow={true}>
         <SignedIn>
           <FriendContainer
             clerkId={clerkUser?.id}
             users={formattedUsers}
             friendRequests={formattedFriendRequests}
+            searchParams={searchParams}
           />
-          <div className="flex flex-col gap-[12px] mt-[24px]">
-            {formattedFriends?.map((friend) => {
+          <div className="flex flex-col gap-[12px] mt-[24px] pb-[18px] mb-[56px]">
+            {searchedFriends?.map((friend) => {
               const commonGamesArr = friend?.library?.filter((game) =>
                 loggedInUser?.library?.includes(game)
               );
