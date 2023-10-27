@@ -10,6 +10,7 @@ import {
   handleFriendRequest,
   removeFriend,
 } from "../../lib/actions/user.actions";
+import { useServerAction } from "../../lib/useServerAction";
 
 export default function AddFriend({
   isAddFriendOpen,
@@ -68,22 +69,27 @@ export default function AddFriend({
 }
 
 function Card({ friend, commonGames, currentUser }) {
+  const [runRequestAction, isRequestingRunning] =
+    useServerAction(handleFriendRequest);
+  const [runAcceptAction, isAcceptingRunning] = useServerAction(acceptRequest);
+  const [runRemoveAction, isRemovingRunning] = useServerAction(removeFriend);
+
   async function sendFriendRequest() {
-    await handleFriendRequest({
+    await runRequestAction({
       clerkId: currentUser?.clerkId,
       targetId: friend?.clerkId,
     });
   }
 
   async function acceptFriendRequest() {
-    await acceptRequest({
+    await runAcceptAction({
       clerkId: currentUser?.clerkId,
       targetId: friend?.clerkId,
     });
   }
 
   async function handleRemoveFriend() {
-    await removeFriend({
+    await runRemoveAction({
       clerkId: currentUser?.clerkId,
       targetId: friend?.clerkId,
     });
@@ -109,7 +115,7 @@ function Card({ friend, commonGames, currentUser }) {
           username={friend?.username}
         />
       </div>
-      <div className="flex gap-[18px] items-center">
+      <div className="flex gap-[18px] items-center h-full">
         <div className="hidden md:flex gap-[8px] h-full">
           <InfoCard
             number={commonGames}
@@ -126,13 +132,28 @@ function Card({ friend, commonGames, currentUser }) {
           />
         </div>
         {status === "none" ? (
-          <SquareButton handleClick={sendFriendRequest} />
+          <SquareButton
+            handleClick={sendFriendRequest}
+            isLoading={isRequestingRunning}
+          />
         ) : status === "pending" ? (
-          <SquareButton handleClick={acceptFriendRequest} variant={"check"} />
+          <SquareButton
+            handleClick={acceptFriendRequest}
+            variant={"check"}
+            isLoading={isAcceptingRunning}
+          />
         ) : status === "friend" ? (
-          <SquareButton handleClick={handleRemoveFriend} variant={"delete"} />
+          <SquareButton
+            handleClick={handleRemoveFriend}
+            variant={"delete"}
+            isLoading={isRemovingRunning}
+          />
         ) : status === "requested" ? (
-          <SquareButton handleClick={sendFriendRequest} isDisabled={true} />
+          <SquareButton
+            handleClick={sendFriendRequest}
+            isDisabled={true}
+            isLoading={isRequestingRunning}
+          />
         ) : null}
       </div>
     </article>

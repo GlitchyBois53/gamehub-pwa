@@ -21,12 +21,12 @@ export default function SquareButton({
 
   return (
     <button
-      onClick={isDisabled || isLoading ? null : handleClick}
+      onClick={isLoading ? null : handleClick}
       style={{
         background: `linear-gradient(94deg, ${color[0]} 0.48%, ${color[1]} 100%)`,
       }}
       className={`w-[35px] aspect-square flex items-center justify-center rounded-[2px] game-shadow ${
-        isDisabled || (isLoading && "cursor-not-allowed")
+        isLoading && "cursor-not-allowed"
       } ${isDisabled && "opacity-40"}`}
     >
       <img

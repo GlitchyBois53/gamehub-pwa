@@ -31,7 +31,7 @@ export default function FriendCard({
         username={username}
       />
       <div className="flex gap-[18px] items-center h-full">
-        <div className="flex gap-[8px] h-full">
+        <div className="hidden md:flex gap-[8px] h-full">
           <InfoCard
             number={commonGames}
             title={"Common"}

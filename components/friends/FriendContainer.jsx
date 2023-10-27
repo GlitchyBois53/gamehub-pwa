@@ -6,9 +6,11 @@ import AddFriend from "./AddFriend";
 import Request from "./Request";
 import { useState } from "react";
 
-export default function FriendContainer({ clerkId, users }) {
+export default function FriendContainer({ clerkId, users, friendRequests }) {
   const [isAddFriendOpen, setIsAddFriendOpen] = useState(false);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
+
+  const currentUser = users.find((user) => user?.clerkId === clerkId);
 
   return (
     <article className="flex justify-between gap-[24px] flex-wrap items-start">
@@ -38,6 +40,9 @@ export default function FriendContainer({ clerkId, users }) {
       <Request
         isRequestOpen={isRequestOpen}
         setIsRequestOpen={setIsRequestOpen}
+        clerkId={clerkId}
+        requests={friendRequests}
+        currentUser={currentUser}
       />
     </article>
   );

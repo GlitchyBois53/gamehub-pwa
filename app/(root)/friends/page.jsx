@@ -4,6 +4,7 @@ import Heading from "../../../components/shared/Heading";
 import FriendContainer from "../../../components/friends/FriendContainer";
 import {
   fetchAllUsers,
+  fetchFriendRequests,
   fetchFriends,
   fetchUser,
 } from "../../../lib/actions/user.actions";
@@ -18,6 +19,28 @@ export default async function Friends() {
   }
 
   const users = await fetchAllUsers();
+
+  const friendRequests = await fetchFriendRequests(clerkUser?.id);
+
+  const formattedFriendRequests = friendRequests.map((user) => {
+    const userLibrary = user?.library?.map((game) => game.gameId);
+    const userFriends = user?.friends?.map((friend) => friend.clerkId);
+    const receivedRequests = user?.receivedRequests?.map(
+      (request) => request.clerkId
+    );
+    const sentRequests = user?.sentRequests?.map((request) => request.clerkId);
+
+    return {
+      clerkId: user?.clerkId,
+      email: user?.email,
+      image: user?.image,
+      username: user?.username,
+      library: userLibrary,
+      friends: userFriends,
+      receivedRequests: receivedRequests,
+      sentRequests: sentRequests,
+    };
+  });
 
   const formattedUsers = users.map((user) => {
     const userLibrary = user?.library?.map((game) => game.gameId);
@@ -39,28 +62,48 @@ export default async function Friends() {
     };
   });
 
+  const loggedInUser = formattedUsers?.find(
+    (user) => user?.clerkId === clerkUser?.id
+  );
+
   const friends = await fetchFriends(clerkUser?.id);
-  const libraryIdArr = dbUser?.library?.map((game) => game.gameId);
+
+  const formattedFriends = friends.map((user) => {
+    const userLibrary = user?.library?.map((game) => game.gameId);
+    const userFriends = user?.friends?.map((friend) => friend.clerkId);
+    const receivedRequests = user?.receivedRequests?.map(
+      (request) => request.clerkId
+    );
+    const sentRequests = user?.sentRequests?.map((request) => request.clerkId);
+
+    return {
+      clerkId: user?.clerkId,
+      email: user?.email,
+      image: user?.image,
+      username: user?.username,
+      library: userLibrary,
+      friends: userFriends,
+      receivedRequests: receivedRequests,
+      sentRequests: sentRequests,
+    };
+  });
 
   return (
     <>
       <Heading text={"Friends"} />
       <Container noPagination={true}>
-        <FriendContainer clerkId={clerkUser?.id} users={formattedUsers} />
+        <FriendContainer clerkId={clerkUser?.id} users={formattedUsers} friendRequests={formattedFriendRequests} />
         <div className="flex flex-col gap-[12px] mt-[24px]">
-          {friends.map((friend) => {
-            const commonGames = friends.flatMap((friend) => {
-              const friendLibraryIdArr = friend?.library?.map(
-                (game) => game.gameId
-              );
-              return libraryIdArr.filter((gameId) =>
-                friendLibraryIdArr.includes(gameId)
-              );
-            });
+          {formattedFriends.map((friend) => {
+            const commonGamesArr = friend?.library?.filter((game) =>
+              loggedInUser?.library?.includes(game)
+            );
+
             return (
               <FriendCard
+                key={friend?.clerkId}
                 friendId={friend?.clerkId}
-                commonGames={commonGames?.length}
+                commonGames={commonGamesArr?.length}
                 email={friend?.email}
                 image={friend?.image}
                 totalGames={friend?.library?.length}
