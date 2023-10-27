@@ -452,24 +452,24 @@ export const featuredPlatforms = [
     icon: "/playstation-icon.png",
     gradStart: "#0043BB",
     gradEnd: "#00266A",
-    href: "/search?platforms=7%2C+8%2C+9%2C+38%2C+46%2C+48%2C+165%2C+167%2C+390&title=Playstation",
+    href: "/search?platforms=7%2C+8%2C+9%2C+38%2C+46%2C+48%2C+165%2C+167%2C+390&title=Playstation&sort=aggregated_rating",
   },
   {
     icon: "/xbox-icon.png",
     gradStart: "#107C0F",
     gradEnd: "#0D710C",
-    href: "/search?platforms=11%2C+12%2C+49%2C+169&title=Xbox",
+    href: "/search?platforms=11%2C+12%2C+49%2C+169&title=Xbox&sort=aggregated_rating",
   },
   {
     icon: "/nintendo-icon.png",
     gradStart: "#FA0012",
     gradEnd: "#CD000F",
-    href: "/search?platforms=4%2C+5%2C+18%2C+19%2C+20%2C+21%2C+22%2C+23%2C+33%2C+37%2C+41%2C+87%2C+130%2C+137%2C+159%2C+166%2C+307%2C+416&title=Nintendo",
+    href: "/search?platforms=4%2C+5%2C+18%2C+19%2C+20%2C+21%2C+22%2C+23%2C+33%2C+37%2C+41%2C+87%2C+130%2C+137%2C+159%2C+166%2C+307%2C+416&title=Nintendo&sort=aggregated_rating",
   },
   {
     icon: "/windows-icon.png",
     gradStart: "#093661",
     gradEnd: "#061D34",
-    href: "/search?platforms=3%2C+6%2C+14%2C+82&title=PC",
+    href: "/search?platforms=3%2C+6%2C+14%2C+82&title=PC&sort=aggregated_rating",
   },
 ];

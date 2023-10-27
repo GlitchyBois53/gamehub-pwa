@@ -8,7 +8,7 @@ import {
   fetchFriends,
   fetchUser,
 } from "../../../lib/actions/user.actions";
-import { currentUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, currentUser } from "@clerk/nextjs";
 
 export default async function Friends() {
   const clerkUser = await currentUser();
@@ -22,7 +22,7 @@ export default async function Friends() {
 
   const friendRequests = await fetchFriendRequests(clerkUser?.id);
 
-  const formattedFriendRequests = friendRequests.map((user) => {
+  const formattedFriendRequests = friendRequests?.map((user) => {
     const userLibrary = user?.library?.map((game) => game.gameId);
     const userFriends = user?.friends?.map((friend) => friend.clerkId);
     const receivedRequests = user?.receivedRequests?.map(
@@ -68,7 +68,7 @@ export default async function Friends() {
 
   const friends = await fetchFriends(clerkUser?.id);
 
-  const formattedFriends = friends.map((user) => {
+  const formattedFriends = friends?.map((user) => {
     const userLibrary = user?.library?.map((game) => game.gameId);
     const userFriends = user?.friends?.map((friend) => friend.clerkId);
     const receivedRequests = user?.receivedRequests?.map(
@@ -92,27 +92,37 @@ export default async function Friends() {
     <>
       <Heading text={"Friends"} />
       <Container noPagination={true}>
-        <FriendContainer clerkId={clerkUser?.id} users={formattedUsers} friendRequests={formattedFriendRequests} />
-        <div className="flex flex-col gap-[12px] mt-[24px]">
-          {formattedFriends.map((friend) => {
-            const commonGamesArr = friend?.library?.filter((game) =>
-              loggedInUser?.library?.includes(game)
-            );
+        <SignedIn>
+          <FriendContainer
+            clerkId={clerkUser?.id}
+            users={formattedUsers}
+            friendRequests={formattedFriendRequests}
+          />
+          <div className="flex flex-col gap-[12px] mt-[24px]">
+            {formattedFriends?.map((friend) => {
+              const commonGamesArr = friend?.library?.filter((game) =>
+                loggedInUser?.library?.includes(game)
+              );
 
-            return (
-              <FriendCard
-                key={friend?.clerkId}
-                friendId={friend?.clerkId}
-                commonGames={commonGamesArr?.length}
-                email={friend?.email}
-                image={friend?.image}
-                totalGames={friend?.library?.length}
-                username={friend?.username}
-                clerkId={clerkUser?.id}
-              />
-            );
-          })}
-        </div>
+              return (
+                <FriendCard
+                  key={friend?.clerkId}
+                  friendId={friend?.clerkId}
+                  commonGames={commonGamesArr?.length}
+                  email={friend?.email}
+                  image={friend?.image}
+                  totalGames={friend?.library?.length}
+                  username={friend?.username}
+                  clerkId={clerkUser?.id}
+                />
+              );
+            })}
+          </div>
+        </SignedIn>
+        <SignedOut>
+          {/* TODO: ADD CTA TO SIGN IN */}
+          <p>YOU DONT LOG IN BITCH</p>
+        </SignedOut>
       </Container>
     </>
   );

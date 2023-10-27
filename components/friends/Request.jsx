@@ -19,18 +19,20 @@ export default function Request({
       setIsModalOpen={setIsRequestOpen}
       title={"Friend Requests"}
     >
-      {requests.map((request) => {
-        const commonGamesArr = request?.library?.filter((game) =>
-          currentUser?.library?.includes(game)
-        );
-        return (
-          <Card
-            request={request}
-            commonGames={commonGamesArr.length}
-            clerkId={clerkId}
-          />
-        );
-      })}
+      <div className="flex flex-col gap-[12px] h-[380px] overflow-y-scroll p-[12px]">
+        {requests.map((request) => {
+          const commonGamesArr = request?.library?.filter((game) =>
+            currentUser?.library?.includes(game)
+          );
+          return (
+            <Card
+              request={request}
+              commonGames={commonGamesArr.length}
+              clerkId={clerkId}
+            />
+          );
+        })}
+      </div>
     </Modal>
   );
 }

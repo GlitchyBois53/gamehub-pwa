@@ -9,8 +9,12 @@ import Heading from "../../../../components/shared/Heading";
 import Container from "../../../../components/shared/Container";
 
 export default async function Library({ params, searchParams }) {
-  const user = await fetchUser(params.id);
-  const libraryIdArr = user?.library.map((game) => game.gameId);
+  let user = [];
+
+  if (params.id !== "nouser") {
+    user = await fetchUser(params.id);
+  }
+  const libraryIdArr = user?.library?.map((game) => game.gameId);
 
   const search = searchParams?.search;
   const resultsPerPage = searchParams?.limit || 21;
@@ -28,7 +32,7 @@ export default async function Library({ params, searchParams }) {
 
   let games = null;
 
-  if (libraryIdArr.length !== 0) {
+  if (libraryIdArr?.length !== 0) {
     games = await fetchGameData(
       "games",
       `
@@ -73,28 +77,35 @@ export default async function Library({ params, searchParams }) {
     <HeadTextProvider headText={`${user?.username}'s Library`}>
       <Heading text={"Library"} />
       <Container>
-        <SearchContainer
-          searchParams={searchParams}
-          value={searchParams.search}
-          placeholder={"Search for a game in library..."}
-        />
-        {isGipperish ? (
-          <p>NO RESULT DUMMY</p>
-        ) : isNoMoreResults ? (
-          <p>NO MORE RESULT DUMMY</p>
-        ) : (
-          <GameLimitProvider searchParams={searchParams}>
-            <GameContainer arr={games} title={""} />
-          </GameLimitProvider>
-        )}
-        {!isGipperish && (
-          <div className="absolute bottom-[18px] w-full translate-x-[-18px]">
-            <Pagination
+        {params?.id !== "nouser" ? (
+          <>
+            <SearchContainer
               searchParams={searchParams}
-              results={games?.length}
-              resultsPerPage={resultsPerPage}
+              value={searchParams.search}
+              placeholder={"Search for a game in library..."}
             />
-          </div>
+            {isGipperish ? (
+              <p>NO RESULT DUMMY</p>
+            ) : isNoMoreResults ? (
+              <p>NO MORE RESULT DUMMY</p>
+            ) : (
+              <GameLimitProvider searchParams={searchParams}>
+                <GameContainer arr={games} title={""} />
+              </GameLimitProvider>
+            )}
+            {!isGipperish && (
+              <div className="absolute bottom-[18px] w-full translate-x-[-18px]">
+                <Pagination
+                  searchParams={searchParams}
+                  results={games?.length}
+                  resultsPerPage={resultsPerPage}
+                />
+              </div>
+            )}
+          </>
+        ) : (
+          // TODO: Add CTA to Sign In
+          <p>YOU DONT LOG IN BITCH</p>
         )}
       </Container>
     </HeadTextProvider>

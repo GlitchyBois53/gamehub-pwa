@@ -21,7 +21,7 @@ export default function UserCard({
         icon={"/wishlist-icon.png"}
         darkIcon={"/wishlist-icon-dark.png"}
         number={wishlistLength}
-        title={"Total"}
+        title={"Wishlist"}
       />
       <Vr isResponsive={true} />
       <InfoCard
