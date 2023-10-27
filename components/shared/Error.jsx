@@ -11,7 +11,10 @@ export default function Error({ error, reset }) {
         <p className="text-[18px] tracking-[1.08px] uppercase font-semibold mb-[24px]">
           The server made a dumb dumb
         </p>
-        <Button text={"Try Again"} handleClick={() => reset} />
+        <Button
+          text={"Try Again"}
+          handleClick={() => window.location.reload()}
+        />
       </section>
     </div>
   );
