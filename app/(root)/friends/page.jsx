@@ -8,6 +8,8 @@ import {
   fetchFriends,
 } from "../../../lib/actions/user.actions";
 import { SignedIn, SignedOut, currentUser } from "@clerk/nextjs";
+import Button from "../../../components/shared/Button";
+import Closer from "../../../components/shared/Closer";
 
 export default async function Friends({ searchParams }) {
   const clerkUser = await currentUser();
@@ -103,30 +105,60 @@ export default async function Friends({ searchParams }) {
             friendRequests={formattedFriendRequests}
             searchParams={searchParams}
           />
-          <div className="flex flex-col gap-[12px] mt-[24px] pb-[18px] mb-[56px]">
-            {searchedFriends?.map((friend) => {
-              const commonGamesArr = friend?.library?.filter((game) =>
-                loggedInUser?.library?.includes(game)
-              );
+          <div className="flex flex-col gap-[12px] mt-[24px] pb-[18px] mb-[56px] h-full">
+            {friends?.length === 0 ? (
+              <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] mt-[54px]">
+                <span className="text-[32px]">¯\_(ツ)_/¯</span>
+                <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold">
+                  You're not friends with anyone lol
+                </p>
+              </div>
+            ) : searchParams?.search && searchedFriends?.length === 0 ? (
+              <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] mt-[54px]">
+                <span className="text-[32px]">🤐</span>
+                <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold">
+                  <span className="font-bold">"{searchParams.search}" </span>
+                  doesn't exist
+                </p>
+              </div>
+            ) : (
+              <>
+                {searchedFriends?.map((friend) => {
+                  const commonGamesArr = friend?.library?.filter((game) =>
+                    loggedInUser?.library?.includes(game)
+                  );
 
-              return (
-                <FriendCard
-                  key={friend?.clerkId}
-                  friendId={friend?.clerkId}
-                  commonGames={commonGamesArr?.length}
-                  email={friend?.email}
-                  image={friend?.image}
-                  totalGames={friend?.library?.length}
-                  username={friend?.username}
-                  clerkId={clerkUser?.id}
-                />
-              );
-            })}
+                  return (
+                    <FriendCard
+                      key={friend?.clerkId}
+                      friendId={friend?.clerkId}
+                      commonGames={commonGamesArr?.length}
+                      email={friend?.email}
+                      image={friend?.image}
+                      totalGames={friend?.library?.length}
+                      username={friend?.username}
+                      clerkId={clerkUser?.id}
+                    />
+                  );
+                })}
+              </>
+            )}
+            <Closer />
           </div>
         </SignedIn>
         <SignedOut>
           {/* TODO: ADD CTA TO SIGN IN */}
-          <p>YOU DONT LOG IN BITCH</p>
+          <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">
+            <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
+              To see your friends, you need to sign in
+            </p>
+            <Button
+              icon={"/login-icon.svg"}
+              text={"Sign In"}
+              isLink={true}
+              href={"/sign-in"}
+            />
+          </div>
         </SignedOut>
       </Container>
     </>

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { usePathname, useRouter } from 'next/navigation';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 export default function GameLimitProvider({ children, searchParams }) {
   const pathname = usePathname();
@@ -50,19 +50,19 @@ export default function GameLimitProvider({ children, searchParams }) {
 
   // Add a resize event listener to the window
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     if (maxPerPage) {
-      router.push(pathname + '?' + createQueryString('limit', maxPerPage));
+      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
     }
     // Remove the resize event listener when the component unmounts
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
   useEffect(() => {
     setMaxPerLine((maxWidth + 24) / 184);
     setMaxPerPage(Math.floor(maxPerLine) * maxRows);
     if (maxPerPage) {
-      router.push(pathname + '?' + createQueryString('limit', maxPerPage));
+      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
     }
   }, [maxWidth]);
 
@@ -83,7 +83,7 @@ export default function GameLimitProvider({ children, searchParams }) {
   useEffect(() => {
     if (maxPerLine) {
       setMaxPerPage(Math.floor(maxPerLine) * maxRows);
-      router.push(pathname + '?' + createQueryString('limit', maxPerPage));
+      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
       if (windowWidth < 768) {
         setMaxRows(6);
       } else {
@@ -93,5 +93,9 @@ export default function GameLimitProvider({ children, searchParams }) {
   }),
     [maxPerLine];
 
-  return <div ref={ref}>{children}</div>;
+  return (
+    <div ref={ref} className="h-full">
+      {children}
+    </div>
+  );
 }

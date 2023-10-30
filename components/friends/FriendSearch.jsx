@@ -10,6 +10,7 @@ export default function FriendSearch({
   isLongBoi,
   searchParams,
   isSearchParams,
+  handleChange,
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -60,6 +61,8 @@ export default function FriendSearch({
         onChange={
           isSearchParams
             ? (e) => setLocalValue(e.target.value)
+            : handleChange
+            ? handleChange
             : (e) => setSearchValue(e.target.value)
         }
         className="bg-transparent outline-none uppercase text-[14px] px-[16px] tracking-[0.84px] max-w-[573px] w-full"

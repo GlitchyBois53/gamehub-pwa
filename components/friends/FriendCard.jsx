@@ -5,6 +5,7 @@ import InfoCard from "../shared/InfoCard";
 import Vr from "../shared/Vr";
 import More from "./More";
 import { removeFriend } from "../../lib/actions/user.actions";
+import { useStore } from "../../app/store";
 
 export default function FriendCard({
   image,
@@ -21,6 +22,8 @@ export default function FriendCard({
       targetId: friendId,
     });
   }
+
+  const activeMore = useStore((store) => store.activeMore);
 
   return (
     <article className="bg game-shadow px-[24px] py-[20px] flex h-[98px] justify-between items-center">
@@ -46,11 +49,15 @@ export default function FriendCard({
             darkIcon={"/library-icon-dark.svg"}
           />
         </div>
-        <More
-          isFriend={true}
-          slug={friendId}
-          handleClick={handleFriendRemoval}
-        />
+        <div
+          className={`relative ${activeMore === friendId ? "z-40" : "z-30"}`}
+        >
+          <More
+            isFriend={true}
+            slug={friendId}
+            handleClick={handleFriendRemoval}
+          />
+        </div>
       </div>
     </article>
   );

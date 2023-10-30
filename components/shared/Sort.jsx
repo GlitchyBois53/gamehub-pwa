@@ -1,7 +1,7 @@
 import DropDown from "./DropDown";
 import { useCallback } from "react";
 
-export default function Sort({ searchParams, isSearchPage }) {
+export default function Sort({ searchParams, isSearchPage, isPersonalPage }) {
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -23,7 +23,22 @@ export default function Sort({ searchParams, isSearchPage }) {
     },
   ];
 
-  const sortOptions = [
+  const sortPersonalOptions = [
+    {
+      name: "Total Rating",
+      value: "total_rating",
+    },
+    {
+      name: "Name",
+      value: "name",
+    },
+    {
+      name: "Release Date",
+      value: "first_release_date",
+    },
+  ];
+
+  const sortSearchOptions = [
     {
       name: "Total Rating",
       value: "total_rating",
@@ -75,10 +90,10 @@ export default function Sort({ searchParams, isSearchPage }) {
         />
         <DropDown
           name={"Sort By"}
-          options={sortOptions}
+          options={isPersonalPage ? sortPersonalOptions : sortSearchOptions}
           fn={createQueryString}
           param={"sort"}
-          searchParams={searchParams.sort || "total_rating"}
+          searchParams={searchParams.sort || "first_release_date"}
         />
       </div>
     </article>

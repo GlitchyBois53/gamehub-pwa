@@ -7,7 +7,7 @@ export default async function Games() {
   const criticsChoice = await fetchGameData(
     "games",
     `fields name, rating, genres, total_rating, first_release_date, slug, cover;
-    where aggregated_rating != null & first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 10) & version_parent = null & genres != null & cover != null & aggregated_rating_count > 5;
+    where aggregated_rating != null & first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10) & version_parent = null & genres != null & cover != null & aggregated_rating_count > 5;
     sort aggregated_rating desc;
     limit 20;
     `
@@ -20,7 +20,7 @@ export default async function Games() {
     `fields name, rating, genres, total_rating, first_release_date, slug, cover;
     where aggregated_rating != null & first_release_date != null & first_release_date < ${Math.ceil(
       time
-    )} & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 10) & version_parent = null & genres != null & cover != null & aggregated_rating_count > 5;
+    )} & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10) & version_parent = null & genres != null & cover != null & aggregated_rating_count > 3;
     sort first_release_date desc;
     limit 20;
     `
@@ -31,7 +31,7 @@ export default async function Games() {
     `fields name, rating, genres, total_rating, first_release_date, slug, cover;
     where first_release_date != null & first_release_date > ${Math.ceil(
       time
-    )} & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 10) & version_parent = null & genres != null & cover != null;
+    )} & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10) & version_parent = null & genres != null & cover != null;
     sort first_release_date asc;
     limit 20;
     `

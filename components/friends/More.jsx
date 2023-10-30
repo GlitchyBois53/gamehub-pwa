@@ -1,36 +1,67 @@
 "use client";
 
-import { useState } from "react";
-import { useStore } from "../../app/store";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Hr from "../shared/Hr";
 import { AnimatePresence, motion as m } from "framer-motion";
+import { useStore } from "../../app/store";
+import { shallow } from "zustand/shallow";
 
-export default function More({ isFriend, handleClick, slug }) {
+export default function More({ isFriend, handleClick, slug, isWhite }) {
   const theme = useStore((store) => store.theme);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const [activeMore, setActiveMore] = useStore(
+    (store) => [store.activeMore, store.setActiveMore],
+    shallow
+  );
+
+  function handleToggle() {
+    if (isOptionsOpen) {
+      setActiveMore("");
+    } else {
+      setActiveMore(slug);
+    }
+    setIsOptionsOpen(!isOptionsOpen);
+  }
+
+  useEffect(() => {
+    if (activeMore !== slug) setIsOptionsOpen(false);
+  }, [activeMore]);
+
   return (
-    <div className="relative h-full flex items-center">
-      <div
-        className="h-1/2 cursor-pointer flex items-center"
-        onClick={() => setIsOptionsOpen(!isOptionsOpen)}
-      >
-        <img
-          src={theme === "light" ? "/more-icon.png" : "/more-icon-dark.png"}
-          className="w-[18px]"
-        />
-      </div>
-      <AnimatePresence>
-        {isOptionsOpen && (
-          <Options
-            isFriend={isFriend}
-            handleClick={handleClick}
-            slug={slug}
-            setIsOptionsOpen={setIsOptionsOpen}
+    <>
+      <div className="relative h-full flex items-center ">
+        <div
+          className={`${
+            isWhite ? "h-full w-full" : "h-1/2"
+          } cursor-pointer flex items-center`}
+          onClick={handleToggle}
+        >
+          <img
+            src={
+              isWhite
+                ? "/more-icon-dark.png"
+                : theme === "light"
+                ? "/more-icon.png"
+                : "/more-icon-dark.png"
+            }
+            className={`${
+              isWhite ? "w-[16px] h-[2px]" : "w-[18px]"
+            } object-contain`}
           />
-        )}
-      </AnimatePresence>
-    </div>
+        </div>
+        <AnimatePresence>
+          {isOptionsOpen && activeMore === slug && (
+            <Options
+              isFriend={isFriend}
+              handleClick={handleClick}
+              slug={slug}
+              setIsOptionsOpen={setIsOptionsOpen}
+            />
+          )}
+        </AnimatePresence>
+      </div>
+    </>
   );
 }
 
@@ -41,7 +72,7 @@ function Options({ isFriend, handleClick, slug, setIsOptionsOpen }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0 }}
       transition={{ duration: 0.4, type: "spring" }}
-      className="absolute z-[25] top-[48px] right-0 bg game-shadow py-[2px] flex flex-col items-center gap-[2px]"
+      className="absolute top-[24px] right-0 bg game-shadow py-[2px] flex flex-col items-center gap-[2px]"
       onClick={() => setIsOptionsOpen(false)}
     >
       {isFriend ? (

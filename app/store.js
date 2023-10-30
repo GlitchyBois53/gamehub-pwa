@@ -16,6 +16,8 @@ export const useStore = createWithEqualityFn()(
     setIsWelcomed: (isWelcomed) => set(() => ({ isWelcomed: isWelcomed })),
     headTitle: "",
     setHeadTitle: (headTitle) => set(() => ({ headTitle: headTitle })),
+    activeMore: "",
+    setActiveMore: (activeMore) => set(() => ({ activeMore: activeMore })),
   }),
   Object.is
 );

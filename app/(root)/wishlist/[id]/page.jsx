@@ -7,10 +7,15 @@ import { fetchUser } from "../../../../lib/actions/user.actions";
 import { fetchGameData } from "../../../../lib/fetchGameData";
 import Heading from "../../../../components/shared/Heading";
 import Container from "../../../../components/shared/Container";
+import TooFar from "../../../../components/shared/TooFar";
+import Button from "../../../../components/shared/Button";
+import { currentUser } from "@clerk/nextjs";
 
 export default async function Wishlist({ params, searchParams }) {
   const user = await fetchUser(params.id);
   const wishlistIdArr = user?.wishlist.map((game) => game.gameId);
+
+  const clerkUser = await currentUser();
 
   const search = searchParams?.search;
   const resultsPerPage = searchParams?.limit || 21;
@@ -20,7 +25,7 @@ export default async function Wishlist({ params, searchParams }) {
   const themes = searchParams?.themes;
   const ratings = searchParams?.ratings;
   const modes = searchParams?.modes;
-  const sort = searchParams?.sort || "total_rating";
+  const sort = searchParams?.sort || "first_release_date";
   const order = searchParams?.order || "desc";
 
   const years = searchParams?.years;
@@ -37,16 +42,8 @@ export default async function Wishlist({ params, searchParams }) {
     id = (${wishlistIdArr}) &
     ${
       search ? `name ~ *"${search}"* &` : ""
-    } version_parent = null & genres != null & cover != null & ${
-        sort === "total_rating"
-          ? "total_rating != null & total_rating_count > 5 &"
-          : sort === "aggregated_rating"
-          ? "aggregated_rating != null & aggregated_rating_count > 5 &"
-          : sort === "rating"
-          ? "rating != null & rating_count > 5 &"
-          : ""
-      } 
-   first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 10) ${
+    } version_parent = null & genres != null & cover != null &
+   first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10) ${
      platforms ? `& platforms = (${platforms})` : ""
    }
     ${
@@ -66,35 +63,66 @@ export default async function Wishlist({ params, searchParams }) {
     );
   }
 
-  const isGipperish = games?.length === 0 && searchParams.offset == null;
-  const isNoMoreResults = games?.length === 0 && searchParams.offset != null;
+  const isEmpty = user?.wishlist?.length === 0;
+  const isGipperish = games?.length === 0 && searchParams.offset == 0;
+  const isNoMoreResults = games?.length === 0 && searchParams.offset != 0;
 
   return (
     <HeadTextProvider headText={`${user?.username}'s wishlist`}>
       <Heading text={"Wishlist"} />
       <Container>
-        <SearchContainer
-          searchParams={searchParams}
-          value={searchParams.search}
-          placeholder={"Search for a game in wishlist..."}
-        />
-        {isGipperish ? (
-          <p>NO RESULT DUMMY</p>
-        ) : isNoMoreResults ? (
-          <p>NO MORE RESULT DUMMY</p>
-        ) : (
-          <GameLimitProvider searchParams={searchParams}>
-            <GameContainer arr={games} title={""} />
-          </GameLimitProvider>
-        )}
-        {!isGipperish && (
-          <div className="absolute bottom-[18px] w-full translate-x-[-18px]">
-            <Pagination
-              searchParams={searchParams}
-              results={games?.length}
-              resultsPerPage={resultsPerPage}
+        {isEmpty ? (
+          <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">
+            <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
+              You currently have no games in your wishlist.
+            </p>
+            <Button
+              text={"Add Games"}
+              icon={"/plus.svg"}
+              isLink={true}
+              href={"/games"}
             />
           </div>
+        ) : (
+          <>
+            <SearchContainer
+              isPersonalPage={true}
+              searchParams={searchParams}
+              value={searchParams.search}
+              placeholder={"Search for a game in wishlist..."}
+            />
+
+            {isGipperish ? (
+              <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container mb-[-42px] mt-[-108px]">
+                <span className="text-[32px]">🤥</span>
+                <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
+                  {searchParams.search
+                    ? `No results found for "${searchParams.search}"`
+                    : "No results found"}
+                </p>
+              </div>
+            ) : isNoMoreResults ? (
+              <TooFar searchParams={searchParams} />
+            ) : (
+              <GameLimitProvider searchParams={searchParams}>
+                <GameContainer
+                  arr={games}
+                  title={""}
+                  isPersonalPage={clerkUser?.id === user?.clerkId}
+                  clerkId={clerkUser?.id}
+                />
+              </GameLimitProvider>
+            )}
+            {!isGipperish && (
+              <div className="absolute bottom-[18px] w-full translate-x-[-18px]">
+                <Pagination
+                  searchParams={searchParams}
+                  results={games?.length}
+                  resultsPerPage={resultsPerPage}
+                />
+              </div>
+            )}
+          </>
         )}
       </Container>
     </HeadTextProvider>

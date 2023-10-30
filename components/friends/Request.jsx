@@ -20,18 +20,29 @@ export default function Request({
       title={"Friend Requests"}
     >
       <div className="flex flex-col gap-[12px] h-[380px] overflow-y-scroll p-[12px]">
-        {requests.map((request) => {
-          const commonGamesArr = request?.library?.filter((game) =>
-            currentUser?.library?.includes(game)
-          );
-          return (
-            <Card
-              request={request}
-              commonGames={commonGamesArr.length}
-              clerkId={clerkId}
-            />
-          );
-        })}
+        {requests.length !== 0 ? (
+          <>
+            {requests.map((request) => {
+              const commonGamesArr = request?.library?.filter((game) =>
+                currentUser?.library?.includes(game)
+              );
+              return (
+                <Card
+                  request={request}
+                  commonGames={commonGamesArr.length}
+                  clerkId={clerkId}
+                />
+              );
+            })}
+          </>
+        ) : (
+          <div className="h-full w-full flex items-center justify-center flex-col gap-[12px]">
+            <span className="text-[32px]">🤔</span>
+            <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold">
+              You currently don't have any requests
+            </p>
+          </div>
+        )}
       </div>
     </Modal>
   );

@@ -20,6 +20,7 @@ export default function AddFriend({
 }) {
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const gunkUser = users.find((user) => user?.clerkId === clerkId);
 
@@ -33,6 +34,12 @@ export default function AddFriend({
         user.username.toLowerCase().includes(searchValue.toLowerCase())
       )
     );
+    setIsSubmitted(true);
+  }
+
+  function handleChange(e) {
+    setSearchValue(e.target.value);
+    setIsSubmitted(false);
   }
 
   return (
@@ -47,22 +54,37 @@ export default function AddFriend({
         searchValue={searchValue}
         handleSubmit={handleSubmit}
         setSearchValue={setSearchValue}
+        handleChange={handleChange}
       />
       <div className="flex flex-col gap-[12px] pt-[24px] h-[380px] overflow-y-scroll p-[12px]">
-        {searchResults.map((user) => {
-          const commonGamesArr = user?.library?.filter((game) =>
-            gunkUser?.library?.includes(game)
-          );
+        {searchResults.length !== 0 || searchValue === "" ? (
+          <>
+            {searchResults.map((user) => {
+              const commonGamesArr = user?.library?.filter((game) =>
+                gunkUser?.library?.includes(game)
+              );
 
-          return (
-            <Card
-              friend={user}
-              currentUser={gunkUser}
-              key={user?.clerkId}
-              commonGames={commonGamesArr.length}
-            />
-          );
-        })}
+              return (
+                <Card
+                  friend={user}
+                  currentUser={gunkUser}
+                  key={user?.clerkId}
+                  commonGames={commonGamesArr.length}
+                />
+              );
+            })}
+          </>
+        ) : (
+          isSubmitted && (
+            <div className="h-full w-full flex items-center justify-center flex-col gap-[12px]">
+              <span className="text-[32px]">🤐</span>
+              <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold">
+                <span className="font-bold">"{searchValue}" </span>
+                doesn't exist
+              </p>
+            </div>
+          )
+        )}
       </div>
     </Modal>
   );

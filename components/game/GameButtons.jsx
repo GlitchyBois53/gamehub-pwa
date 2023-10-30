@@ -16,6 +16,7 @@ export default function GameButtons({
   libraryArr,
   wishlistArr,
   clerkUser,
+  isReleased,
 }) {
   const pathname = usePathname();
   const [runLibraryAction, isLibraryRunning] =
@@ -71,22 +72,26 @@ export default function GameButtons({
 
   return (
     <div className="flex gap-[12px] mt-[24px] flex-wrap">
-      {libraryArr?.includes(gameId.toString()) ? (
-        <Button
-          handleClick={handleLibrary}
-          text={`${isLibraryRunning ? "removing" : "remove"} from library`}
-          icon={"/library-icon-dark.svg"}
-          attributes="py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px]"
-          isLoading={isLibraryRunning}
-        />
-      ) : (
-        <Button
-          handleClick={handleLibrary}
-          text={`${isLibraryRunning ? "adding" : "add"} to library`}
-          icon={"/library-icon-dark.svg"}
-          attributes="py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px]"
-          isLoading={isLibraryRunning}
-        />
+      {isReleased && (
+        <>
+          {libraryArr?.includes(gameId.toString()) ? (
+            <Button
+              handleClick={handleLibrary}
+              text={`${isLibraryRunning ? "removing" : "remove"} from library`}
+              icon={"/library-icon-dark.svg"}
+              attributes="py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px]"
+              isLoading={isLibraryRunning}
+            />
+          ) : (
+            <Button
+              handleClick={handleLibrary}
+              text={`${isLibraryRunning ? "adding" : "add"} to library`}
+              icon={"/library-icon-dark.svg"}
+              attributes="py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px]"
+              isLoading={isLibraryRunning}
+            />
+          )}
+        </>
       )}
       {wishlistArr?.includes(gameId.toString()) ? (
         <Button

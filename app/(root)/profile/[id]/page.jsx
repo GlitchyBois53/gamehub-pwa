@@ -64,6 +64,11 @@ export default async function Profile({ params }) {
               href={`/library/${user?.clerkId}`}
               isLink={true}
               isScrollable={true}
+              isEmpty={library.length === 0}
+              isCurrentUserProfile={clerkUser?.id === user?.clerkId}
+              isPersonalPage={clerkUser?.id === user?.clerkId}
+              clerkId={clerkUser?.id}
+              isLibrary={true}
             />
             <GameContainer
               icon={"/wishlist-icon-grad.png"}
@@ -72,6 +77,10 @@ export default async function Profile({ params }) {
               href={`/wishlist/${user?.clerkId}`}
               isLink={true}
               isScrollable={true}
+              isEmpty={wishlist.length === 0}
+              isCurrentUserProfile={clerkUser?.id === user?.clerkId}
+              isPersonalPage={clerkUser?.id === user?.clerkId}
+              clerkId={clerkUser?.id}
             />
           </div>
         </Container>

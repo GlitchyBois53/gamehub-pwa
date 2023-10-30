@@ -5,7 +5,7 @@ export default function Container({ children, noPagination, overflow }) {
         !overflow && "overflow-hidden"
       } ${
         !noPagination ? "pb-[52px]" : "pb-0"
-      } min-h-container-mobile md:min-h-container`}
+      } min-h-container-mobile md:min-h-container h-full`}
     >
       {children}
     </div>

@@ -62,7 +62,7 @@ export default async function Game({ params }) {
         `fields company, developer, publisher; where id = (${involvedCompanyId});`
       )
     : null;
-  
+
   const similarGameIds = game?.similar_games?.map((game) => game);
 
   return (

@@ -1,8 +1,15 @@
 import Link from "next/link";
 import { genres } from "../../constants";
 import { yearConverter } from "../../lib/yearConverter";
+import DeleteGame from "./DeleteGame";
 
-export default async function GameCard({ game, imageId }) {
+export default async function GameCard({
+  game,
+  imageId,
+  isPersonalPage,
+  clerkId,
+  isLibrary,
+}) {
   const genre = genres?.find(
     (genre) => genre?.genreId == game?.genres?.[0]
   )?.name;
@@ -11,7 +18,15 @@ export default async function GameCard({ game, imageId }) {
 
   const rating = Math.floor(game?.total_rating) / 10;
   return (
-    <>
+    <article className="relative">
+      {isPersonalPage && (
+        <DeleteGame
+          gameId={game?.id}
+          clerkId={clerkId}
+          isLibrary={isLibrary}
+          slug={game?.slug}
+        />
+      )}
       <Link
         href={`/games/${game.slug}`}
         className="block bg game-shadow rounded-b-[2px] min-w-[160px] max-w-[160px]"
@@ -52,6 +67,6 @@ export default async function GameCard({ game, imageId }) {
           </div>
         </section>
       </Link>
-    </>
+    </article>
   );
 }

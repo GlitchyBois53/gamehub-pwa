@@ -57,6 +57,8 @@ export default async function GameBanner({
   const criticRatingCount = game?.aggregated_rating_count ?? null;
   const userRatingCount = game?.rating_count ?? null;
 
+  const isReleased = game?.first_release_date < Math.floor(Date.now() / 1000);
+
   return (
     <section className="mt-[24px] bg shadow-search shadow-black/25 rounded-[2px] relative pt-[250px]">
       <BackgroundImage screenshotArr={screenshotArr} name={game?.name} />
@@ -121,6 +123,7 @@ export default async function GameBanner({
               })}
             </div>
             <GameButtons
+              isReleased={isReleased}
               clerkId={clerkUser?.id}
               gameId={game?.id}
               libraryArr={libraryIdArr}

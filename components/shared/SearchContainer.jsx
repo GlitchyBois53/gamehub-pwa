@@ -12,6 +12,7 @@ export default function SearchContainer({
   value,
   isSearchPage,
   placeholder,
+  isPersonalPage,
 }) {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
@@ -48,7 +49,11 @@ export default function SearchContainer({
             </>
           )}
         </AnimatePresence>
-        <Sort searchParams={searchParams} isSearchPage={isSearchPage} />
+        <Sort
+          searchParams={searchParams}
+          isSearchPage={isSearchPage}
+          isPersonalPage={isPersonalPage}
+        />
       </div>
       <ActiveFilters searchParams={searchParams} />
     </>
