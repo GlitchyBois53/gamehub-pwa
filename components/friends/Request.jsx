@@ -19,7 +19,7 @@ export default function Request({
       setIsModalOpen={setIsRequestOpen}
       title={"Friend Requests"}
     >
-      <div className="flex flex-col gap-[12px] h-[380px] overflow-y-scroll p-[12px]">
+      <div className="flex flex-col gap-[12px] h-full md:h-[380px] overflow-y-scroll p-[12px]">
         {requests.length !== 0 ? (
           <>
             {requests.map((request) => {

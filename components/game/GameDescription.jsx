@@ -2,6 +2,7 @@ import { fetchGameData } from "../../lib/fetchGameData";
 import Hr from "../shared/Hr";
 import { timeConverter } from "../../lib/timeConverter";
 import Description from "./Description";
+import FullScreenScreenshot from "./FullscreenScreenshot";
 
 export default async function GameDescription({
   game,
@@ -92,11 +93,11 @@ function Screenshots({ screenshots }) {
         Screenshots
       </h2>
       <div className="flex gap-[18px] overflow-x-scroll py-[12px] pl-[32px] md:pl-0 pr-[32px]">
-        {screenshots?.map((screenshot) => (
-          <img
-            src={`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.png`}
-            alt={`${screenshot.image_id}-screenshot`}
-            className="rounded-[2px] max-w-none w-[462px] h-[260px] object-cover"
+        {screenshots?.map((screenshot, index) => (
+          <FullScreenScreenshot
+            screenshot={screenshot}
+            index={index}
+            screenshotArr={screenshots}
           />
         ))}
       </div>

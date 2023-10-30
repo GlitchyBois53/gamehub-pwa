@@ -56,7 +56,7 @@ export default function AddFriend({
         setSearchValue={setSearchValue}
         handleChange={handleChange}
       />
-      <div className="flex flex-col gap-[12px] pt-[24px] h-[380px] overflow-y-scroll p-[12px]">
+      <div className="flex flex-col gap-[12px] pt-[24px] h-full md:h-[380px] overflow-y-scroll p-[12px]">
         {searchResults.length !== 0 || searchValue === "" ? (
           <>
             {searchResults.map((user) => {
