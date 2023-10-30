@@ -33,7 +33,7 @@ export default function FullscreenScreenshot({
       <img
         src={`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.png`}
         alt={`${screenshot.image_id}-screenshot`}
-        className="rounded-[2px] max-w-none w-[462px] h-[260px] object-cover"
+        className="rounded-[2px] max-w-none w-[462px] h-[260px] object-cover cursor-pointer"
         onClick={() => setIsFullscreen(!isFullscreen)}
       />
       <AnimatePresence>
