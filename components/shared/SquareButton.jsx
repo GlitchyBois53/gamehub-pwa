@@ -48,7 +48,7 @@ export default function SquareButton({
         alt=""
         className={`w-[12px] object-contain ${isLoading && "animate-spin"}`}
       />
-      <p className="md:hidden text-[12px] tracking-[0.56px] uppercase font-semibold translate-y-[-0.5px]">
+      <p className="md:hidden text-[12px] tracking-[0.56px] text-white uppercase font-semibold translate-y-[-0.5px]">
         {text}
       </p>
       <AnimatePresence>

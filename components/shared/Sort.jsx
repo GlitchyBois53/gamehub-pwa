@@ -64,7 +64,7 @@ export default function Sort({ searchParams, isSearchPage, isPersonalPage }) {
   const textCheck = searchParams.search || searchParams.title;
 
   return (
-    <article className="mt-[12px] flex justify-between flex-col md:flex-row items-start md:items-center gap-[12px]">
+    <article className="mt-[12px] flex justify-between flex-col md:flex-row items-start md:items-center gap-[12px] relative z-30">
       {isSearchPage && (
         <div>
           {textCheck && (

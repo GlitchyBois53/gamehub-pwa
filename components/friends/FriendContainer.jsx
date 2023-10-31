@@ -11,6 +11,7 @@ export default function FriendContainer({
   users,
   friendRequests,
   searchParams,
+  hasRequest,
 }) {
   const [isAddFriendOpen, setIsAddFriendOpen] = useState(false);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
@@ -32,6 +33,7 @@ export default function FriendContainer({
           text={"Requests"}
           attributes="py-[11px] px-[15px] text-[12px] tracking-[0.72px]"
           handleClick={() => setIsRequestOpen(true)}
+          hasNotification={hasRequest}
         />
         <Button
           icon={"/add-friend-icon.png"}

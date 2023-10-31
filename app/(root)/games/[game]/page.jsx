@@ -11,6 +11,8 @@ import {
 } from "../../../../lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import RecentlyViewed from "../../../../components/shared/RecentlyViewed";
+import GameContainer from "../../../../components/shared/GameContainer";
+import GameWrapper from "../../../../components/game/GameWrapper";
 
 export default async function Game({ params }) {
   const clerkUser = await currentUser();
@@ -63,11 +65,38 @@ export default async function Game({ params }) {
       )
     : null;
 
+  const developer = involvedCompany?.find((company) => company.developer);
+
+  const developerObj = await fetchGameData(
+    "companies",
+    `fields *; where id = ${developer.company}; limit 1;`
+  );
+
+  const developedGames = await fetchGameData(
+    "games",
+    `
+    fields name, genres, total_rating, first_release_date, slug, cover; 
+    where id = (${developerObj?.[0]?.developed}) & id != ${game?.id} & parent_game = null & version_parent = null & category = (0, 8, 9, 10) & first_release_date != null; 
+    limit 20;
+    sort first_release_date desc;
+    `
+  );
+
+  const dlcs = await fetchGameData(
+    "games",
+    `
+    fields name, genres, total_rating, first_release_date, slug, cover;
+    where id = (${game?.expansions});
+    limit 20;
+    sort first_release_date desc;
+    `
+  );
+
   const similarGameIds = game?.similar_games?.map((game) => game);
 
   return (
     <HeadTextProvider headText={game?.name}>
-      <Search />
+      <Search isOnGamePage={true} />
       <GameBanner
         game={game}
         screenshotArr={screenshots}
@@ -79,8 +108,28 @@ export default async function Game({ params }) {
         involvedCompanies={involvedCompany}
         platforms={platforms}
       />
+      {game?.expansions && (
+        <GameWrapper>
+          <GameContainer
+            arr={dlcs}
+            title={`Expansions for ${game?.name}`}
+            isScrollable={true}
+            isOnGamePage={true}
+          />
+        </GameWrapper>
+      )}
       {game?.collection && (
         <OtherInSeries collectionId={game?.collection} gameId={game?.id} />
+      )}
+      {developerObj?.[0]?.developed && (
+        <GameWrapper>
+          <GameContainer
+            arr={developedGames}
+            title={`Other games by ${developerObj?.[0]?.name}`}
+            isScrollable={true}
+            isOnGamePage={true}
+          />
+        </GameWrapper>
       )}
       <SimilarGames gameIds={similarGameIds} />
       {clerkUser && (

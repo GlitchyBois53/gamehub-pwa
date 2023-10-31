@@ -4,7 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useStore } from "../../app/store";
 
-export default function NavLink({ href, activeIcon, icon, iconDark, name }) {
+export default function NavLink({
+  href,
+  activeIcon,
+  icon,
+  iconDark,
+  name,
+  hasRequest,
+}) {
   // importing the pathname from next/navigation, to chech if the current page is the same as the link
   const pathname = usePathname();
 
@@ -47,9 +54,12 @@ export default function NavLink({ href, activeIcon, icon, iconDark, name }) {
       : theme === "light"
       ? icon
       : iconDark;
-      
+
   return (
-    <Link className="flex flex-col items-center gap-[3px]" href={href}>
+    <Link className="flex flex-col items-center gap-[3px] relative" href={href}>
+      {hasRequest && name === "friends" && (
+        <div className="w-[6px] aspect-square rounded-full bg-red-600 absolute top-0 right-[9px]" />
+      )}
       <img
         className="w-[20px] aspect-square object-contain"
         src={source}

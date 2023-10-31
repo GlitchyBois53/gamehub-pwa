@@ -23,6 +23,8 @@ module.exports = {
       },
       maxHeight: {
         modal: "calc(100svh - 230px)",
+        "modal-mobile": "calc(100svh - 400px)",
+        "modal-mobile-large": "calc(100svh - 380px)",
       },
       colors: {
         "back-dark": "#151515",

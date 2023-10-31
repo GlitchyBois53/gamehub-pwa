@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { usePathname } from 'next/navigation';
-import { useStore } from '../../app/store';
+import { usePathname } from "next/navigation";
+import { useStore } from "../../app/store";
 
-export default function Head({ isOnboarding }) {
+export default function Head() {
   // TODO: this components needs to be refactored, but the general idea is that it sets the title of the page based on the current path
   const headText = useStore((store) => store.headTitle);
   const pathname = usePathname();
-  const pathSplit = pathname.split('/');
+  const pathSplit = pathname.split("/");
   let path = pathSplit[1];
 
   if (pathSplit.length === 3) {
@@ -16,9 +16,9 @@ export default function Head({ isOnboarding }) {
   return (
     <head>
       <title>
-        {pathname === '/'
-          ? 'Home - GameHub'
-          : path[0].toUpperCase() + path.slice(1) + ' - GameHub'}
+        {pathname === "/"
+          ? "Home - GameHub"
+          : path[0].toUpperCase() + path.slice(1).toLowerCase() + " - GameHub"}
       </title>
       {/* TODO: add SEO if needed */}
       <meta

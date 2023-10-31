@@ -17,6 +17,7 @@ export default function Button({
   // setting default values for the attributes
   attributes = "px-[18px] py-[8px] text-[12px] tracking-[0.72px]",
   buttonWidth,
+  hasNotification,
 }) {
   return (
     <>
@@ -31,6 +32,7 @@ export default function Button({
             lightIcon={lightIcon}
             isLoading={isLoading}
             iconWidth={iconWidth}
+            hasNotification={hasNotification}
           />
         </Link>
       ) : (
@@ -47,6 +49,7 @@ export default function Button({
             lightIcon={lightIcon}
             isLoading={isLoading}
             iconWidth={iconWidth}
+            hasNotification={hasNotification}
           />
         </button>
       )}
@@ -63,6 +66,7 @@ function ButtonBody({
   lightIcon,
   isLoading,
   iconWidth,
+  hasNotification,
 }) {
   const theme = useStore((store) => store.theme);
 
@@ -93,13 +97,20 @@ function ButtonBody({
       }`}
     >
       {icon && (
-        <img
-          src={iconBase}
-          alt="icon"
-          className={`${iconWidth} object-contain relative z-10 ${
-            isLoading && "animate-spin"
-          }`}
-        />
+        <>
+          <div className="relative flex items-center justify-center">
+            <img
+              src={iconBase}
+              alt="icon"
+              className={`${iconWidth} object-contain relative z-10 ${
+                isLoading && "animate-spin"
+              }`}
+            />
+            {hasNotification && (
+              <div className="w-[6px] aspect-square rounded-full bg-red-600 absolute top-[-1px] right-[-3px] z-10" />
+            )}
+          </div>
+        </>
       )}
       <p className="relative z-10">{text}</p>
       {variant && (

@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { toast } from 'sonner';
-import Toast from './Toast';
-import { useStore } from '../../app/store';
-import { shallow } from 'zustand/shallow';
+import { useEffect } from "react";
+import { toast } from "sonner";
+import Toast from "./Toast";
+import { useStore } from "../../app/store";
+import { shallow } from "zustand/shallow";
 
 export default function WelcomeWrapper({ children, clerkUser, username }) {
   let count = 0;
@@ -16,7 +16,13 @@ export default function WelcomeWrapper({ children, clerkUser, username }) {
   useEffect(() => {
     if (clerkUser && count < 1 && !isWelcomed) {
       toast.custom((t) => (
-        <Toast t={t} type={'message'} message={`Welcome ${username}`} />
+        <Toast
+          t={t}
+          type={"message"}
+          message={`Welcome ${
+            username[0].toUpperCase() + username.slice(1).toLowerCase()
+          }`}
+        />
       ));
       count = count + 1;
       setIsWelcomed(true);

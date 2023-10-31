@@ -96,7 +96,12 @@ export default async function Friends({ searchParams }) {
 
   return (
     <>
-      <Heading text={"Friends"} />
+      <Heading
+        text={"Friends"}
+        clerkId={clerkUser?.id}
+        image={loggedInUser?.image}
+        username={loggedInUser?.username}
+      />
       <Container noPagination={true} overflow={true}>
         <SignedIn>
           <FriendContainer
@@ -104,6 +109,7 @@ export default async function Friends({ searchParams }) {
             users={formattedUsers}
             friendRequests={formattedFriendRequests}
             searchParams={searchParams}
+            hasRequest={loggedInUser?.receivedRequests?.length > 0}
           />
           <div className="flex flex-col gap-[12px] mt-[24px] pb-[18px] mb-[56px] h-full">
             {friends?.length === 0 ? (

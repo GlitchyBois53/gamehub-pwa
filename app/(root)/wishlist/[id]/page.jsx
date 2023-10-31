@@ -69,7 +69,12 @@ export default async function Wishlist({ params, searchParams }) {
 
   return (
     <HeadTextProvider headText={`${user?.username}'s wishlist`}>
-      <Heading text={"Wishlist"} />
+      <Heading
+        text={"Wishlist"}
+        clerkId={user?.clerkId}
+        image={user?.image}
+        username={user?.username}
+      />
       <Container>
         {isEmpty ? (
           <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">

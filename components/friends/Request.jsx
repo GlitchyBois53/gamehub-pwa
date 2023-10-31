@@ -5,6 +5,7 @@ import SquareButton from "../shared/SquareButton";
 import Vr from "../shared/Vr";
 import FriendInfo from "./FriendInfo";
 import { useServerAction } from "../../lib/useServerAction";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Request({
   isRequestOpen,
@@ -19,7 +20,7 @@ export default function Request({
       setIsModalOpen={setIsRequestOpen}
       title={"Friend Requests"}
     >
-      <div className="flex flex-col gap-[12px] h-full md:h-[380px] overflow-y-scroll p-[12px]">
+      <div className="flex flex-col gap-[12px] h-full md:h-[420px] max-h-modal-mobile-large overflow-y-scroll p-[12px]">
         {requests.length !== 0 ? (
           <>
             {requests.map((request) => {
@@ -67,9 +68,53 @@ function Card({ request, commonGames, clerkId }) {
     });
   }
 
+  const ref = useRef();
+  // Create a state variable to store the maximum width of the container and the window width
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  // Define a function to debounce the resize event listener
+  function debounce(func, wait, immediate) {
+    let timeout;
+    return function () {
+      const context = this,
+        args = arguments;
+      const later = function () {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      const callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+  // Define a function to handle the resize event
+  const handleResize = useCallback(
+    debounce(() => {
+      setWindowWidth(window.innerWidth);
+    }, 100),
+    []
+  );
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    // Remove the resize event listener when the component unmounts
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
+
+  // Set the initial maximum width of the container
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+  }, []);
+
+  console.log(windowWidth);
+
+  const add = windowWidth > 768 ? 0 : ref?.current?.clientHeight;
+
   return (
     <article
-      className="px-[24px] py-[20px] bg game-shadow rounded-[2px] h-full max-h-[98px] flex justify-between items-center"
+      style={{ maxHeight: `${98 + add}px` }}
+      className="px-[24px] py-[20px] bg game-shadow rounded-[2px] h-full md:max-h-[98px] flex flex-col md:flex-row gap-[12px] justify-between items-center"
       key={request?.clerkId}
     >
       <FriendInfo
@@ -94,16 +139,21 @@ function Card({ request, commonGames, clerkId }) {
             darkIcon={"/library-icon-dark.svg"}
           />
         </div>
-        <SquareButton
-          handleClick={acceptFriendRequest}
-          variant={"check"}
-          isLoading={isAcceptingRunning}
-        />
-        <SquareButton
-          handleClick={declineFriendRequest}
-          variant={"delete"}
-          isLoading={isDecliningRunning}
-        />
+        <div
+          className="flex gap-[12px] flex-wrap md:flex-nowrap justify-center"
+          ref={ref}
+        >
+          <SquareButton
+            handleClick={acceptFriendRequest}
+            variant={"check"}
+            isLoading={isAcceptingRunning}
+          />
+          <SquareButton
+            handleClick={declineFriendRequest}
+            variant={"delete"}
+            isLoading={isDecliningRunning}
+          />
+        </div>
       </div>
     </article>
   );

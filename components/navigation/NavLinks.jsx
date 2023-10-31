@@ -1,6 +1,13 @@
+import { fetchUser } from "../../lib/actions/user.actions";
 import NavLink from "./NavLink";
 
-export default function NavLinks({ clerkUser }) {
+export default async function NavLinks({ clerkUser }) {
+  let dbUser = null;
+
+  if (clerkUser) {
+    dbUser = await fetchUser(clerkUser?.id);
+  }
+
   const navLinks = [
     {
       activeIcon: "/home-icon-grad.png",
@@ -43,6 +50,7 @@ export default function NavLinks({ clerkUser }) {
           iconDark={link.iconDark}
           name={link.name}
           key={link.name}
+          hasRequest={dbUser?.receivedRequests?.length > 0}
         />
       ))}
     </>

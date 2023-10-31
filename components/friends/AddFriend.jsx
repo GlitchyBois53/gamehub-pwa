@@ -56,7 +56,7 @@ export default function AddFriend({
         setSearchValue={setSearchValue}
         handleChange={handleChange}
       />
-      <div className="flex flex-col gap-[12px] pt-[24px] h-full md:h-[380px] overflow-y-scroll p-[12px]">
+      <div className="flex flex-col gap-[12px] pt-[24px] h-full md:h-[380px] max-h-modal-mobile md:max-h-none overflow-y-scroll p-[12px]">
         {searchResults.length !== 0 || searchValue === "" ? (
           <>
             {searchResults.map((user) => {
@@ -128,8 +128,8 @@ function Card({ friend, commonGames, currentUser }) {
   }
 
   return (
-    <article className="bg game-shadow px-[24px] py-[20px] flex justify-between items-center h-full max-h-[98px]">
-      <div className="h-full">
+    <article className="bg game-shadow px-[24px] py-[20px] flex justify-between items-center max-h-[133px] h-full md:max-h-[98px] flex-col md:flex-row gap-[12px]">
+      <div className="h-full w-full">
         <FriendInfo
           email={friend?.email}
           id={friend?.clerkId}

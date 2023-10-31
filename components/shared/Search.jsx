@@ -12,6 +12,7 @@ export default function Search({
   value,
   handleFilter,
   placeholder = "Search for a game...",
+  isOnGamePage,
 }) {
   const [searchValue, setSearchValue] = useState(value || "");
   const pathname = usePathname();
@@ -35,6 +36,10 @@ export default function Search({
     pathname.includes("/search") ||
     pathname.includes("/library") ||
     pathname.includes("/wishlist");
+
+  function handleChange(e) {
+    setSearchValue(e.target.value);
+  }
 
   function handleSearch(e) {
     e.preventDefault();
@@ -67,7 +72,9 @@ export default function Search({
         theme === "light"
           ? "bg-back-light border-black/20 shadow-black/25"
           : "bg-back-dark border-white/20 shadow-black/50"
-      } transition-colors border rounded-[2px] md:max-w-[573px] z-20 relative shadow-search`}
+      } transition-colors border rounded-[2px] md:max-w-[573px] ${
+        isOnGamePage ? "z-10" : "z-20"
+      } relative shadow-search`}
     >
       <img
         src={`${
@@ -79,7 +86,7 @@ export default function Search({
       <input
         type="text"
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={handleChange}
         className="bg-transparent outline-none uppercase text-[14px] px-[16px] tracking-[0.84px] max-w-[573px] w-full"
         placeholder={placeholder}
       />

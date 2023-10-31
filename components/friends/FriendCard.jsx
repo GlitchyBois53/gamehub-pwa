@@ -28,6 +28,7 @@ export default function FriendCard({
   return (
     <article className="bg game-shadow px-[24px] py-[20px] flex h-[98px] justify-between items-center">
       <FriendInfo
+        isBigCard={true}
         email={email}
         id={friendId}
         image={image}
@@ -50,7 +51,9 @@ export default function FriendCard({
           />
         </div>
         <div
-          className={`relative ${activeMore === friendId ? "z-40" : "z-30"}`}
+          className={`relative w-[18px] ${
+            activeMore === friendId ? "z-40" : "z-30"
+          }`}
         >
           <More
             isFriend={true}

@@ -2,9 +2,6 @@ import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "../../../../lib/actions/user.actions";
 import Heading from "../../../../components/shared/Heading";
 import Container from "../../../../components/shared/Container";
-import Button from "../../../../components/shared/Button";
-import { genres } from "../../../../constants";
-import UserCard from "../../../../components/profile/UserCard";
 import UserInfo from "../../../../components/profile/UserInfo";
 import HeadTextProvider from "../../../../components/shared/HeadTextProvider";
 import { fetchGameData } from "../../../../lib/fetchGameData";
@@ -42,7 +39,12 @@ export default async function Profile({ params }) {
   return (
     <HeadTextProvider headText={`${user?.username}'s Profile`}>
       <div>
-        <Heading text={"Profile"} />
+        <Heading
+          text={"Profile"}
+          clerkId={user?.clerkId}
+          image={user?.image}
+          username={user?.username}
+        />
         <Container noPagination={true}>
           <UserInfo
             email={user?.email}

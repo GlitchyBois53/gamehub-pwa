@@ -6,7 +6,8 @@ import Rating from "./Rating";
 import { currentUser } from "@clerk/nextjs";
 import GameButtons from "./GameButtons";
 import BackgroundImage from "./BackgroundImage";
-import { fetchUser } from "../../lib/actions/user.actions";
+import { fetchFriends, fetchUser } from "../../lib/actions/user.actions";
+import SharedGames from "./SharedGames";
 
 export default async function GameBanner({
   game,
@@ -15,13 +16,31 @@ export default async function GameBanner({
 }) {
   const clerkUser = await currentUser();
   let dbUser = null;
+  let friends = null;
 
   if (clerkUser) {
     dbUser = await fetchUser(clerkUser.id);
+    friends = await fetchFriends(clerkUser.id);
   }
 
   const libraryIdArr = dbUser?.library.map((game) => game.gameId);
   const wishlistIdArr = dbUser?.wishlist.map((game) => game.gameId);
+
+  const formattedFriends = friends?.map((friend) => {
+    const libraryIdArr = friend?.library.map((game) => game.gameId);
+
+    return {
+      username: friend?.username,
+      image: friend?.image,
+      clerkId: friend?.clerkId,
+      email: friend?.email,
+      library: libraryIdArr,
+    };
+  });
+
+  const sharedGames = formattedFriends?.filter((friend) =>
+    friend?.library?.includes(game?.id.toString())
+  );
 
   const releaseYear = yearConverter(game?.first_release_date);
 
@@ -140,6 +159,9 @@ export default async function GameBanner({
             />
           </div>
         </section>
+        {sharedGames?.length !== 0 && (
+          <SharedGames sharedGames={sharedGames} />
+        )}
       </article>
     </section>
   );

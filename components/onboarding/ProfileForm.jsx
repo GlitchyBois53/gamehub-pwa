@@ -49,7 +49,7 @@ export default function ProfileForm({ username, image, email, clerkId }) {
   async function submitUserToDB() {
     await updateUser({
       email: email,
-      username: form.username,
+      username: form.username.toLowerCase(),
       image: images[0]?.fileUrl || image,
       clerkId: clerkId,
     });

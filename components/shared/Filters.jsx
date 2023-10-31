@@ -75,7 +75,7 @@ export default function Filters({
       animate={{ opacity: 1, scaleY: 1 }}
       exit={{ opacity: 0, scaleY: 0 }}
       transition={{ duration: 0.5, type: "spring" }}
-      className={`flex flex-col gap-[10px] z-20 bg shadow-search absolute right-0 left-0 shadow-black/25 rounded-[2px] p-[18px] ${
+      className={`flex flex-col gap-[10px] z-40 bg shadow-search absolute right-0 left-0 shadow-black/25 rounded-[2px] p-[18px] ${
         isSearchPage ? "mt-[12px]" : "top-[95px] left-[18px] right-[18px]"
       } min-h-[158px]`}
     >
