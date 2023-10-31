@@ -62,12 +62,12 @@ function UserModal({ sharedGames, isUserModalActive, setIsUserModalActive }) {
     <Modal
       isModalOpen={isUserModalActive}
       setIsModalOpen={setIsUserModalActive}
-      title={"Friends who played this game"}
+      title={"Friends"}
     >
       <div className="flex flex-col gap-[12px] h-full md:h-[420px] max-h-modal-mobile-large overflow-y-scroll p-[12px]">
         {sharedGames?.map((friend) => (
           <article className="bg game-shadow px-[24px] py-[20px] flex justify-between items-center h-full max-h-[98px]">
-            <div className="h-full">
+            <div className="h-full w-full">
               <FriendInfo
                 email={friend?.email}
                 id={friend?.clerkId}
