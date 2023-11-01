@@ -77,9 +77,9 @@ export default async function Search({ searchParams }) {
       ) : isNoMoreResults ? (
         <TooFar searchParams={searchParams} />
       ) : (
-        // <GameLimitProvider searchParams={searchParams}>
+        <GameLimitProvider searchParams={searchParams}>
           <GameContainer arr={games} title={""} />
-        // </GameLimitProvider>
+        </GameLimitProvider>
       )}
       {!isGipperish && (
         <Pagination

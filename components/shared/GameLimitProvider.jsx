@@ -52,7 +52,9 @@ export default function GameLimitProvider({ children, searchParams }) {
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     if (maxPerPage) {
-      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+      debounce(() => {
+        router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+      }, 100);
     }
     // Remove the resize event listener when the component unmounts
     return () => window.removeEventListener("resize", handleResize);
@@ -67,6 +69,19 @@ export default function GameLimitProvider({ children, searchParams }) {
   }, [maxWidth]);
 
   useEffect(() => {
+    if (maxPerLine) {
+      setMaxPerPage(Math.floor(maxPerLine) * maxRows);
+      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+      if (windowWidth < 768) {
+        setMaxRows(6);
+      } else {
+        setMaxRows(3);
+      }
+    }
+  }),
+    [maxPerLine];
+
+  useEffect(() => {
     setMaxPerLine((maxWidth + 24) / 184);
   }, []);
 
@@ -79,19 +94,6 @@ export default function GameLimitProvider({ children, searchParams }) {
     },
     [searchParams]
   );
-
-  useEffect(() => {
-    if (maxPerLine) {
-      setMaxPerPage(Math.floor(maxPerLine) * maxRows);
-      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
-      if (windowWidth < 768) {
-        setMaxRows(6);
-      } else {
-        setMaxRows(3);
-      }
-    }
-  }),
-    [maxPerLine];
 
   return (
     <div ref={ref} className="h-full">
