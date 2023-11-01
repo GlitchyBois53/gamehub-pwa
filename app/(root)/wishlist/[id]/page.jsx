@@ -1,5 +1,5 @@
 import GameContainer from "../../../../components/shared/GameContainer";
-import GameLimitProvider from "../../../../components/shared/GameLimitProvider";
+import Limit from "../../../../components/shared/Limit";
 import HeadTextProvider from "../../../../components/shared/HeadTextProvider";
 import Pagination from "../../../../components/shared/Pagination";
 import SearchContainer from "../../../../components/shared/SearchContainer";
@@ -71,68 +71,70 @@ export default async function Wishlist({ params, searchParams }) {
   const isNoMoreResults = games?.length === 0 && searchParams.offset != 0;
 
   return (
-    <HeadTextProvider headText={`${user?.username}'s wishlist`}>
-      <Heading
-        text={"Wishlist"}
-        clerkId={user?.clerkId}
-        image={user?.image}
-        username={user?.username}
-      />
-      <Container>
-        {isEmpty ? (
-          <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">
-            <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
-              You currently have no games in your wishlist.
-            </p>
-            <Button
-              text={"Add Games"}
-              icon={"/plus.svg"}
-              isLink={true}
-              href={"/games"}
-            />
-          </div>
-        ) : (
-          <>
-            <SearchContainer
-              isPersonalPage={true}
-              searchParams={searchParams}
-              value={searchParams.search}
-              placeholder={"Search for a game in wishlist..."}
-            />
-
-            {isGipperish ? (
-              <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container mb-[-42px] mt-[-108px]">
-                <span className="text-[32px]">🤥</span>
-                <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
-                  {searchParams.search
-                    ? `No results found for "${searchParams.search}"`
-                    : "No results found"}
-                </p>
-              </div>
-            ) : isNoMoreResults ? (
-              <TooFar searchParams={searchParams} />
-            ) : (
-              // <GameLimitProvider searchParams={searchParams}>
-              <GameContainer
-                arr={games}
-                title={""}
-                isPersonalPage={clerkUser?.id === user?.clerkId}
-                clerkId={clerkUser?.id}
+    <Limit searchParams={searchParams}>
+      <HeadTextProvider headText={`${user?.username}'s wishlist`}>
+        <Heading
+          text={"Wishlist"}
+          clerkId={user?.clerkId}
+          image={user?.image}
+          username={user?.username}
+        />
+        <Container>
+          {isEmpty ? (
+            <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">
+              <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
+                You currently have no games in your wishlist.
+              </p>
+              <Button
+                text={"Add Games"}
+                icon={"/plus.svg"}
+                isLink={true}
+                href={"/games"}
               />
-              // </GameLimitProvider>
-            )}
-            {!isGipperish && (
-              <div className="absolute bottom-[18px] w-full translate-x-[-18px]">
-                <Pagination
-                  searchParams={searchParams}
-                  results={games?.length}
-                  resultsPerPage={resultsPerPage}
+            </div>
+          ) : (
+            <>
+              <SearchContainer
+                isPersonalPage={true}
+                searchParams={searchParams}
+                value={searchParams.search}
+                placeholder={"Search for a game in wishlist..."}
+              />
+
+              {isGipperish ? (
+                <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container mb-[-42px] mt-[-108px]">
+                  <span className="text-[32px]">🤥</span>
+                  <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
+                    {searchParams.search
+                      ? `No results found for "${searchParams.search}"`
+                      : "No results found"}
+                  </p>
+                </div>
+              ) : isNoMoreResults ? (
+                <TooFar searchParams={searchParams} />
+              ) : (
+                // <GameLimitProvider searchParams={searchParams}>
+                <GameContainer
+                  arr={games}
+                  title={""}
+                  isPersonalPage={clerkUser?.id === user?.clerkId}
+                  clerkId={clerkUser?.id}
                 />
-              </div>
-            )}
-          </>
-        )}
-      </Container>
-    </HeadTextProvider>
+                // </GameLimitProvider>
+              )}
+              {!isGipperish && (
+                <div className="absolute bottom-[18px] w-full translate-x-[-18px]">
+                  <Pagination
+                    searchParams={searchParams}
+                    results={games?.length}
+                    resultsPerPage={resultsPerPage}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </Container>
+      </HeadTextProvider>
+    </Limit>
   );
 }

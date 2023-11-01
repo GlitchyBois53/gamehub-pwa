@@ -1,3 +1,4 @@
+import ActiveFilters from "./ActiveFilters";
 import DropDown from "./DropDown";
 import { useCallback } from "react";
 
@@ -66,22 +67,21 @@ export default function Sort({ searchParams, isSearchPage, isPersonalPage }) {
   ];
 
   // checking if there is text in the search bar
-  const textCheck = searchParams.search || searchParams.title;
+  const textCheck = searchParams.search;
 
   return (
-    <article className="mt-[12px] flex justify-between flex-col md:flex-row items-start md:items-center gap-[12px] relative z-30">
+    <article className="mt-[12px] flex justify-between flex-col-reverse md:flex-row items-start md:items-center gap-[12px] relative z-30">
       {isSearchPage && (
         <div>
-          {textCheck && (
+          {textCheck ? (
             <h2 className="text-[12px] font-semibold tracking-[0.72px] uppercase">
-              {searchParams.search ? "Showing results for: " : "Showing "}
+              Showing results for:
               <span className={`${searchParams.search && "italic"}`}>
-                {searchParams.search
-                  ? `"${searchParams.search}"`
-                  : searchParams.title}
+                "{searchParams.search}"
               </span>
-              {!searchParams.search && searchParams.title && " games"}
             </h2>
+          ) : (
+            <ActiveFilters searchParams={searchParams} />
           )}
         </div>
       )}

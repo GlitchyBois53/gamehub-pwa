@@ -83,11 +83,13 @@ export default async function Game({ params }) {
     "games",
     `
     fields name, genres, total_rating, first_release_date, slug, cover; 
-    where id = (${developerObj?.[0]?.developed}) & id != ${game?.id} & parent_game = null & version_parent = null & category = (0, 8, 9, 10) & first_release_date != null; 
+    where id = (${developerObj?.[0]?.developed}) & id != ${game?.id} & parent_game = null & version_parent = null & category = (0, 8, 9, 10); 
     limit 20;
     sort first_release_date desc;
     `
   );
+
+  console.log(developedGames);
 
   // Fetching the dlcs for the game
   const dlcs = await fetchGameData(
@@ -130,7 +132,7 @@ export default async function Game({ params }) {
       {game?.collection && (
         <OtherInSeries collectionId={game?.collection} gameId={game?.id} />
       )}
-      {developerObj?.[0]?.developed && (
+      {developedGames.length !== 0 && (
         <GameWrapper>
           <GameContainer
             arr={developedGames}

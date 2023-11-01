@@ -86,9 +86,6 @@ function Filter({ param, searchParams, activeFilter, text }) {
   const router = useRouter();
   const baseRoute = pathname + "?" + createQueryString(param, "");
   let route = baseRoute;
-  if (baseRoute.includes("title")) {
-    route = baseRoute.replace(/&title=\w+/g, "");
-  }
 
   return (
     <>

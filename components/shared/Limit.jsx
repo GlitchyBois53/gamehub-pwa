@@ -24,12 +24,12 @@ export default function Limit({ children, searchParams }) {
 
   const path = pathname + "?" + createQueryString("limit", limit);
 
+  // push the new path to the router when the limit changes
   useEffect(() => {
     if (limit !== 0) {
       router.push(path);
     }
   }, [limit]);
-  console.log(limit);
 
   return <>{children}</>;
 }

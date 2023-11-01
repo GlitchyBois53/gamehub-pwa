@@ -49,15 +49,18 @@ export default function GameLimitProvider({ children }) {
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
+  // updating the max per line and max per page when the window width changes
   useEffect(() => {
     setMaxPerLine((windowWidth - detract - 32) / 184);
     setMaxPerPage(Math.floor(maxPerLine) * maxRows);
   }, [windowWidth]);
 
+  // setting the max per line when the component mounts
   useEffect(() => {
     setMaxPerLine((windowWidth - detract - 32) / 184);
   }, []);
 
+  // changing the max per page when the max per line changes, and setting the max rows based on the window width
   useEffect(() => {
     if (maxPerLine) {
       setMaxPerPage(Math.floor(maxPerLine) * maxRows);
@@ -70,6 +73,7 @@ export default function GameLimitProvider({ children }) {
   }),
     [maxPerLine];
 
+  // setting the global limit when the max per page changes
   useEffect(() => {
     setLimit(maxPerPage);
   }, [maxPerPage]);

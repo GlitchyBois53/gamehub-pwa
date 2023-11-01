@@ -57,7 +57,7 @@ export default function SearchContainer({
           isPersonalPage={isPersonalPage}
         />
       </div>
-      <ActiveFilters searchParams={searchParams} />
+      {searchParams.search && <ActiveFilters searchParams={searchParams} />}
     </>
   );
 }

@@ -68,7 +68,7 @@ export default async function Search({ searchParams }) {
         <SearchContainer
           isSearchPage={true}
           searchParams={searchParams}
-          value={searchParams.search}
+          value={searchParams?.search}
         />
         {isGipperish ? (
           <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">

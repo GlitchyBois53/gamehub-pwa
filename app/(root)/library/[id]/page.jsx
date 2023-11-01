@@ -10,6 +10,7 @@ import Container from "../../../../components/shared/Container";
 import Button from "../../../../components/shared/Button";
 import TooFar from "../../../../components/shared/TooFar";
 import { currentUser } from "@clerk/nextjs";
+import Limit from "../../../../components/shared/Limit";
 
 export default async function Library({ params, searchParams }) {
   let user = [];
@@ -75,84 +76,86 @@ export default async function Library({ params, searchParams }) {
   const isNoMoreResults = games?.length === 0 && searchParams.offset != null;
 
   return (
-    <HeadTextProvider headText={`${user?.username}'s Library`}>
-      <Heading
-        text={"Library"}
-        clerkId={user?.clerkId}
-        image={user?.image}
-        username={user?.username}
-      />
-      <Container>
-        {isEmpty ? (
-          <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">
-            <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
-              You currently have no games in your library.
-            </p>
-            <Button
-              text={"Add Games"}
-              icon={"/plus.svg"}
-              isLink={true}
-              href={"/games"}
-            />
-          </div>
-        ) : (
-          <>
-            {params?.id !== "nouser" ? (
-              <>
-                <SearchContainer
-                  isPersonalPage={true}
-                  searchParams={searchParams}
-                  value={searchParams.search}
-                  placeholder={"Search for a game in library..."}
-                />
-                {isGipperish ? (
-                  <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container mb-[-42px] mt-[-108px]">
-                    <span className="text-[32px]">🤥</span>
-                    <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
-                      {searchParams.search
-                        ? `No results found for "${searchParams.search}"`
-                        : "No results found"}
-                    </p>
-                  </div>
-                ) : isNoMoreResults ? (
-                  <TooFar searchParams={searchParams} />
-                ) : (
-                  // <GameLimitProvider searchParams={searchParams}>
-                  <GameContainer
-                    arr={games}
-                    title={""}
-                    isPersonalPage={clerkUser?.id === user?.clerkId}
-                    clerkId={clerkUser?.id}
-                    isLibrary={true}
+    <Limit searchParams={searchParams}>
+      <HeadTextProvider headText={`${user?.username}'s Library`}>
+        <Heading
+          text={"Library"}
+          clerkId={user?.clerkId}
+          image={user?.image}
+          username={user?.username}
+        />
+        <Container>
+          {isEmpty ? (
+            <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">
+              <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
+                You currently have no games in your library.
+              </p>
+              <Button
+                text={"Add Games"}
+                icon={"/plus.svg"}
+                isLink={true}
+                href={"/games"}
+              />
+            </div>
+          ) : (
+            <>
+              {params?.id !== "nouser" ? (
+                <>
+                  <SearchContainer
+                    isPersonalPage={true}
+                    searchParams={searchParams}
+                    value={searchParams.search}
+                    placeholder={"Search for a game in library..."}
                   />
-                  // </GameLimitProvider>
-                )}
-                {!isGipperish && (
-                  <div className="absolute bottom-[18px] w-full translate-x-[-18px]">
-                    <Pagination
-                      searchParams={searchParams}
-                      results={games?.length}
-                      resultsPerPage={resultsPerPage}
+                  {isGipperish ? (
+                    <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container mb-[-42px] mt-[-108px]">
+                      <span className="text-[32px]">🤥</span>
+                      <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
+                        {searchParams.search
+                          ? `No results found for "${searchParams.search}"`
+                          : "No results found"}
+                      </p>
+                    </div>
+                  ) : isNoMoreResults ? (
+                    <TooFar searchParams={searchParams} />
+                  ) : (
+                    // <GameLimitProvider searchParams={searchParams}>
+                    <GameContainer
+                      arr={games}
+                      title={""}
+                      isPersonalPage={clerkUser?.id === user?.clerkId}
+                      clerkId={clerkUser?.id}
+                      isLibrary={true}
                     />
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">
-                <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
-                  To see your library, you need to sign in
-                </p>
-                <Button
-                  icon={"/login-icon.svg"}
-                  text={"Sign In"}
-                  isLink={true}
-                  href={"/sign-in"}
-                />
-              </div>
-            )}
-          </>
-        )}
-      </Container>
-    </HeadTextProvider>
+                    // </GameLimitProvider>
+                  )}
+                  {!isGipperish && (
+                    <div className="absolute bottom-[18px] w-full translate-x-[-18px]">
+                      <Pagination
+                        searchParams={searchParams}
+                        results={games?.length}
+                        resultsPerPage={resultsPerPage}
+                      />
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">
+                  <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
+                    To see your library, you need to sign in
+                  </p>
+                  <Button
+                    icon={"/login-icon.svg"}
+                    text={"Sign In"}
+                    isLink={true}
+                    href={"/sign-in"}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </Container>
+      </HeadTextProvider>
+    </Limit>
   );
 }
