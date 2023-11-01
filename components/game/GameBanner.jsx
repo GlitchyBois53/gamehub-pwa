@@ -3,7 +3,7 @@ import { yearConverter } from "../../lib/yearConverter";
 import Button from "../shared/Button";
 import { genres, gameModes } from "../../constants";
 import Rating from "./Rating";
-import { currentUser } from "@clerk/nextjs";
+import { SignedIn, currentUser } from "@clerk/nextjs";
 import GameButtons from "./GameButtons";
 import BackgroundImage from "./BackgroundImage";
 import { fetchFriends, fetchUser } from "../../lib/actions/user.actions";
@@ -159,9 +159,11 @@ export default async function GameBanner({
             />
           </div>
         </section>
-        {sharedGames?.length !== 0 && (
-          <SharedGames sharedGames={sharedGames} />
-        )}
+        <SignedIn>
+          {sharedGames?.length !== 0 && (
+            <SharedGames sharedGames={sharedGames} />
+          )}
+        </SignedIn>
       </article>
     </section>
   );
