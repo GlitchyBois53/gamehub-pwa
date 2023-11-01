@@ -50,12 +50,12 @@ export default function GameLimitProvider({ children }) {
   }, [handleResize]);
 
   useEffect(() => {
-    setMaxPerLine((windowWidth - detract - 24) / 184);
+    setMaxPerLine((windowWidth - detract - 32) / 184);
     setMaxPerPage(Math.floor(maxPerLine) * maxRows);
   }, [windowWidth]);
 
   useEffect(() => {
-    setMaxPerLine((windowWidth - detract - 24) / 184);
+    setMaxPerLine((windowWidth - detract - 32) / 184);
   }, []);
 
   useEffect(() => {
