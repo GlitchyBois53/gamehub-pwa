@@ -72,25 +72,27 @@ export default function GameLimitProvider({ children, searchParams }) {
   // }, [handleResize, maxPerPage, pathname, createQueryString]);
 
   useEffect(() => {
-    setMaxPerLine((maxWidth + 24) / 184);
-    setMaxPerPage(Math.floor(maxPerLine) * maxRows);
-    // Check if the pathname already includes the limit parameter before pushing a new route
-    if (maxPerPage && !pathname.includes("limit")) {
-      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+    if (!pathname.includes("limit")) {
+      setMaxPerLine((maxWidth + 24) / 184);
+      setMaxPerPage(Math.floor(maxPerLine) * maxRows);
+      // Check if the pathname already includes the limit parameter before pushing a new route
+      if (maxPerPage) {
+        router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+      }
     }
   }, [maxWidth, maxPerLine, maxRows, maxPerPage, pathname, createQueryString]);
 
   useEffect(() => {
     if (maxPerLine) {
-      setMaxPerPage(Math.floor(maxPerLine) * maxRows);
       // Check if the pathname already includes the limit parameter before pushing a new route
       if (!pathname.includes("limit")) {
+        setMaxPerPage(Math.floor(maxPerLine) * maxRows);
         router.push(pathname + "?" + createQueryString("limit", maxPerPage));
-      }
-      if (windowWidth < 768) {
-        setMaxRows(6);
-      } else {
-        setMaxRows(3);
+        if (windowWidth < 768) {
+          setMaxRows(6);
+        } else {
+          setMaxRows(3);
+        }
       }
     }
   }, [
