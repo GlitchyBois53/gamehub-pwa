@@ -8,7 +8,7 @@ export default function GameLimitProvider({ children, searchParams }) {
   const router = useRouter();
 
   // Create a ref to the container element
-  const ref = useRef(null);
+
 
   // Create a state variable to store the maximum width of the container and the window width
   const [maxWidth, setMaxWidth] = useState(0);
@@ -54,7 +54,6 @@ export default function GameLimitProvider({ children, searchParams }) {
   // );
 
   function setSizes() {
-    setMaxWidth(ref.current?.clientWidth);
     setWindowWidth(window.innerWidth);
   }
 
@@ -77,11 +76,12 @@ export default function GameLimitProvider({ children, searchParams }) {
 
   useEffect(() => {
     if (!pathname.includes("limit")) {
-      setMaxPerLine((maxWidth + 24) / 184);
+      setMaxPerLine((windowWidth - 100) / 184);
       setMaxPerPage(Math.floor(maxPerLine) * maxRows);
       // Check if the pathname already includes the limit parameter before pushing a new route
       if (maxPerPage) {
         router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+        console.log("ran");
       }
     }
   }, [setSizes]);
@@ -106,7 +106,7 @@ export default function GameLimitProvider({ children, searchParams }) {
   // }, []);
 
   return (
-    <div ref={ref} className="h-full">
+    <div className="h-full">
       {children}
     </div>
   );
