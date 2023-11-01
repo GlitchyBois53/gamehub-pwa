@@ -15,7 +15,7 @@ export default function GameLimitProvider({ children, searchParams }) {
   const [windowWidth, setWindowWidth] = useState(0);
   const [maxPerLine, setMaxPerLine] = useState(0);
   const [maxPerPage, setMaxPerPage] = useState(0);
-  const [maxRows, setMaxRows] = useState(6);
+  const [maxRows, setMaxRows] = useState(3);
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -53,10 +53,14 @@ export default function GameLimitProvider({ children, searchParams }) {
   //   []
   // );
 
-  // Set the initial maximum width of the container
-  useEffect(() => {
+  function setSizes() {
     setMaxWidth(ref.current?.clientWidth);
     setWindowWidth(window.innerWidth);
+  }
+
+  // Set the initial maximum width of the container
+  useEffect(() => {
+    setSizes();
   }, []);
 
   // Add a resize event listener to the window
@@ -80,26 +84,26 @@ export default function GameLimitProvider({ children, searchParams }) {
         router.push(pathname + "?" + createQueryString("limit", maxPerPage));
       }
     }
-  }, [maxWidth, maxPerLine, maxRows, maxPerPage, pathname, createQueryString]);
+  }, [setSizes]);
 
-  useEffect(() => {
-    if (maxPerLine) {
-      // Check if the pathname already includes the limit parameter before pushing a new route
-      if (!pathname.includes("limit")) {
-        // setMaxPerPage(Math.floor(maxPerLine) * maxRows);
-        // router.push(pathname + "?" + createQueryString("limit", maxPerPage));
-        if (windowWidth < 768) {
-          setMaxRows(6);
-        } else {
-          setMaxRows(3);
-        }
-      }
-    }
-  }, [windowWidth]);
+  // useEffect(() => {
+  //   if (maxPerLine) {
+  //     // Check if the pathname already includes the limit parameter before pushing a new route
+  //     if (!pathname.includes("limit")) {
+  //       // setMaxPerPage(Math.floor(maxPerLine) * maxRows);
+  //       // router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+  //       if (windowWidth < 768) {
+  //         setMaxRows(6);
+  //       } else {
+  //         setMaxRows(3);
+  //       }
+  //     }
+  //   }
+  // }, [windowWidth]);
 
-  useEffect(() => {
-    setMaxPerLine((maxWidth + 24) / 184);
-  }, []);
+  // useEffect(() => {
+  //   setMaxPerLine((maxWidth + 24) / 184);
+  // }, []);
 
   return (
     <div ref={ref} className="h-full">
