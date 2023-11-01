@@ -18,6 +18,8 @@ export const useStore = createWithEqualityFn()(
     setHeadTitle: (headTitle) => set(() => ({ headTitle: headTitle })),
     activeMore: "",
     setActiveMore: (activeMore) => set(() => ({ activeMore: activeMore })),
+    limit: 24,
+    setLimit: (limit) => set(() => ({ limit: limit })),
   }),
   Object.is
 );

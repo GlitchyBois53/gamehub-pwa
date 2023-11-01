@@ -6,7 +6,6 @@ import GameLimitProvider from "../../../components/shared/GameLimitProvider";
 import TooFar from "../../../components/shared/TooFar";
 
 export default async function Search({ searchParams }) {
-
   // Setting the search params for filtering
   const search = searchParams?.search;
   const resultsPerPage = searchParams?.limit || 24;
@@ -81,9 +80,7 @@ export default async function Search({ searchParams }) {
       ) : isNoMoreResults ? (
         <TooFar searchParams={searchParams} />
       ) : (
-        // <GameLimitProvider searchParams={searchParams}>
         <GameContainer arr={games} title={""} />
-        // </GameLimitProvider>
       )}
       {!isGipperish && (
         <Pagination

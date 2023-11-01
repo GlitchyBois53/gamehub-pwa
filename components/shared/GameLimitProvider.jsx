@@ -1,113 +1,78 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, use } from "react";
+import { useStore } from "../../app/store";
 
-export default function GameLimitProvider({ children, searchParams }) {
-  const pathname = usePathname();
-  const router = useRouter();
-
-  // Create a ref to the container element
-
-
+export default function GameLimitProvider({ children }) {
   // Create a state variable to store the maximum width of the container and the window width
-  const [maxWidth, setMaxWidth] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   const [maxPerLine, setMaxPerLine] = useState(0);
   const [maxPerPage, setMaxPerPage] = useState(0);
-  const [maxRows, setMaxRows] = useState(3);
+  const [maxRows, setMaxRows] = useState(6);
+  const setLimit = useStore((state) => state.setLimit);
 
-  const createQueryString = useCallback(
-    (name, value) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value.toString());
-
-      return params.toString();
-    },
-    [searchParams]
-  );
+  const detract = windowWidth < 768 ? 0 : 100;
 
   // Define a function to debounce the resize event listener
-  // function debounce(func, wait, immediate) {
-  //   let timeout;
-  //   return function () {
-  //     const context = this,
-  //       args = arguments;
-  //     const later = function () {
-  //       timeout = null;
-  //       if (!immediate) func.apply(context, args);
-  //     };
-  //     const callNow = immediate && !timeout;
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(later, wait);
-  //     if (callNow) func.apply(context, args);
-  //   };
-  // }
-
-  // Define a function to handle the resize event
-  // const handleResize = useCallback(
-  //   debounce(() => {
-  //     setMaxWidth(ref.current?.clientWidth);
-  //     setWindowWidth(window.innerWidth);
-  //   }, 100),
-  //   []
-  // );
-
-  function setSizes() {
-    setWindowWidth(window.innerWidth);
+  function debounce(func, wait, immediate) {
+    let timeout;
+    return function () {
+      const context = this,
+        args = arguments;
+      const later = function () {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      const callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
   }
+  // Define a function to handle the resize event
+  const handleResize = useCallback(
+    debounce(() => {
+      setWindowWidth(window.innerWidth);
+    }, 100),
+    []
+  );
 
   // Set the initial maximum width of the container
   useEffect(() => {
-    setSizes();
+    setWindowWidth(window.innerWidth);
   }, []);
 
   // Add a resize event listener to the window
-
-  // useEffect(() => {
-  //   window.addEventListener("resize", handleResize);
-  //   // Check if the pathname already includes the limit parameter before pushing a new route
-  //   if (maxPerPage && !pathname.includes("limit")) {
-  //     router.push(pathname + "?" + createQueryString("limit", maxPerPage));
-  //   }
-  //   // Remove the resize event listener when the component unmounts
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, [handleResize, maxPerPage, pathname, createQueryString]);
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    // Remove the resize event listener when the component unmounts
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
 
   useEffect(() => {
-    if (!pathname.includes("limit")) {
-      setMaxPerLine((windowWidth - 100) / 184);
+    setMaxPerLine((windowWidth - detract) / 184);
+    setMaxPerPage(Math.floor(maxPerLine) * maxRows);
+  }, [windowWidth]);
+
+  useEffect(() => {
+    setMaxPerLine((windowWidth - detract) / 184);
+  }, []);
+
+  useEffect(() => {
+    if (maxPerLine) {
       setMaxPerPage(Math.floor(maxPerLine) * maxRows);
-      // Check if the pathname already includes the limit parameter before pushing a new route
-      if (maxPerPage) {
-        router.push(pathname + "?" + createQueryString("limit", maxPerPage));
-        console.log("ran");
+      if (windowWidth < 768) {
+        setMaxRows(6);
+      } else {
+        setMaxRows(3);
       }
     }
-  }, [setSizes]);
+  }),
+    [maxPerLine];
 
-  // useEffect(() => {
-  //   if (maxPerLine) {
-  //     // Check if the pathname already includes the limit parameter before pushing a new route
-  //     if (!pathname.includes("limit")) {
-  //       // setMaxPerPage(Math.floor(maxPerLine) * maxRows);
-  //       // router.push(pathname + "?" + createQueryString("limit", maxPerPage));
-  //       if (windowWidth < 768) {
-  //         setMaxRows(6);
-  //       } else {
-  //         setMaxRows(3);
-  //       }
-  //     }
-  //   }
-  // }, [windowWidth]);
+  useEffect(() => {
+    setLimit(maxPerPage);
+  }, [maxPerPage]);
 
-  // useEffect(() => {
-  //   setMaxPerLine((maxWidth + 24) / 184);
-  // }, []);
-
-  return (
-    <div className="h-full">
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }

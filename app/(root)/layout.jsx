@@ -6,6 +6,7 @@ import NavbarMobile from "../../components/navigation/NavbarMobile";
 import ThemeProvider from "../../components/shared/ThemeProvider";
 import Head from "../../components/shared/Head";
 import { Toaster } from "sonner";
+import GameLimitProvider from "../../components/shared/GameLimitProvider";
 
 // Importing the Barlow font
 const barlow = Barlow({
@@ -19,19 +20,21 @@ export default async function RootLayout({ children }) {
       <html lang="en">
         <Head />
         <body>
-          <ThemeProvider font={barlow.className}>
-            <NavbarMobile />
-            <NavbarDesktop />
-            <main className="md:ml-[100px] mt-[96px] pb-[122px] md:pb-[36px] md:mt-0 p-[24px] md:pl-[32px]">
-              {children}
-            </main>
-            <Toaster
-              style={{
-                fontFamily: "Barlow",
-                letterSpacing: "0.72px",
-              }}
-            />
-          </ThemeProvider>
+          <GameLimitProvider>
+            <ThemeProvider font={barlow.className}>
+              <NavbarMobile />
+              <NavbarDesktop />
+              <main className="md:ml-[100px] mt-[96px] pb-[122px] md:pb-[36px] md:mt-0 p-[24px] md:pl-[32px]">
+                {children}
+              </main>
+              <Toaster
+                style={{
+                  fontFamily: "Barlow",
+                  letterSpacing: "0.72px",
+                }}
+              />
+            </ThemeProvider>
+          </GameLimitProvider>
         </body>
       </html>
     </ClerkProvider>

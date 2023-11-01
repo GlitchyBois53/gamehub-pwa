@@ -18,6 +18,7 @@ export default function Search({
   const pathname = usePathname();
   const theme = useStore((state) => state.theme);
   const router = useRouter();
+  const limit = useStore((state) => state.limit);
 
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
@@ -48,7 +49,9 @@ export default function Search({
     e.preventDefault();
     // if the user is not on the search page, redirect to the search page
     if (searchValue && !isSearchPage) {
-      router.push(`/search/?search=${searchValue.toLowerCase()}`);
+      router.push(
+        `/search/?search=${searchValue.toLowerCase()}&limit=${limit}`
+      );
       return;
       // if the user is on the search page, update the search query
     } else if ((searchValue && isSearchPage) || includedPaths) {
@@ -57,7 +60,10 @@ export default function Search({
       if (path.includes("offset")) {
         path = path.replace(/&offset=\d+/g, "");
       }
-      router.push(path + "&offset=0");
+      if (path.includes("limit")) {
+        path = path.replace(/&limit=\d+/g, "");
+      }
+      router.push(path + `&offset=0&limit=${limit}`);
       return;
     }
     // if the user presses enter without entering a search term, show an error toast
