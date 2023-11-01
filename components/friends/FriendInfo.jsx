@@ -48,8 +48,6 @@ export default function FriendInfo({ id, image, username, email, isBigCard }) {
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
-  console.log(maxWidth);
-
   return (
     <Link
       href={`/profile/${id}`}

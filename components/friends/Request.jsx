@@ -107,8 +107,6 @@ function Card({ request, commonGames, clerkId }) {
     setWindowWidth(window.innerWidth);
   }, []);
 
-  console.log(windowWidth);
-
   const add = windowWidth > 768 ? 0 : ref?.current?.clientHeight;
 
   return (
