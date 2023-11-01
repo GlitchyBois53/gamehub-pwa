@@ -8,7 +8,6 @@ export default function FriendInfo({ id, image, username, email, isBigCard }) {
 
   // Create a state variable to store the maximum width of the container and the window width
   const [maxWidth, setMaxWidth] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(0);
 
   // Define a function to debounce the resize event listener
   function debounce(func, wait, immediate) {
@@ -30,7 +29,6 @@ export default function FriendInfo({ id, image, username, email, isBigCard }) {
   const handleResize = useCallback(
     debounce(() => {
       setMaxWidth(ref.current?.clientWidth);
-      setWindowWidth(window.innerWidth);
     }, 100),
     []
   );
@@ -38,7 +36,6 @@ export default function FriendInfo({ id, image, username, email, isBigCard }) {
   // Set the initial maximum width of the container
   useEffect(() => {
     setMaxWidth(ref.current?.clientWidth);
-    setWindowWidth(window.innerWidth);
   }, []);
 
   // Add a resize event listener to the window

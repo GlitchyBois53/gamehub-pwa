@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+// This component is used to display a heading, it's used many times throughout the app.
 export default function Heading({ text, image, username, clerkId }) {
   return (
     <>

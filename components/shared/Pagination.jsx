@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { useStore } from "../../app/store";
 
+// This component is used to handle pagination on the search page
 export default function Pagination({ searchParams, results, resultsPerPage }) {
   const router = useRouter();
   const theme = useStore((state) => state.theme);

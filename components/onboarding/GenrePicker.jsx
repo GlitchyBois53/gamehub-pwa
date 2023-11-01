@@ -8,14 +8,14 @@ import { updateGenres } from '../../lib/actions/user.actions';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import Toast from '../shared/Toast';
-
+// This component is used in Onboarding page to pick genres
 export default function GenrePicker({ clerkId, genreArr }) {
   const theme = useStore((store) => store.theme);
   const router = useRouter();
 
   const [pickGenres, setPickGenres] = useState(genreArr);
   const pickedGenresIdArray = pickGenres.map((genre) => genre.genreId);
-
+  // this function is used to handle click on genre button
   function handleClick(id, name) {
     if (pickedGenresIdArray.includes(id)) {
       setPickGenres(pickGenres.filter((genre) => genre.genreId !== id));
@@ -23,7 +23,7 @@ export default function GenrePicker({ clerkId, genreArr }) {
       setPickGenres([...pickGenres, { genreId: id, name: name }]);
     }
   }
-
+  // this function is used to handle click on next button - it updates genres in db and must have at least 1 genre and max 3 genres
   async function handleSubmit() {
     if (pickGenres.length < 1) {
       toast.custom((t) => (
@@ -43,7 +43,7 @@ export default function GenrePicker({ clerkId, genreArr }) {
     await updateGenres({ clerkId: clerkId, genres: pickGenres });
     router.push('/onboarding/appearance');
   }
-
+  // this component renders all genres and handles click on genre button
   return (
     <>
       <article className="flex flex-wrap gap-[10px] justify-center pt-[70px] pb-[46px]">

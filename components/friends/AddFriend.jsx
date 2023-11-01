@@ -12,18 +12,23 @@ import {
 } from "../../lib/actions/user.actions";
 import { useServerAction } from "../../lib/useServerAction";
 
+// This component is used to display the add friend modal
 export default function AddFriend({
   isAddFriendOpen,
   setIsAddFriendOpen,
   users,
   clerkId,
 }) {
+  // state to control the search value
   const [searchValue, setSearchValue] = useState("");
+  // state to control the search results
   const [searchResults, setSearchResults] = useState([]);
+  // state to control whether the form is submitted
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const gunkUser = users.find((user) => user?.clerkId === clerkId);
 
+  // function to handle the submit
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -37,6 +42,7 @@ export default function AddFriend({
     setIsSubmitted(true);
   }
 
+  // function to handle the change
   function handleChange(e) {
     setSearchValue(e.target.value);
     setIsSubmitted(false);
@@ -96,6 +102,7 @@ function Card({ friend, commonGames, currentUser }) {
   const [runAcceptAction, isAcceptingRunning] = useServerAction(acceptRequest);
   const [runRemoveAction, isRemovingRunning] = useServerAction(removeFriend);
 
+  // function to send a friend request
   async function sendFriendRequest() {
     await runRequestAction({
       clerkId: currentUser?.clerkId,
@@ -103,6 +110,7 @@ function Card({ friend, commonGames, currentUser }) {
     });
   }
 
+  // function to accept a friend request
   async function acceptFriendRequest() {
     await runAcceptAction({
       clerkId: currentUser?.clerkId,
@@ -110,6 +118,7 @@ function Card({ friend, commonGames, currentUser }) {
     });
   }
 
+  // function to remove a friend
   async function handleRemoveFriend() {
     await runRemoveAction({
       clerkId: currentUser?.clerkId,
@@ -117,6 +126,7 @@ function Card({ friend, commonGames, currentUser }) {
     });
   }
 
+  // state to control the status of the friend
   let status = "none";
 
   if (currentUser?.friends?.includes(friend?.clerkId)) {

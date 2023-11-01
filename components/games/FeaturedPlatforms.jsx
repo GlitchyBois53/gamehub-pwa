@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { featuredPlatforms } from "../../constants";
 
+// This component is used to display the featured platforms
 export default function FeaturedPlatforms() {
   return (
     <article className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 gap-[24px] mt-[32px]">
@@ -11,6 +12,7 @@ export default function FeaturedPlatforms() {
   );
 }
 
+// This component is used to display a platform
 function Platform({ platform }) {
   return (
     <Link href={platform.href}>

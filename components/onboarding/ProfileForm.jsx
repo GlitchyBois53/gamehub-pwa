@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Toast from "../shared/Toast";
 
+// This component is used to display the profile form in the onboarding process
 export default function ProfileForm({ username, image, email, clerkId }) {
   const theme = useStore((state) => state.theme);
   const [form, setForm] = useState({
@@ -24,6 +25,7 @@ export default function ProfileForm({ username, image, email, clerkId }) {
 
   const router = useRouter();
 
+  // function to handle the change
   function handleChange(e) {
     setForm({
       ...form,
@@ -31,6 +33,7 @@ export default function ProfileForm({ username, image, email, clerkId }) {
     });
   }
 
+  // function to handle the submit
   async function handleSubmit(e) {
     e.preventDefault();
     if (form.username == "") {
@@ -46,6 +49,7 @@ export default function ProfileForm({ username, image, email, clerkId }) {
     ));
   }
 
+  // function to submit the user to the database
   async function submitUserToDB() {
     await updateUser({
       email: email,
@@ -55,6 +59,7 @@ export default function ProfileForm({ username, image, email, clerkId }) {
     });
   }
 
+  // function to handle the error
   if (error.isActive) {
     toast.error(error.message);
   }

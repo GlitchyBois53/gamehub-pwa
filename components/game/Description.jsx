@@ -2,15 +2,18 @@
 
 import { useEffect, useState } from "react";
 
+// this component is used to display the description for the game
 export default function Description({ description }) {
   const [paragraph, setParagraph] = useState(description);
 
+  // setting the paragraph to show only 500 characters, and adding the show more text
   useEffect(() => {
     if (description.length > 500) {
       setParagraph(description.slice(0, 500) + "...\n\nSHOW MORE");
     }
   }, []);
 
+  // this function is used to toggle the description between 500 characters and the full description
   function handleClick() {
     if (description.length <= 500) return;
     if (paragraph === description + "\n\nSHOW LESS") {

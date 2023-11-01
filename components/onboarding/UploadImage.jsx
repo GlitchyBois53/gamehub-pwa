@@ -3,6 +3,7 @@
 import { UploadButton } from "@uploadthing/react";
 import { motion as m } from "framer-motion";
 
+// This component is used to upload the image for the onboarding process, it uses the UploadThing library
 export default function UploadImage({
   image,
   images,
@@ -105,7 +106,6 @@ export default function UploadImage({
             });
           }}
         />
-        {/* TODO Make error message if image is not supported or larger than 4 mb */}
       </div>
     </div>
   );

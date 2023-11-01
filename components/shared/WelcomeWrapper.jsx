@@ -6,6 +6,7 @@ import Toast from "./Toast";
 import { useStore } from "../../app/store";
 import { shallow } from "zustand/shallow";
 
+// this component is used to show a welcome message to the user when they first log in
 export default function WelcomeWrapper({ children, clerkUser, username }) {
   let count = 0;
   const [isWelcomed, setIsWelcomed] = useStore(

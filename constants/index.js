@@ -1,3 +1,4 @@
+// An array of objects containing the name and id of each genre from IDGB API
 export const genres = [
   { genreId: 2, name: "Point & click" },
   { genreId: 4, name: "Fighting" },
@@ -23,7 +24,7 @@ export const genres = [
   { genreId: 35, name: "Board Game" },
   { genreId: 36, name: "MOBA" },
 ];
-
+// An array of objects containing the name and id of each theme from IDGB API
 export const themes = [
   { id: 20, name: "Thriller" },
   { id: 18, name: "Science fiction" },
@@ -47,7 +48,7 @@ export const themes = [
   { id: 44, name: "Romance" },
   { id: 42, name: "Erotic" },
 ];
-
+// For randomizing by letters
 export const alphabet = [
   "A",
   "B",
@@ -72,16 +73,16 @@ export const alphabet = [
   "V",
   "W",
 ];
-
+// Sorting methods
 export const igdbSortMethods = [
   "total_rating",
   "first_release_date",
   "rating",
   "aggregated_rating",
 ];
-
+// Order methods
 export const igdbSortOrders = ["asc", "desc"];
-
+// An array of objects representing each game mode
 export const gameModes = [
   {
     id: 1,
@@ -138,7 +139,7 @@ export const gameModes = [
     checksum: "bfc388ac-0502-ba05-af25-3dcc94a0acf3",
   },
 ];
-
+// An array of objects containing each gaming platform
 export const platforms = [
   { id: 3, name: "Linux" },
   { id: 4, name: "Nintendo 64" },
@@ -344,7 +345,7 @@ export const platforms = [
   { id: 441, name: "PocketStation" },
   { id: 471, name: "Meta Quest 3" },
 ];
-
+// An array of objects for each decade
 export const years = [
   {
     name: "1970s",
@@ -371,7 +372,7 @@ export const years = [
     years: "1577836800-1893455999",
   },
 ];
-
+// An array of objects for ratings
 export const ratings = [
   {
     name: "1.0+",
@@ -410,7 +411,7 @@ export const ratings = [
     rating: 90,
   },
 ];
-
+// An array of objects merging all sub-platforms into main ones
 export const filterPlatforms = [
   {
     name: "Playstation",
@@ -446,7 +447,7 @@ export const filterPlatforms = [
     hardware: "15, 71, 90, 93, 94, 158",
   },
 ];
-
+// An array of objects containg each of the main platforms
 export const featuredPlatforms = [
   {
     icon: "/playstation-icon.png",

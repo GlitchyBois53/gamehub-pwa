@@ -5,6 +5,7 @@ import { genres } from "../../constants";
 import Button from "../shared/Button";
 import UserCard from "./UserCard";
 
+// This component is used to display the user's information
 export default function UserInfo({
   username,
   email,

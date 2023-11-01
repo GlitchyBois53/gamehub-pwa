@@ -24,10 +24,12 @@ export default function GameButtons({
   const [runWishlistAction, isWishlistRunning] =
     useServerAction(handleSetWishlist);
 
+  // this function is used to send a toast notification
   function sendToast(state, message) {
     toast.custom((t) => <Toast t={t} type={state} message={message} />);
   }
 
+  // this function is used to run the library action
   async function libraryAction() {
     await runLibraryAction({
       clerkId: clerkId,
@@ -36,6 +38,7 @@ export default function GameButtons({
     });
   }
 
+  // this function is used to run the wishlist action
   async function wishlistAction() {
     await runWishlistAction({
       clerkId: clerkId,
@@ -44,6 +47,7 @@ export default function GameButtons({
     });
   }
 
+  // this function is used to handle the library action
   function handleLibrary() {
     if (clerkUser) {
       libraryAction();
@@ -57,6 +61,7 @@ export default function GameButtons({
     }
   }
 
+  // this function is used to handle the wishlist action
   function handleWishlist() {
     if (clerkUser) {
       wishlistAction();

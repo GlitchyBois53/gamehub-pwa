@@ -3,6 +3,7 @@ import GameContainer from "../shared/GameContainer";
 import GameWrapper from "../game/GameWrapper";
 
 export default async function SimilarGames({ gameIds }) {
+  // fetching the similar games
   const similarGames = await fetchGameData(
     "games",
     `

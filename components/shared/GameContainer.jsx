@@ -4,6 +4,7 @@ import GameCard from "./GameCard";
 import Button from "./Button";
 import Closer from "./Closer";
 
+// This component is used to display a list of games, it's used many times throughout the app, and is very flexible
 export default async function GameContainer({
   arr,
   title,
@@ -24,6 +25,7 @@ export default async function GameContainer({
     coverIdArr = arr.map((game) => parseInt(game.cover));
   }
 
+  // fetch the cover data for the games
   const coverArr = await fetchGameData(
     "covers",
     `fields image_id; where id = (${coverIdArr}); limit 100;`

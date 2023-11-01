@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { getRandomIndex } from "../../lib/getRandomIndex";
 
+// This component is used to display the background image for the game page
 export default function BackgroundImage({ screenshotArr, name }) {
   const [screenshot, setScreenshot] = useState(null);
 
+  // setting the background image to a random screenshot from the game, on the first render of the component
   useEffect(() => {
     setScreenshot(getRandomIndex(screenshotArr));
   }, []);

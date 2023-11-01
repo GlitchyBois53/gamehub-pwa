@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useStore } from "../../app/store";
 
+// This component is used to display the logo
 export default function Logo() {
   const theme = useStore((store) => store.theme);
 

@@ -1,3 +1,4 @@
+// This component is a container, that is used to wrap other components.
 export default function Container({ children, noPagination, overflow }) {
   return (
     <div

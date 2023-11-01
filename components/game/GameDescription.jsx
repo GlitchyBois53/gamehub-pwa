@@ -17,16 +17,19 @@ export default async function GameDescription({
     (company) => company.publisher
   )?.company;
 
+  // Fetching the developer for the game
   const developer = await fetchGameData(
     "companies",
     `fields name; where id = ${developerId}; limit 1;`
   );
 
+  // Fetching the publisher for the game
   const publisher = await fetchGameData(
     "companies",
     `fields name; where id = ${publisherId}; limit 1;`
   );
 
+  // Fetching the videos for the game
   const videos = await fetchGameData(
     "game_videos",
     `fields video_id; where game = ${game?.id}; limit 100;`
@@ -121,6 +124,7 @@ function Platforms({ platforms }) {
 }
 
 function Information({ developer, publisher, release_date }) {
+  // converts the unix timestamp to a date thats readable
   const release = timeConverter(release_date);
 
   return (

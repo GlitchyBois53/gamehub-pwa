@@ -3,6 +3,7 @@ import { genres } from "../../constants";
 import { yearConverter } from "../../lib/yearConverter";
 import DeleteGame from "./DeleteGame";
 
+// This component is used to display a game card, it's used many times throughout the app.
 export default async function GameCard({
   game,
   imageId,
@@ -10,12 +11,15 @@ export default async function GameCard({
   clerkId,
   isLibrary,
 }) {
+  // finds the genre name from the genre id of the game
   const genre = genres?.find(
     (genre) => genre?.genreId == game?.genres?.[0]
   )?.name;
 
+  // converts the release date to a year
   const releaseYear = yearConverter(game?.first_release_date);
 
+  // converts the rating to a 10 point scale
   const rating = Math.floor(game?.total_rating) / 10;
   return (
     <article className="relative">

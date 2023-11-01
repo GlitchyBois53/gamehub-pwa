@@ -2,6 +2,7 @@
 
 import { useStore } from "../../app/store";
 
+// This component is used to display a vertical line
 export default function Vr({ isResponsive }) {
   const theme = useStore((store) => store.theme);
   return (

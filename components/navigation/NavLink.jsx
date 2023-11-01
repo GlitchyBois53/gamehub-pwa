@@ -18,28 +18,7 @@ export default function NavLink({
   // importing the theme from the store
   const theme = useStore((store) => store.theme);
 
-  // setting the source of the image based on the current page and the theme
-  // let source;
-  // if (href !== '/') {
-  //   if (pathname.includes(href)) {
-  //     source = activeIcon;
-  //   } else if (theme === 'light') {
-  //     source = icon;
-  //   } else {
-  //     source = iconDark;
-  //   }
-  // } else {
-  //   if (pathname === '/') {
-  //     source = activeIcon;
-  //   } else if (theme === 'light') {
-  //     source = icon;
-  //   } else {
-  //     source = iconDark;
-  //   }
-  // }
-
-  // Alternative to the above
-  //  TODO MORE CONCISE (BUT MAYBE A BIT HARDER TO READ)
+  // using pathname to check if the current page is the same as the link, and if it is, using the activeIcon, else using the icon
   const source =
     href !== "/"
       ? pathname.includes(href)

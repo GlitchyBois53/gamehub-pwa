@@ -6,6 +6,7 @@ import AddFriend from "./AddFriend";
 import Request from "./Request";
 import { useState } from "react";
 
+// This component is used to display the friend container
 export default function FriendContainer({
   clerkId,
   users,
@@ -13,7 +14,9 @@ export default function FriendContainer({
   searchParams,
   hasRequest,
 }) {
+  // state to control the add friend modal
   const [isAddFriendOpen, setIsAddFriendOpen] = useState(false);
+  // state to control the request modal
   const [isRequestOpen, setIsRequestOpen] = useState(false);
 
   const currentUser = users.find((user) => user?.clerkId === clerkId);

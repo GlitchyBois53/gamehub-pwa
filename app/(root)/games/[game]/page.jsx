@@ -18,6 +18,7 @@ export default async function Game({ params }) {
   const clerkUser = await currentUser();
   let dbUser = null;
 
+  // Fetching the game data based on the slug in the url
   const gameFetch = await fetchGameData(
     "games",
     `fields *; where slug = "${params.game}"; limit 1;`
@@ -25,6 +26,7 @@ export default async function Game({ params }) {
 
   const game = gameFetch[0];
 
+  // If the user is logged in, add the game to their recently viewed list
   if (clerkUser) {
     await setRecentlyViewed({
       clerkId: clerkUser?.id,
@@ -43,12 +45,13 @@ export default async function Game({ params }) {
 
   const screenIdArr = game?.screenshots?.map((screenshot) => screenshot);
 
+  // Fetching the screenshots for the game
   const screenshots = await fetchGameData(
     "screenshots",
     `fields image_id; where id = (${screenIdArr}); limit 100;`
   );
 
-  // TODO Move to description Component
+  // fetching the platforms for the game
   const platformId = game?.platforms?.map((platform) => platform);
   const platforms = platformId
     ? await fetchGameData(
@@ -57,6 +60,7 @@ export default async function Game({ params }) {
       )
     : null;
 
+  // Fetching the involved companies for the game
   const involvedCompanyId = game?.involved_companies;
   const involvedCompany = involvedCompanyId
     ? await fetchGameData(
@@ -65,13 +69,16 @@ export default async function Game({ params }) {
       )
     : null;
 
+  // Fetching the developer for the game
   const developer = involvedCompany?.find((company) => company.developer);
 
+  // Fetching the gameIds of games developed by the developer
   const developerObj = await fetchGameData(
     "companies",
     `fields *; where id = ${developer.company}; limit 1;`
   );
 
+  // Fetching the games developed by the developer
   const developedGames = await fetchGameData(
     "games",
     `
@@ -82,6 +89,7 @@ export default async function Game({ params }) {
     `
   );
 
+  // Fetching the dlcs for the game
   const dlcs = await fetchGameData(
     "games",
     `
@@ -92,6 +100,7 @@ export default async function Game({ params }) {
     `
   );
 
+  // Making an array of the gameIds of the similar games
   const similarGameIds = game?.similar_games?.map((game) => game);
 
   return (

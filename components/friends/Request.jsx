@@ -7,6 +7,7 @@ import FriendInfo from "./FriendInfo";
 import { useServerAction } from "../../lib/useServerAction";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+// This component is used to display the friend requests modal
 export default function Request({
   isRequestOpen,
   setIsRequestOpen,
@@ -54,6 +55,7 @@ function Card({ request, commonGames, clerkId }) {
   const [runDeclineAction, isDecliningRunning] =
     useServerAction(declineRequest);
 
+  // function to accept a friend request
   async function acceptFriendRequest() {
     await runAcceptAction({
       clerkId: clerkId,
@@ -61,6 +63,7 @@ function Card({ request, commonGames, clerkId }) {
     });
   }
 
+  // function to decline a friend request
   async function declineFriendRequest() {
     await runDeclineAction({
       clerkId: clerkId,

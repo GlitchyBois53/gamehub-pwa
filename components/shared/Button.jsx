@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useStore } from "../../app/store";
 
+// This component is used to render buttons, it's used many times throughout the app, and is very flexible
 export default function Button({
   icon,
   lightIcon,
@@ -21,7 +22,7 @@ export default function Button({
 }) {
   return (
     <>
-      {/* rendering button componenent inside either a Link og a button */}
+      {/* rendering button componenent inside either a Link or a button */}
       {isLink ? (
         <Link href={href} className={`block ${buttonWidth || "w-max"}`}>
           <ButtonBody

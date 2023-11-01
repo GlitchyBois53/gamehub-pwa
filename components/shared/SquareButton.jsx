@@ -13,8 +13,10 @@ export default function SquareButton({
   let color = ["#00D1FF", "#7E43DF"];
   let text = "Add";
 
+  // state to control the hover
   const [isHovered, setIsHovered] = useState(false);
 
+  // setting the icon and color based on the variant
   if (variant === "check") {
     icon = "/checkmark.png";
     color = ["#00FF1A", "#00C514"];

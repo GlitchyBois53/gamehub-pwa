@@ -37,10 +37,13 @@ export default async function Home() {
 
   let recommendedGames = null;
 
+  // if the user has selected genres, fetch the recommended games
   if (genreIdArr && genreIdArr.length !== 0) {
+    // setting the random letter and sort method for the recommended games
     const randomLetterIndex = getRandomIndex(alphabet);
     const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
     const randomSortMethodOrder = getRandomIndex(igdbSortOrders);
+    // fetching the recommended games
     recommendedGames = await fetchGameData(
       "games",
       `
@@ -52,10 +55,12 @@ export default async function Home() {
     );
   }
 
+  // setting the random letter and sort method for the hero games
   const randomLetterIndex = getRandomIndex(alphabet);
   const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
   const randomSortMethodOrder = getRandomIndex(igdbSortOrders);
 
+  // fetching the hero games
   const heroGames = await fetchGameData(
     "games",
     `
@@ -84,16 +89,19 @@ export default async function Home() {
           )}
           {dbUser && dbUser.recentlyViewed.length !== 0 && (
             <GameContainer
+              // reverse the array to show the most recent games first
               arr={dbUser?.recentlyViewed.reverse()}
               isScrollable={true}
               title={"Recently Viewed"}
             />
           )}
           {genreChoices.map(async (genre) => {
+            // setting the random letter and sort method for the genre games
             const randomLetterIndex = getRandomIndex(alphabet);
             const randomSortMethodIndex = getRandomIndex(igdbSortMethods);
             const randomSortMethodOrder = getRandomIndex(igdbSortOrders);
 
+            // fetching the genre games
             const genreData = await fetchGameData(
               "games",
               `

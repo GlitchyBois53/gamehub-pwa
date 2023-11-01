@@ -2,6 +2,7 @@ import { fetchGameData } from '../../lib/fetchGameData.js';
 import ImageSlider from './ImageSlider.jsx';
 
 export default async function ImageSliderContainer({ games }) {
+  // fetch the cover and screenshot data for the games
   const gameCoverIdArr = games?.map((game) => game.cover);
   const gameCoverArr = await fetchGameData(
     'covers',

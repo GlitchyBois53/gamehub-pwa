@@ -3,6 +3,7 @@
 import { shallow } from "zustand/shallow";
 import { useStore } from "../../app/store";
 
+// This component is used to close the more menu
 export default function Closer() {
   const [activeMore, setActiveMore] = useStore(
     (store) => [store.activeMore, store.setActiveMore],

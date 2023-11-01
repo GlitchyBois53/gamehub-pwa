@@ -3,8 +3,8 @@
 import { usePathname } from "next/navigation";
 import { useStore } from "../../app/store";
 
+// This component is used to display the head of the page
 export default function Head() {
-  // TODO: this components needs to be refactored, but the general idea is that it sets the title of the page based on the current path
   const headText = useStore((store) => store.headTitle);
   const pathname = usePathname();
   const pathSplit = pathname.split("/");

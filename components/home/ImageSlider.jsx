@@ -11,6 +11,7 @@ import { getRandomIndex } from "../../lib/getRandomIndex";
 export default function ImageSlider({ games, coverArr, screenshotArr }) {
   const theme = useStore((store) => store.theme);
 
+  // settings for the slider (react-slick)
   var settings = {
     infinte: true,
     speed: 2000,
@@ -41,6 +42,7 @@ export default function ImageSlider({ games, coverArr, screenshotArr }) {
             cover = coverArr?.find((cover) => cover.id === game.cover).image_id;
           }
 
+          // Get a random screenshot for each game
           const randomScreenShot = getRandomIndex(screenshots);
           return (
             <HeroCard

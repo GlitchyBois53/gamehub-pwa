@@ -18,6 +18,7 @@ export default async function Friends({ searchParams }) {
 
   const friendRequests = await fetchFriendRequests(clerkUser?.id);
 
+  // formatting the friend requests
   const formattedFriendRequests = friendRequests?.map((user) => {
     const userLibrary = user?.library?.map((game) => game.gameId);
     const userFriends = user?.friends?.map((friend) => friend.clerkId);
@@ -38,6 +39,7 @@ export default async function Friends({ searchParams }) {
     };
   });
 
+  // formatting the users
   const formattedUsers = users.map((user) => {
     const userLibrary = user?.library?.map((game) => game.gameId);
     const userFriends = user?.friends?.map((friend) => friend.clerkId);
@@ -58,12 +60,14 @@ export default async function Friends({ searchParams }) {
     };
   });
 
+  // finding the logged in user
   const loggedInUser = formattedUsers?.find(
     (user) => user?.clerkId === clerkUser?.id
   );
 
   const friends = await fetchFriends(clerkUser?.id);
 
+  // formatting the friends
   const formattedFriends = friends?.map((user) => {
     const userLibrary = user?.library?.map((game) => game.gameId);
     const userFriends = user?.friends?.map((friend) => friend.clerkId);
@@ -86,6 +90,7 @@ export default async function Friends({ searchParams }) {
 
   let searchedFriends = formattedFriends;
 
+  // filtering the friends based on the search
   if (searchParams?.search) {
     searchedFriends = formattedFriends?.filter((friend) =>
       friend?.username

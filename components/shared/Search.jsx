@@ -32,20 +32,25 @@ export default function Search({
     [searchParams]
   );
 
+  // Check if the current pathname includes any of the following
   const includedPaths =
     pathname.includes("/search") ||
     pathname.includes("/library") ||
     pathname.includes("/wishlist");
 
+  // updates the search value as the user types
   function handleChange(e) {
     setSearchValue(e.target.value);
   }
 
+  // handles the search functionality when the user presses enter
   function handleSearch(e) {
     e.preventDefault();
+    // if the user is not on the search page, redirect to the search page
     if (searchValue && !isSearchPage) {
       router.push(`/search/?search=${searchValue.toLowerCase()}`);
       return;
+      // if the user is on the search page, update the search query
     } else if ((searchValue && isSearchPage) || includedPaths) {
       let path =
         pathname + "?" + createQueryString("search", searchValue.toLowerCase());
@@ -55,15 +60,11 @@ export default function Search({
       router.push(path + "&offset=0");
       return;
     }
+    // if the user presses enter without entering a search term, show an error toast
     toast.custom((t) => (
       <Toast t={t} message={"Please enter a search term"} type={"error"} />
     ));
   }
-
-  const activeFilter =
-    pathname.includes("/search") ||
-    pathname.includes("/library") ||
-    pathname.includes("/wishlist");
 
   return (
     <form
@@ -90,7 +91,7 @@ export default function Search({
         className="bg-transparent outline-none uppercase text-[14px] px-[16px] tracking-[0.84px] max-w-[573px] w-full"
         placeholder={placeholder}
       />
-      {activeFilter && (
+      {includedPaths && (
         <img
           src={`${
             theme === "dark" ? "/filter-icon-dark.png" : "/filter-icon.png"

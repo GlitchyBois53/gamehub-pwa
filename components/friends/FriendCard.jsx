@@ -7,6 +7,7 @@ import More from "./More";
 import { removeFriend } from "../../lib/actions/user.actions";
 import { useStore } from "../../app/store";
 
+// This component is used to display the friend card on the friends page
 export default function FriendCard({
   image,
   username,
@@ -16,6 +17,8 @@ export default function FriendCard({
   friendId,
   clerkId,
 }) {
+
+  // function to handle the friend removal
   async function handleFriendRemoval() {
     await removeFriend({
       clerkId: clerkId,

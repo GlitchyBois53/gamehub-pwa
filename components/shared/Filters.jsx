@@ -20,8 +20,10 @@ export default function Filters({
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  // setting the active filters
   const [activeFilters, setActiveFilters] = useState("platforms");
 
+  // function to create the query string
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -32,6 +34,7 @@ export default function Filters({
     [searchParams]
   );
 
+  // function to clear the filters
   function clearFilters() {
     const search = searchParams?.search || "";
     const sort = searchParams?.sort || "total_rating";
@@ -42,6 +45,7 @@ export default function Filters({
     setFiltersActive(false);
   }
 
+  // array of filters
   const filters = [
     {
       name: "platforms",

@@ -10,7 +10,9 @@ import {
 import { useCallback } from "react";
 import Button from "./Button";
 
+// This component is used to display the active filters and remove them
 export default function ActiveFilters({ searchParams }) {
+  // finding the active filters
   const activePlatform = filterPlatforms?.find(
     (platform) => platform.hardware == searchParams?.platforms
   );

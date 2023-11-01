@@ -8,11 +8,16 @@ export default function FullscreenScreenshot({
   index,
   screenshotArr,
 }) {
+  // settign the active screenshot to the index of the screenshot
   const [activeScreenshot, setActiveScreenshot] = useState(index);
+
+  // setting the state for the fullscreen
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  // getting the length of the screenshot array
   const screenshotLength = screenshotArr.length;
 
+  // function to handle the next screenshot
   function handleNext() {
     if (activeScreenshot === screenshotLength - 1) {
       setActiveScreenshot(0);
@@ -21,6 +26,7 @@ export default function FullscreenScreenshot({
     }
   }
 
+  // function to handle the previous screenshot
   function handlePrev() {
     if (activeScreenshot === 0) {
       setActiveScreenshot(screenshotLength - 1);

@@ -2,6 +2,7 @@ import DropDown from "./DropDown";
 import { useCallback } from "react";
 
 export default function Sort({ searchParams, isSearchPage, isPersonalPage }) {
+  // function for creating the query string
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -12,6 +13,7 @@ export default function Sort({ searchParams, isSearchPage, isPersonalPage }) {
     [searchParams]
   );
 
+  // array of options for the dropdowns
   const orderOptions = [
     {
       name: "Ascending",
@@ -23,6 +25,7 @@ export default function Sort({ searchParams, isSearchPage, isPersonalPage }) {
     },
   ];
 
+  // array of options for the dropdowns on the personal page
   const sortPersonalOptions = [
     {
       name: "Total Rating",
@@ -38,6 +41,7 @@ export default function Sort({ searchParams, isSearchPage, isPersonalPage }) {
     },
   ];
 
+  // array of options for the dropdowns on the search page
   const sortSearchOptions = [
     {
       name: "Total Rating",
@@ -61,6 +65,7 @@ export default function Sort({ searchParams, isSearchPage, isPersonalPage }) {
     },
   ];
 
+  // checking if there is text in the search bar
   const textCheck = searchParams.search || searchParams.title;
 
   return (

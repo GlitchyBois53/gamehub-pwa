@@ -16,6 +16,7 @@ export default async function Profile({ params }) {
   const wishlistIdArr = user?.wishlist?.map((game) => game.gameId);
 
   let library = [];
+  // Fetching the games in the user's library
   if (libraryIdArr.length !== 0) {
     library = await fetchGameData(
       "games",
@@ -26,6 +27,7 @@ export default async function Profile({ params }) {
     );
   }
   let wishlist = [];
+  // Fetching the games in the user's wishlist
   if (wishlistIdArr.length !== 0) {
     wishlist = await fetchGameData(
       "games",

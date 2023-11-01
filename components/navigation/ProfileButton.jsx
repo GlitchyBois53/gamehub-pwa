@@ -15,6 +15,7 @@ export default function ProfileButton({
   isMobile,
 }) {
   const theme = useStore((store) => store.theme);
+  // state to control the menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -55,6 +56,7 @@ export default function ProfileButton({
   );
 }
 
+// This component is used to display the menu
 function ProfileMenu({
   username,
   email,
@@ -67,6 +69,7 @@ function ProfileMenu({
   const { signOut } = useClerk();
   const router = useRouter();
 
+  // array of links to be displayed in the menu
   const profileLinks = [
     {
       name: "profile",
@@ -88,6 +91,7 @@ function ProfileMenu({
     },
   ];
 
+  // function to handle the route change
   function handleRouteChange() {
     router.push(`/profile/${clerkId}`);
     setIsMenuOpen(false);
@@ -152,6 +156,7 @@ function ProfileMenu({
   );
 }
 
+// This component is used to display the links in the menu
 function ProfileLink({ icon, name }) {
   return (
     <span className="flex gap-[20px] items-center">
@@ -167,6 +172,7 @@ function ProfileLink({ icon, name }) {
   );
 }
 
+// This component is used to close the menu
 function MenuCloser({ setIsMenuOpen }) {
   return (
     <m.div

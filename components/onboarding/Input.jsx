@@ -2,6 +2,7 @@
 
 import { useStore } from "../../app/store";
 
+// This component is used to display the input in the onboarding process
 export default function Input({
   name,
   value,

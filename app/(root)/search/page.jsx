@@ -6,6 +6,8 @@ import GameLimitProvider from "../../../components/shared/GameLimitProvider";
 import TooFar from "../../../components/shared/TooFar";
 
 export default async function Search({ searchParams }) {
+
+  // Setting the search params for filtering
   const search = searchParams?.search;
   const resultsPerPage = searchParams?.limit || 24;
   const offset = searchParams?.offset || 0;
@@ -20,6 +22,7 @@ export default async function Search({ searchParams }) {
   const years = searchParams?.years;
   const yearsSplit = years?.split("-");
 
+  // Fetching the games with the provided search params
   const games = await fetchGameData(
     "games",
     `
@@ -55,6 +58,7 @@ export default async function Search({ searchParams }) {
     `
   );
 
+  // Checking whether the search is gipperish or not
   const isGipperish = games?.length === 0 && searchParams.offset == 0;
   const isNoMoreResults = games?.length === 0 && searchParams.offset != 0;
 

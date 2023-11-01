@@ -8,6 +8,7 @@ export default async function NavLinks({ clerkUser }) {
     dbUser = await fetchUser(clerkUser?.id);
   }
 
+  // setting the navigation links
   const navLinks = [
     {
       activeIcon: "/home-icon-grad.png",

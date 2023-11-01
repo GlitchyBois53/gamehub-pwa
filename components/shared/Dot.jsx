@@ -2,6 +2,7 @@
 
 import { useStore } from "../../app/store";
 
+// This component is used to display the dot in the onboarding process
 export default function Dot({ isActive }) {
   const theme = useStore((store) => store.theme);
   return (

@@ -53,6 +53,7 @@ export default function HeroCard({ screenshot, cover, rating, name, slug }) {
   // Calculate the formatted rating for the game
   const formattedRating = rating / 10;
 
+  
   // Render the HeroCard component
   return (
     <Link href={`/games/${slug}`}>

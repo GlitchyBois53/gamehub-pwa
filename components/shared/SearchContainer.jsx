@@ -7,6 +7,7 @@ import { AnimatePresence, motion as m } from "framer-motion";
 import Sort from "./Sort";
 import ActiveFilters from "./ActiveFilters";
 
+// This component is used to wrap the search bar and filters
 export default function SearchContainer({
   searchParams,
   value,
@@ -14,6 +15,7 @@ export default function SearchContainer({
   placeholder,
   isPersonalPage,
 }) {
+  // state to control whether the filters are open or not
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   return (

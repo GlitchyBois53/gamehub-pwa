@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback } from "react";
 import Button from "./Button";
 
+// This is the component that is shown when the user goes too far in the pagination
 export default function TooFar({ searchParams }) {
   const pathname = usePathname();
   const router = useRouter();

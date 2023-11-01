@@ -17,6 +17,7 @@ export default async function Wishlist({ params, searchParams }) {
 
   const clerkUser = await currentUser();
 
+  // Setting the search params for filtering
   const search = searchParams?.search;
   const resultsPerPage = searchParams?.limit || 24;
   const offset = searchParams?.offset || 0;
@@ -33,6 +34,7 @@ export default async function Wishlist({ params, searchParams }) {
 
   let games = null;
 
+  // if the user has games in their wishlist, fetch the games from the wishlist with the provided search params
   if (wishlistIdArr.length !== 0) {
     games = await fetchGameData(
       "games",
@@ -63,6 +65,7 @@ export default async function Wishlist({ params, searchParams }) {
     );
   }
 
+  // conditionally render the game container
   const isEmpty = user?.wishlist?.length === 0;
   const isGipperish = games?.length === 0 && searchParams.offset == 0;
   const isNoMoreResults = games?.length === 0 && searchParams.offset != 0;

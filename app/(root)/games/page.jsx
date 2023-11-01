@@ -4,6 +4,7 @@ import { fetchGameData } from "../../../lib/fetchGameData";
 import GameContainer from "../../../components/shared/GameContainer";
 
 export default async function Games() {
+  // Fetching games with a high critic rating
   const criticsChoice = await fetchGameData(
     "games",
     `fields name, rating, genres, total_rating, first_release_date, slug, cover;
@@ -15,6 +16,7 @@ export default async function Games() {
 
   const time = new Date().getTime() / 1000;
 
+  // Fetching games recently released with a rating count of 3 or more
   const newReleases = await fetchGameData(
     "games",
     `fields name, rating, genres, total_rating, first_release_date, slug, cover;
@@ -26,6 +28,7 @@ export default async function Games() {
     `
   );
 
+  // Fetching games that are coming soon
   const comingSoon = await fetchGameData(
     "games",
     `fields name, rating, genres, total_rating, first_release_date, slug, cover;

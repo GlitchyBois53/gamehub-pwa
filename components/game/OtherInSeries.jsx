@@ -3,6 +3,7 @@ import GameContainer from "../shared/GameContainer";
 import GameWrapper from "../game/GameWrapper";
 
 export default async function OtherInSeries({ collectionId, gameId }) {
+  // fetching the collection data
   const collection = await fetchGameData(
     "collections",
     `fields name, games; where id = (${collectionId});`
@@ -10,6 +11,7 @@ export default async function OtherInSeries({ collectionId, gameId }) {
 
   const collectionIdArr = collection?.[0]?.games.map((game) => game);
 
+  // fetching the games in the collection that are not the current game
   const collectionGames = await fetchGameData(
     "games",
     `

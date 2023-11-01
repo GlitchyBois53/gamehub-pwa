@@ -15,8 +15,10 @@ export default function FriendSearch({
   const pathname = usePathname();
   const router = useRouter();
   const theme = useStore((state) => state.theme);
+  // state to control the local search value
   const [localValue, setLocalValue] = useState("");
 
+  // function to create the query string
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -27,11 +29,13 @@ export default function FriendSearch({
     [searchParams]
   );
 
+  // function to clear the search
   function clearSearch() {
     setLocalValue("");
     router.push("/friends");
   }
 
+  // function to handle the search
   function handleUrl(e) {
     e.preventDefault();
     const path = pathname + "?" + createQueryString("search", localValue);

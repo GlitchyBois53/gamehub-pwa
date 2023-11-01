@@ -3,6 +3,7 @@
 import { useStore } from "../../app/store";
 import Dot from "../shared/Dot";
 
+// This component is used to display the onboarding modal
 export default function OnboardingModal({
   title,
   description,

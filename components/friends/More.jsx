@@ -7,6 +7,7 @@ import { AnimatePresence, motion as m } from "framer-motion";
 import { useStore } from "../../app/store";
 import { shallow } from "zustand/shallow";
 
+// This component is used to display the more icon
 export default function More({ isFriend, handleClick, slug, isWhite }) {
   const theme = useStore((store) => store.theme);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -15,6 +16,7 @@ export default function More({ isFriend, handleClick, slug, isWhite }) {
     shallow
   );
 
+  // toggling the options when the more icon is clicked, to close all other options
   function handleToggle() {
     if (isOptionsOpen) {
       setActiveMore("");
@@ -24,6 +26,7 @@ export default function More({ isFriend, handleClick, slug, isWhite }) {
     setIsOptionsOpen(!isOptionsOpen);
   }
 
+  // closing the options when the activeMore state changes
   useEffect(() => {
     if (activeMore !== slug) setIsOptionsOpen(false);
   }, [activeMore]);
@@ -65,6 +68,7 @@ export default function More({ isFriend, handleClick, slug, isWhite }) {
   );
 }
 
+// This component is used to display the options that appear when the more icon is clicked
 function Options({ isFriend, handleClick, slug, setIsOptionsOpen }) {
   return (
     <m.article
@@ -72,7 +76,9 @@ function Options({ isFriend, handleClick, slug, setIsOptionsOpen }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0 }}
       transition={{ duration: 0.4, type: "spring" }}
-      className="absolute top-[24px] right-0 bg game-shadow py-[2px] flex flex-col items-center gap-[2px]"
+      className={`absolute ${
+        isFriend ? "top-[24px]" : "top-[36px]"
+      } right-0 bg game-shadow py-[2px] flex flex-col items-center gap-[2px]`}
       onClick={() => setIsOptionsOpen(false)}
     >
       {isFriend ? (

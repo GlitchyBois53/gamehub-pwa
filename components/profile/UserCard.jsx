@@ -3,6 +3,7 @@
 import Vr from "../shared/Vr";
 import InfoCard from "./../shared/InfoCard";
 
+// This component is used to display the user's information
 export default function UserCard({
   libraryLength,
   wishlistLength,

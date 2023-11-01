@@ -2,6 +2,7 @@
 
 import { useStore } from "../../app/store";
 
+// This component is used to display information about the users stats
 export default function InfoCard({ icon, darkIcon, number, title }) {
   const theme = useStore((store) => store.theme);
   return (

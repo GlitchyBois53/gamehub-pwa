@@ -3,6 +3,7 @@
 import { useStore } from "../../app/store";
 import { AnimatePresence, motion as m } from "framer-motion";
 
+// This component is used to display the modal on the game and friends page
 export default function Modal({
   children,
   setIsModalOpen,

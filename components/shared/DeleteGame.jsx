@@ -10,6 +10,7 @@ import More from "../friends/More";
 export default function DeleteGame({ clerkId, gameId, isLibrary, slug }) {
   const pathname = usePathname();
 
+  // this function is used to run the library action or the wishlist action
   async function deleteGame() {
     if (isLibrary) {
       await handleSetLibrary({

@@ -26,6 +26,7 @@ export default async function GameBanner({
   const libraryIdArr = dbUser?.library.map((game) => game.gameId);
   const wishlistIdArr = dbUser?.wishlist.map((game) => game.gameId);
 
+  // formating the friends array to only include the data we need
   const formattedFriends = friends?.map((friend) => {
     const libraryIdArr = friend?.library.map((game) => game.gameId);
 
@@ -38,20 +39,25 @@ export default async function GameBanner({
     };
   });
 
+  // filtering the friends array to only include the friends that have the game in their library
   const sharedGames = formattedFriends?.filter((friend) =>
     friend?.library?.includes(game?.id.toString())
   );
 
+  // converting the release date to a year
   const releaseYear = yearConverter(game?.first_release_date);
 
+  // fetching the cover for the game
   const cover = await fetchGameData(
     "covers",
     `fields image_id; where id = ${game?.cover}; limit 1;`
   );
 
+  // fetching the companies involved in the game
   const developer = involvedCompanies?.find((company) => company.developer);
 
   const companyId = developer?.company;
+  // fetching the company data
   const company = companyId
     ? await fetchGameData(
         "companies",
@@ -60,6 +66,7 @@ export default async function GameBanner({
     : null;
 
   const logoId = company?.[0]?.logo;
+  // fetching the company logo
   const companyLogo = logoId
     ? await fetchGameData(
         "company_logos",
@@ -76,6 +83,7 @@ export default async function GameBanner({
   const criticRatingCount = game?.aggregated_rating_count ?? null;
   const userRatingCount = game?.rating_count ?? null;
 
+  // checks if the game is released
   const isReleased = game?.first_release_date < Math.floor(Date.now() / 1000);
 
   return (
@@ -108,7 +116,6 @@ export default async function GameBanner({
             <h1 className="tracking-[2.3px] font-bold text-[38px] py-[19px] uppercase md:max-w-[650px]">
               {game?.name}
             </h1>
-            {/* TODO Add link to button to search page, when filtering is done :) */}
             <div className="flex gap-[12px] flex-wrap">
               {genreIdArr?.map((genre) => {
                 const game = genres?.find(

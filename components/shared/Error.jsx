@@ -1,5 +1,6 @@
 import Button from "./Button";
 
+// This component is shown when the server returns an error
 export default function Error({ error, reset }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center min-h-[100svh]">

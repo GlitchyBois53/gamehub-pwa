@@ -1,3 +1,5 @@
+// this component is used to show a loading spinner whenever the app is waiting for a response from the server
+
 export default function Loading() {
   return (
     <div className="fixed inset-0 flex justify-center items-center min-h-[100svh]">

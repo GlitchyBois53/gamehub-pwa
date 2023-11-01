@@ -21,6 +21,7 @@ export default async function Library({ params, searchParams }) {
 
   const clerkUser = await currentUser();
 
+  // Setting the search params for filtering
   const search = searchParams?.search;
   const resultsPerPage = searchParams?.limit || 24;
   const offset = searchParams?.offset || 0;
@@ -37,6 +38,7 @@ export default async function Library({ params, searchParams }) {
 
   let games = null;
 
+  // if the user has games in their wishlist, fetch the games from the wishlist with the provided search params
   if (libraryIdArr?.length !== 0) {
     games = await fetchGameData(
       "games",
@@ -67,6 +69,7 @@ export default async function Library({ params, searchParams }) {
     );
   }
 
+  // conditionally render the game container
   const isEmpty = user?.library?.length === 0;
   const isGipperish = games?.length === 0 && searchParams.offset == 0;
   const isNoMoreResults = games?.length === 0 && searchParams.offset != null;
@@ -115,13 +118,13 @@ export default async function Library({ params, searchParams }) {
                   <TooFar searchParams={searchParams} />
                 ) : (
                   // <GameLimitProvider searchParams={searchParams}>
-                    <GameContainer
-                      arr={games}
-                      title={""}
-                      isPersonalPage={clerkUser?.id === user?.clerkId}
-                      clerkId={clerkUser?.id}
-                      isLibrary={true}
-                    />
+                  <GameContainer
+                    arr={games}
+                    title={""}
+                    isPersonalPage={clerkUser?.id === user?.clerkId}
+                    clerkId={clerkUser?.id}
+                    isLibrary={true}
+                  />
                   // </GameLimitProvider>
                 )}
                 {!isGipperish && (
@@ -135,7 +138,6 @@ export default async function Library({ params, searchParams }) {
                 )}
               </>
             ) : (
-              // TODO: Add CTA to Sign In
               <div className="h-full w-full flex items-center justify-center flex-col gap-[12px] min-h-container-mobile md:min-h-container my-[-36px]">
                 <p className="text-center uppercase text-[14px] tracking-[0.84px] font-semibold mb-[24px]">
                   To see your library, you need to sign in

@@ -6,7 +6,9 @@ import { useState } from "react";
 import FriendInfo from "../friends/FriendInfo";
 import Button from "../shared/Button";
 
+// This component is used to display the friends that have the game in their library
 export default function SharedGames({ sharedGames }) {
+  // this state is used to toggle the modal
   const [isUserModalActive, setIsUserModalActive] = useState(false);
 
   return (
@@ -57,6 +59,7 @@ export default function SharedGames({ sharedGames }) {
   );
 }
 
+// This component is used to display the modal that contains the friends that have the game in their library
 function UserModal({ sharedGames, isUserModalActive, setIsUserModalActive }) {
   return (
     <Modal

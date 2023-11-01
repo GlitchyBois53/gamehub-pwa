@@ -5,6 +5,8 @@ import { useStore } from "../../app/store";
 
 export default function Toast({ t, type, message }) {
   const theme = useStore((store) => store.theme);
+
+  // setting the icon and close button based on the type of toast
   const icon =
     type === "error"
       ? "/error-icon.svg"

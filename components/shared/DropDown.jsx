@@ -8,6 +8,8 @@ export default function DropDown({ name, options, searchParams, param, fn }) {
   const theme = useStore((state) => state.theme);
   const router = useRouter();
   const pathname = usePathname();
+  
+  // state to control the dropdown
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const currentChoice = options.find((option) => option.value === searchParams);
 
