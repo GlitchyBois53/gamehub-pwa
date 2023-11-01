@@ -48,41 +48,41 @@ export default function GameLimitProvider({ children, searchParams }) {
     setWindowWidth(window.innerWidth);
   }, []);
 
-  // Add a resize event listener to the window
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    // Check if the pathname already includes the limit parameter before pushing a new route
-    if (maxPerPage && !pathname.includes("limit")) {
-      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
-    }
-    // Remove the resize event listener when the component unmounts
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+// Add a resize event listener to the window
+useEffect(() => {
+  window.addEventListener("resize", handleResize);
+  // Check if the pathname already includes the limit parameter before pushing a new route
+  if (maxPerPage && !pathname.includes("limit")) {
+    router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+  }
+  // Remove the resize event listener when the component unmounts
+  return () => window.removeEventListener("resize", handleResize);
+}, [handleResize, maxPerPage, pathname, createQueryString]);
 
-  useEffect(() => {
-    setMaxPerLine((maxWidth + 24) / 184);
+useEffect(() => {
+  setMaxPerLine((maxWidth + 24) / 184);
+  setMaxPerPage(Math.floor(maxPerLine) * maxRows);
+  // Check if the pathname already includes the limit parameter before pushing a new route
+  if (maxPerPage && !pathname.includes("limit")) {
+    router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+  }
+}, [maxWidth, maxPerLine, maxRows, maxPerPage, pathname, createQueryString]);
+
+useEffect(() => {
+  if (maxPerLine) {
     setMaxPerPage(Math.floor(maxPerLine) * maxRows);
     // Check if the pathname already includes the limit parameter before pushing a new route
-    if (maxPerPage && !pathname.includes("limit")) {
+    if (!pathname.includes("limit")) {
       router.push(pathname + "?" + createQueryString("limit", maxPerPage));
     }
-  }, [maxWidth]);
-
-  useEffect(() => {
-    if (maxPerLine) {
-      setMaxPerPage(Math.floor(maxPerLine) * maxRows);
-      // Check if the pathname already includes the limit parameter before pushing a new route
-      if (!pathname.includes("limit")) {
-        router.push(pathname + "?" + createQueryString("limit", maxPerPage));
-      }
-      if (windowWidth < 768) {
-        setMaxRows(6);
-      } else {
-        setMaxRows(3);
-      }
+    if (windowWidth < 768) {
+      setMaxRows(6);
+    } else {
+      setMaxRows(3);
     }
-  }),
-    [maxPerLine];
+  }
+}, [maxPerLine, maxRows, windowWidth, pathname, createQueryString, maxPerPage]);
+
   useEffect(() => {
     setMaxPerLine((maxWidth + 24) / 184);
   }, []);
