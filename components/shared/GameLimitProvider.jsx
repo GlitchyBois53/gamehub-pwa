@@ -17,6 +17,16 @@ export default function GameLimitProvider({ children, searchParams }) {
   const [maxPerPage, setMaxPerPage] = useState(0);
   const [maxRows, setMaxRows] = useState(6);
 
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value.toString());
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   // Define a function to debounce the resize event listener
   function debounce(func, wait, immediate) {
     let timeout;
@@ -48,54 +58,51 @@ export default function GameLimitProvider({ children, searchParams }) {
     setWindowWidth(window.innerWidth);
   }, []);
 
-// Add a resize event listener to the window
-useEffect(() => {
-  window.addEventListener("resize", handleResize);
-  // Check if the pathname already includes the limit parameter before pushing a new route
-  if (maxPerPage && !pathname.includes("limit")) {
-    router.push(pathname + "?" + createQueryString("limit", maxPerPage));
-  }
-  // Remove the resize event listener when the component unmounts
-  return () => window.removeEventListener("resize", handleResize);
-}, [handleResize, maxPerPage, pathname, createQueryString]);
-
-useEffect(() => {
-  setMaxPerLine((maxWidth + 24) / 184);
-  setMaxPerPage(Math.floor(maxPerLine) * maxRows);
-  // Check if the pathname already includes the limit parameter before pushing a new route
-  if (maxPerPage && !pathname.includes("limit")) {
-    router.push(pathname + "?" + createQueryString("limit", maxPerPage));
-  }
-}, [maxWidth, maxPerLine, maxRows, maxPerPage, pathname, createQueryString]);
-
-useEffect(() => {
-  if (maxPerLine) {
-    setMaxPerPage(Math.floor(maxPerLine) * maxRows);
+  // Add a resize event listener to the window
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
     // Check if the pathname already includes the limit parameter before pushing a new route
-    if (!pathname.includes("limit")) {
+    if (maxPerPage && !pathname.includes("limit")) {
       router.push(pathname + "?" + createQueryString("limit", maxPerPage));
     }
-    if (windowWidth < 768) {
-      setMaxRows(6);
-    } else {
-      setMaxRows(3);
+    // Remove the resize event listener when the component unmounts
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize, maxPerPage, pathname, createQueryString]);
+
+  useEffect(() => {
+    setMaxPerLine((maxWidth + 24) / 184);
+    setMaxPerPage(Math.floor(maxPerLine) * maxRows);
+    // Check if the pathname already includes the limit parameter before pushing a new route
+    if (maxPerPage && !pathname.includes("limit")) {
+      router.push(pathname + "?" + createQueryString("limit", maxPerPage));
     }
-  }
-}, [maxPerLine, maxRows, windowWidth, pathname, createQueryString, maxPerPage]);
+  }, [maxWidth, maxPerLine, maxRows, maxPerPage, pathname, createQueryString]);
+
+  useEffect(() => {
+    if (maxPerLine) {
+      setMaxPerPage(Math.floor(maxPerLine) * maxRows);
+      // Check if the pathname already includes the limit parameter before pushing a new route
+      if (!pathname.includes("limit")) {
+        router.push(pathname + "?" + createQueryString("limit", maxPerPage));
+      }
+      if (windowWidth < 768) {
+        setMaxRows(6);
+      } else {
+        setMaxRows(3);
+      }
+    }
+  }, [
+    maxPerLine,
+    maxRows,
+    windowWidth,
+    pathname,
+    createQueryString,
+    maxPerPage,
+  ]);
 
   useEffect(() => {
     setMaxPerLine((maxWidth + 24) / 184);
   }, []);
-
-  const createQueryString = useCallback(
-    (name, value) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value.toString());
-
-      return params.toString();
-    },
-    [searchParams]
-  );
 
   return (
     <div ref={ref} className="h-full">
