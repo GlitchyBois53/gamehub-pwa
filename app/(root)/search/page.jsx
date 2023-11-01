@@ -7,7 +7,7 @@ import TooFar from "../../../components/shared/TooFar";
 
 export default async function Search({ searchParams }) {
   const search = searchParams?.search;
-  const resultsPerPage = searchParams?.limit || 21;
+  const resultsPerPage = searchParams?.limit || 24;
   const offset = searchParams?.offset || 0;
   const platforms = searchParams?.platforms;
   const genres = searchParams?.genres;
@@ -77,9 +77,9 @@ export default async function Search({ searchParams }) {
       ) : isNoMoreResults ? (
         <TooFar searchParams={searchParams} />
       ) : (
-        <GameLimitProvider searchParams={searchParams}>
-          <GameContainer arr={games} title={""} />
-        </GameLimitProvider>
+        // <GameLimitProvider searchParams={searchParams}>
+        <GameContainer arr={games} title={""} />
+        // </GameLimitProvider>
       )}
       {!isGipperish && (
         <Pagination
