@@ -63,7 +63,7 @@ export default async function Search({ searchParams }) {
   const isNoMoreResults = games?.length === 0 && searchParams.offset != 0;
 
   return (
-    <Limit searchParams={searchParams}>
+    // <Limit searchParams={searchParams}>
       <div className="relative">
         <SearchContainer
           isSearchPage={true}
@@ -92,6 +92,6 @@ export default async function Search({ searchParams }) {
           />
         )}
       </div>
-    </Limit>
+    // </Limit>
   );
 }
