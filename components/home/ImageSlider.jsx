@@ -22,6 +22,7 @@ export default function ImageSlider({ games, coverArr, screenshotArr }) {
     pauseOnHover: true,
     autoplaySpeed: 5000,
     dots: true,
+    arrows: false,
   };
 
   return (
