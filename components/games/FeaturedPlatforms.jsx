@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { featuredPlatforms } from "../../constants";
+import { useStore } from "../../app/store";
 
 // This component is used to display the featured platforms
 export default function FeaturedPlatforms() {
@@ -14,8 +17,9 @@ export default function FeaturedPlatforms() {
 
 // This component is used to display a platform
 function Platform({ platform }) {
+  const limit = useStore((state) => state.limit);
   return (
-    <Link href={platform.href}>
+    <Link href={`${platform.href}&limit=${limit}`}>
       <div
         className="h-[195px] 2xl:h-[250px] rounded-[2px] flex justify-center items-center cursor-pointer shadow-search shadow-black/25"
         style={{

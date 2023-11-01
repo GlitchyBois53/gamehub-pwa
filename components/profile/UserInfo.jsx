@@ -94,8 +94,9 @@ export default function UserInfo({
                   key={genre}
                   text={title}
                   variant={"tertiary"}
+                  isSearchQuery={true}
                   isLink={true}
-                  href={`/search?genres=${genre}&title=${title}`}
+                  href={`/search?genres=${genre}&title=${title}&sort=aggregated_rating`}
                   attributes="text-[10px] tracking-[0.6px] px-[12px] py-[6px] w-max"
                 />
               );

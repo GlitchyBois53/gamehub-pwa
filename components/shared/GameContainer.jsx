@@ -1,4 +1,4 @@
-import Link from "next/link";
+import GameContainerLink from "./GameContainerLink";
 import { fetchGameData } from "../../lib/fetchGameData";
 import GameCard from "./GameCard";
 import Button from "./Button";
@@ -42,16 +42,11 @@ export default async function GameContainer({
               className="w-[14px] object-contain translate-y-[1px] ml-[3px]"
             />
           )}
-          <Link
+          <GameContainerLink
             href={href}
-            className={`${
-              isOnGamePage
-                ? "text-[16px] tracking-[0.96px]"
-                : "text-[24px] tracking-[1.44px] bg-clip-text text-transparent bg-game-grad"
-            } uppercase font-bold w-max`}
-          >
-            {title}
-          </Link>
+            isOnGamePage={isOnGamePage}
+            title={title}
+          />
           <img
             src="/arrow-icon-grad.svg"
             alt="arrow-icon"

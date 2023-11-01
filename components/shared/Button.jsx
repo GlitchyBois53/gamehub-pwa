@@ -14,17 +14,22 @@ export default function Button({
   variant,
   type,
   isLoading,
+  isSearchQuery,
   iconWidth = "w-[12px]",
   // setting default values for the attributes
   attributes = "px-[18px] py-[8px] text-[12px] tracking-[0.72px]",
   buttonWidth,
   hasNotification,
 }) {
+  const limit = useStore((state) => state.limit);
   return (
     <>
       {/* rendering button componenent inside either a Link or a button */}
       {isLink ? (
-        <Link href={href} className={`block ${buttonWidth || "w-max"}`}>
+        <Link
+          href={isSearchQuery ? `${href}&limit=${limit}` : href}
+          className={`block ${buttonWidth || "w-max"}`}
+        >
           <ButtonBody
             icon={icon}
             text={text}
