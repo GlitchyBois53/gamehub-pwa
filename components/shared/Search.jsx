@@ -53,7 +53,7 @@ export default function Search({
     // if the user is not on the search page, redirect to the search page
     if (searchValue && !isSearchPage) {
       router.push(
-        `/search/?search=${searchValue.toLowerCase()}&limit=${limit}&offset=0`
+        `/search/?search=${searchValue.toLowerCase()}&offset=0`
       );
       return;
       // if the user is on the search page, update the search query
@@ -63,11 +63,8 @@ export default function Search({
       if (path.includes("offset")) {
         path = path.replace(/&offset=\d+/g, "");
       }
-      if (path.includes("limit")) {
-        path = path.replace(/&limit=\d+/g, "");
-      }
       router.push(
-        path + `&offset=0${!isPersonalPage ? `&limit=${limit}` : ""}`
+        path + `&offset=0`
       );
       return;
     }
