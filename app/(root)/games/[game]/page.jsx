@@ -75,7 +75,7 @@ export default async function Game({ params }) {
   // Fetching the gameIds of games developed by the developer
   const developerObj = await fetchGameData(
     "companies",
-    `fields *; where id = ${developer.company}; limit 1;`
+    `fields *; where id = ${developer?.company}; limit 1;`
   );
 
   // Fetching the games developed by the developer
@@ -89,7 +89,7 @@ export default async function Game({ params }) {
     `
   );
 
-  console.log(developedGames);
+  console.log(developer);
 
   // Fetching the dlcs for the game
   const dlcs = await fetchGameData(
@@ -132,7 +132,7 @@ export default async function Game({ params }) {
       {game?.collection && (
         <OtherInSeries collectionId={game?.collection} gameId={game?.id} />
       )}
-      {developedGames.length !== 0 && (
+      {developer && developedGames.length !== 0 && (
         <GameWrapper>
           <GameContainer
             arr={developedGames}
