@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import GameContainer from "../../../../components/shared/GameContainer";
 import GameLimitProvider from "../../../../components/shared/GameLimitProvider";
 import HeadTextProvider from "../../../../components/shared/HeadTextProvider";

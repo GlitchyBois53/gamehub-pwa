@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 // this component is used to show a loading spinner whenever the app is waiting for a response from the server
 
 export default function Loading() {

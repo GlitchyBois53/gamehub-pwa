@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 "use client"; // Error components must be Client Components
 
 import { useEffect } from "react";

@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { currentUser } from "@clerk/nextjs";
 import OnboardingModal from "../../../../components/onboarding/OnboardingModal";
 import GenrePicker from "../../../../components/onboarding/GenrePicker";

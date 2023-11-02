@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import Link from "next/link";
 import { genres } from "../../constants";
 import { yearConverter } from "../../lib/yearConverter";

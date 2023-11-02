@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { fetchGameData } from "../../../../lib/fetchGameData";
 import HeadTextProvider from "../../../../components/shared/HeadTextProvider.jsx";
 import GameBanner from "../../../../components/game/GameBanner";

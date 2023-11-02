@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";

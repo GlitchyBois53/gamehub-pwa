@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useStore } from "../../app/store";

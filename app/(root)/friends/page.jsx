@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import Container from "../../../components/shared/Container";
 import FriendCard from "../../../components/friends/FriendCard";
 import Heading from "../../../components/shared/Heading";

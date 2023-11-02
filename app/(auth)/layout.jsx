@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { ClerkProvider } from '@clerk/nextjs';
 import '../globals.css';
 import { Barlow } from 'next/font/google';

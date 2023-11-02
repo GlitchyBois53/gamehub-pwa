@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "../../../../lib/actions/user.actions";
 import Heading from "../../../../components/shared/Heading";

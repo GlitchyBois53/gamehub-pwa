@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import Button from "./Button";
 
 // This component is shown when the server returns an error

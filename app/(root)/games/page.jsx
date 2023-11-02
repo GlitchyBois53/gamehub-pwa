@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import Search from "../../../components/shared/Search";
 import FeaturedPlatforms from "../../../components/games/FeaturedPlatforms";
 import { fetchGameData } from "../../../lib/fetchGameData";

@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { currentUser, SignedIn, SignedOut } from "@clerk/nextjs";
 import NavLinks from "./NavLinks";
 import Logo from "./Logo";

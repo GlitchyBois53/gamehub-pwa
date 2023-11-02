@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 "use client";
 
 import { AnimatePresence, motion as m } from "framer-motion";

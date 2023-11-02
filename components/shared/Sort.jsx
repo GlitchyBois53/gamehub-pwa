@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import ActiveFilters from "./ActiveFilters";
 import DropDown from "./DropDown";
 import { useCallback } from "react";

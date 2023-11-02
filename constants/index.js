@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 // An array of objects containing the name and id of each genre from IDGB API
 export const genres = [
   { genreId: 2, name: "Point & click" },

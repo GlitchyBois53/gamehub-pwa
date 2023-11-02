@@ -1,8 +1,9 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { fetchGameData } from "../../../lib/fetchGameData";
 import SearchContainer from "../../../components/shared/SearchContainer";
 import GameContainer from "../../../components/shared/GameContainer";
 import Pagination from "../../../components/shared/Pagination";
-import GameLimitProvider from "../../../components/shared/GameLimitProvider";
 import TooFar from "../../../components/shared/TooFar";
 import Limit from "../../../components/shared/Limit";
 

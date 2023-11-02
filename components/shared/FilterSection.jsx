@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { useRouter, usePathname } from "next/navigation";
 import Button from "./Button";
 

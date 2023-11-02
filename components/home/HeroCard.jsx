@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 // Import necessary dependencies
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";

@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { acceptRequest, declineRequest } from "../../lib/actions/user.actions";
 import InfoCard from "../shared/InfoCard";
 import Modal from "../shared/Modal";

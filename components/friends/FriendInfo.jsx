@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import Link from "next/link";
 import Vr from "../shared/Vr";
 import { useCallback, useEffect, useRef, useState } from "react";

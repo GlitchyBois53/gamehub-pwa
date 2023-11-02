@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import ThemeSwitcher from '../shared/ThemeSwitcher';
 import { currentUser, SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
 import NavLinks from './NavLinks';

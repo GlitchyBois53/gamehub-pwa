@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 // this component is used to wrap the gamecontainer on the game page
 export default function GameWrapper({ children }) {
   return (

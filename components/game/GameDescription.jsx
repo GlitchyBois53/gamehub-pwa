@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { fetchGameData } from "../../lib/fetchGameData";
 import Hr from "../shared/Hr";
 import { timeConverter } from "../../lib/timeConverter";

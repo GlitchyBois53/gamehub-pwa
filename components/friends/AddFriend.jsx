@@ -1,3 +1,5 @@
+// Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
+
 import { useState } from "react";
 import Modal from "../shared/Modal";
 import FriendSearch from "./FriendSearch";
