@@ -48,7 +48,7 @@ export default async function Home() {
       "games",
       `
       fields name, genres, total_rating, first_release_date, slug, cover; 
-      where genres = (${genreIdArr}) & name ~*"${alphabet[randomLetterIndex]}"* & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 8, 9, 10) & total_rating > 80; 
+      where genres = (${genreIdArr}) & name ~*"${alphabet[randomLetterIndex]}"* & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10) & total_rating > 80; 
       limit 20; 
       sort ${igdbSortMethods[randomSortMethodIndex]} ${igdbSortOrders[randomSortMethodOrder]};
       `
@@ -65,7 +65,7 @@ export default async function Home() {
     "games",
     `
     fields screenshots, name, cover, total_rating, involved_companies, slug;
-    where screenshots != null & involved_companies != null & name ~*"${alphabet[randomLetterIndex]}"* & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 8, 9, 10) & total_rating > 80; 
+    where screenshots != null & involved_companies != null & name ~*"${alphabet[randomLetterIndex]}"* & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10) & total_rating > 80; 
     limit 4; 
     sort ${igdbSortMethods[randomSortMethodIndex]} ${igdbSortOrders[randomSortMethodOrder]};
     `
@@ -106,7 +106,7 @@ export default async function Home() {
               "games",
               `
             fields name, genres, total_rating, first_release_date, slug, cover; 
-            where genres = (${genre}) & name ~*"${alphabet[randomLetterIndex]}"* & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 2555) & category = (0, 8, 9, 10) & total_rating > 80; 
+            where genres = (${genre}) & name ~*"${alphabet[randomLetterIndex]}"* & version_parent = null & first_release_date != null & aggregated_rating_count > 5 & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10) & total_rating > 80; 
             limit 20; 
             sort ${igdbSortMethods[randomSortMethodIndex]} ${igdbSortOrders[randomSortMethodOrder]};
             `

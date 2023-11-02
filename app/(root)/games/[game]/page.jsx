@@ -89,8 +89,6 @@ export default async function Game({ params }) {
     `
   );
 
-  console.log(developer);
-
   // Fetching the dlcs for the game
   const dlcs = await fetchGameData(
     "games",

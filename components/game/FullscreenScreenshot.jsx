@@ -70,7 +70,7 @@ export default function FullscreenScreenshot({
                 <img
                   src={`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshotArr[activeScreenshot].image_id}.png`}
                   alt={`${screenshot.image_id}-screenshot`}
-                  className="rounded-[2px] w-full max-w-[1000px] aspect-video object-cover"
+                  className="rounded-[2px] w-full max-w-[1000px] max-h-[1000px]"
                 />
                 <img
                   src="/arrow-icon-dark.svg"
