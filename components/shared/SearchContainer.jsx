@@ -33,6 +33,7 @@ export default function SearchContainer({
           searchParams={searchParams}
           handleFilter={() => setIsFiltersOpen(!isFiltersOpen)}
           placeholder={placeholder}
+          isPersonalPage={isPersonalPage}
         />
         <AnimatePresence>
           {isFiltersOpen && (

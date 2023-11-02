@@ -22,6 +22,9 @@ export const useStore = createWithEqualityFn()(
     setActiveMore: (activeMore) => set(() => ({ activeMore: activeMore })),
     limit: 24,
     setLimit: (limit) => set(() => ({ limit: limit })),
+    isProfileMenuOpen: false,
+    setIsProfileMenuOpen: (isProfileMenuOpen) =>
+      set(() => ({ isProfileMenuOpen: isProfileMenuOpen })),
   }),
   Object.is
 );

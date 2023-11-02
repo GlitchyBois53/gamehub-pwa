@@ -5,12 +5,17 @@
 import Link from "next/link";
 import { useStore } from "../../app/store";
 
-export default function GameContainerLink({ href, isOnGamePage, title }) {
+export default function GameContainerLink({
+  href,
+  isOnGamePage,
+  title,
+  isOnProfile,
+}) {
   const limit = useStore((state) => state.limit);
 
   return (
     <Link
-      href={`${href}&limit=${limit}`}
+      href={`${href}${isOnProfile ? "?" : "&"}limit=${limit}`}
       className={`${
         isOnGamePage
           ? "text-[16px] tracking-[0.96px]"

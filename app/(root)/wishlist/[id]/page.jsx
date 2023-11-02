@@ -15,7 +15,9 @@ import { currentUser } from "@clerk/nextjs";
 
 export default async function Wishlist({ params, searchParams }) {
   const user = await fetchUser(params.id);
-  const wishlistIdArr = user?.wishlist.map((game) => game.gameId);
+  const wishlistIdArr = user?.wishlist?.map((game) => game.gameId);
+
+  console.log(wishlistIdArr);
 
   const clerkUser = await currentUser();
 
@@ -37,19 +39,16 @@ export default async function Wishlist({ params, searchParams }) {
   let games = null;
 
   // if the user has games in their wishlist, fetch the games from the wishlist with the provided search params
-  if (wishlistIdArr.length !== 0) {
+  if (wishlistIdArr) {
     games = await fetchGameData(
       "games",
       `
     fields name, rating, genres, total_rating, first_release_date, slug, cover;
     where
     id = (${wishlistIdArr}) &
-    ${
-      search ? `name ~ *"${search}"* &` : ""
-    } version_parent = null & genres != null & cover != null &
-   first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10) ${
-     platforms ? `& platforms = (${platforms})` : ""
-   }
+    ${search ? `name ~ *"${search}"* &` : ""} cover != null ${
+        platforms ? `& platforms = (${platforms})` : ""
+      }
     ${
       years
         ? `& first_release_date >= ${yearsSplit[0]} & first_release_date <= ${yearsSplit[1]}`
@@ -115,14 +114,16 @@ export default async function Wishlist({ params, searchParams }) {
               ) : isNoMoreResults ? (
                 <TooFar searchParams={searchParams} />
               ) : (
-                // <GameLimitProvider searchParams={searchParams}>
-                <GameContainer
-                  arr={games}
-                  title={""}
-                  isPersonalPage={clerkUser?.id === user?.clerkId}
-                  clerkId={clerkUser?.id}
-                />
-                // </GameLimitProvider>
+                <>
+                  {games && games.length !== 0 && (
+                    <GameContainer
+                      arr={games}
+                      title={""}
+                      isPersonalPage={clerkUser?.id === user?.clerkId}
+                      clerkId={clerkUser?.id}
+                    />
+                  )}
+                </>
               )}
               {!isGipperish && (
                 <div className="absolute bottom-[18px] w-full translate-x-[-18px]">

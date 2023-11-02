@@ -2,11 +2,11 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStore } from "../../app/store";
 import { useClerk } from "@clerk/nextjs";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion as m, AnimatePresence } from "framer-motion";
 
 export default function ProfileButton({
@@ -17,15 +17,24 @@ export default function ProfileButton({
   isMobile,
 }) {
   const theme = useStore((store) => store.theme);
+  const setIsProfileMenuOpen = useStore((store) => store.setIsProfileMenuOpen);
+  const pathname = usePathname();
   // state to control the menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const userPath = `/profile/${clerkId}`;
+  const wishlistUserPath = `/wishlist/${clerkId}`;
+
+  useEffect(() => {
+    setIsProfileMenuOpen(isMenuOpen);
+  }, [isMenuOpen]);
 
   return (
     <>
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className={`p-[2px] rounded-full w-max ${
-          isMenuOpen
+          isMenuOpen || pathname === userPath || pathname === wishlistUserPath
             ? "bg-game-grad"
             : theme === "light"
             ? "bg-black/20"
@@ -108,7 +117,7 @@ function ProfileMenu({
       }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
-      className={`fixed z-20 flex flex-col gap-[24px] md:bottom-[18px] md:left-[118px] md:top-auto md:right-auto top-[118px] left-[18px] p-[24px] right-[18px] shadow-nav rounded-[7px] ${
+      className={`fixed z-[100] flex flex-col gap-[24px] md:bottom-[18px] md:left-[118px] md:top-auto md:right-auto top-[118px] left-[18px] p-[24px] right-[18px] shadow-nav rounded-[7px] ${
         theme === "light"
           ? "bg-back-light shadow-black/10"
           : "bg-back-dark shadow-black/30"

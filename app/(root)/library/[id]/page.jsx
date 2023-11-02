@@ -1,7 +1,6 @@
 // Programmed in Collaboration by: Dennis Russell, Lean Hansen & Frederik Barbré
 
 import GameContainer from "../../../../components/shared/GameContainer";
-import GameLimitProvider from "../../../../components/shared/GameLimitProvider";
 import HeadTextProvider from "../../../../components/shared/HeadTextProvider";
 import Pagination from "../../../../components/shared/Pagination";
 import SearchContainer from "../../../../components/shared/SearchContainer";
@@ -49,12 +48,9 @@ export default async function Library({ params, searchParams }) {
     fields name, rating, genres, total_rating, first_release_date, slug, cover;
     where
     id = (${libraryIdArr}) &
-    ${
-      search ? `name ~ *"${search}"* &` : ""
-    } version_parent = null & genres != null & cover != null & 
-   first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10) ${
-     platforms ? `& platforms = (${platforms})` : ""
-   }
+    ${search ? `name ~ *"${search}"* &` : ""} cover != null ${
+        platforms ? `& platforms = (${platforms})` : ""
+      }
     ${
       years
         ? `& first_release_date >= ${yearsSplit[0]} & first_release_date <= ${yearsSplit[1]}`
@@ -121,15 +117,17 @@ export default async function Library({ params, searchParams }) {
                   ) : isNoMoreResults ? (
                     <TooFar searchParams={searchParams} />
                   ) : (
-                    // <GameLimitProvider searchParams={searchParams}>
-                    <GameContainer
-                      arr={games}
-                      title={""}
-                      isPersonalPage={clerkUser?.id === user?.clerkId}
-                      clerkId={clerkUser?.id}
-                      isLibrary={true}
-                    />
-                    // </GameLimitProvider>
+                    <>
+                      {games && games.length !== 0 && (
+                        <GameContainer
+                          arr={games}
+                          title={""}
+                          isPersonalPage={clerkUser?.id === user?.clerkId}
+                          clerkId={clerkUser?.id}
+                          isLibrary={true}
+                        />
+                      )}
+                    </>
                   )}
                   {!isGipperish && (
                     <div className="absolute bottom-[18px] w-full translate-x-[-18px]">

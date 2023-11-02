@@ -8,9 +8,11 @@ import {
   handleSetWishlist,
 } from "../../lib/actions/user.actions";
 import More from "../friends/More";
+import { useStore } from "../../app/store";
 
 export default function DeleteGame({ clerkId, gameId, isLibrary, slug }) {
   const pathname = usePathname();
+  const isProfileMenuOpen = useStore((store) => store.isProfileMenuOpen);
 
   // this function is used to run the library action or the wishlist action
   async function deleteGame() {
@@ -31,7 +33,9 @@ export default function DeleteGame({ clerkId, gameId, isLibrary, slug }) {
 
   return (
     <div
-      className={`absolute top-[7px] right-[7px] bg-[#F9F9F9]/10 backdrop-blur-[86px] rounded-full w-[28px] aspect-square cursor-pointer z-30`}
+      className={`absolute top-[7px] right-[7px] bg-[#F9F9F9]/10 backdrop-blur-[86px] rounded-full w-[28px] aspect-square cursor-pointer ${
+        isProfileMenuOpen ? "z-0" : "z-30"
+      }`}
     >
       <div className="w-full h-full bg-black/20 rounded-full flex items-center justify-center">
         <More handleClick={deleteGame} slug={slug} isWhite={true} />

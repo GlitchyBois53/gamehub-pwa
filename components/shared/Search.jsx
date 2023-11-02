@@ -15,6 +15,7 @@ export default function Search({
   handleFilter,
   placeholder = "Search for a game...",
   isOnGamePage,
+  isPersonalPage,
 }) {
   const [searchValue, setSearchValue] = useState(value || "");
   const pathname = usePathname();
@@ -52,7 +53,7 @@ export default function Search({
     // if the user is not on the search page, redirect to the search page
     if (searchValue && !isSearchPage) {
       router.push(
-        `/search/?search=${searchValue.toLowerCase()}&limit=${limit}`
+        `/search/?search=${searchValue.toLowerCase()}&limit=${limit}&offset=0`
       );
       return;
       // if the user is on the search page, update the search query
@@ -65,7 +66,9 @@ export default function Search({
       if (path.includes("limit")) {
         path = path.replace(/&limit=\d+/g, "");
       }
-      router.push(path + `&offset=0&limit=${limit}`);
+      router.push(
+        path + `&offset=0${!isPersonalPage ? `&limit=${limit}` : ""}`
+      );
       return;
     }
     // if the user presses enter without entering a search term, show an error toast
