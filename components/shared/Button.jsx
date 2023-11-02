@@ -16,7 +16,6 @@ export default function Button({
   variant,
   type,
   isLoading,
-  isSearchQuery,
   iconWidth = "w-[12px]",
   // setting default values for the attributes
   attributes = "px-[18px] py-[8px] text-[12px] tracking-[0.72px]",
@@ -29,7 +28,7 @@ export default function Button({
       {/* rendering button componenent inside either a Link or a button */}
       {isLink ? (
         <Link
-          href={isSearchQuery ? `${href}&limit=${limit}` : href}
+          href={href}
           className={`block ${buttonWidth || "w-max"}`}
         >
           <ButtonBody

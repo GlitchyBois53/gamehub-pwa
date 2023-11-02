@@ -9,13 +9,10 @@ export default function GameContainerLink({
   href,
   isOnGamePage,
   title,
-  isOnProfile,
 }) {
-  const limit = useStore((state) => state.limit);
-
   return (
     <Link
-      href={`${href}${isOnProfile ? "?" : "&"}limit=${limit}`}
+      href={href}
       className={`${
         isOnGamePage
           ? "text-[16px] tracking-[0.96px]"

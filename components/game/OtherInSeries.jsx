@@ -10,7 +10,7 @@ export default async function OtherInSeries({ collectionId, gameId }) {
     "collections",
     `fields name, games; where id = (${collectionId});`
   );
-
+  
   const collectionIdArr = collection?.[0]?.games.map((game) => game);
 
   // fetching the games in the collection that are not the current game

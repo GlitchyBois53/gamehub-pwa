@@ -75,7 +75,6 @@ export default async function Profile({ params }) {
               isPersonalPage={clerkUser?.id === user?.clerkId}
               clerkId={clerkUser?.id}
               isLibrary={true}
-              isOnProfile={true}
             />
             <GameContainer
               icon={"/wishlist-icon-grad.png"}
@@ -88,7 +87,6 @@ export default async function Profile({ params }) {
               isCurrentUserProfile={clerkUser?.id === user?.clerkId}
               isPersonalPage={clerkUser?.id === user?.clerkId}
               clerkId={clerkUser?.id}
-              isOnProfile={true}
             />
           </div>
         </Container>

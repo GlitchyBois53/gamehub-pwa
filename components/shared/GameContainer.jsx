@@ -17,7 +17,6 @@ export default async function GameContainer({
   icon,
   isEmpty,
   isCurrentUserProfile,
-  isOnProfile,
   isPersonalPage,
   clerkId,
   isLibrary,
@@ -49,7 +48,6 @@ export default async function GameContainer({
             href={href}
             isOnGamePage={isOnGamePage}
             title={title}
-            isOnProfile={isOnProfile}
           />
           <img
             src="/arrow-icon-grad.svg"
