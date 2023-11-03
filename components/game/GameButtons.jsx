@@ -91,10 +91,12 @@ export default function GameButtons({
             />
           ) : (
             <Button
-              handleClick={handleLibrary}
+              handleClick={!isWishlistRunning ? handleLibrary : null}
               text={`${isLibraryRunning ? "adding" : "add"} to library`}
               icon={"/library-icon-dark.svg"}
-              attributes="py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px]"
+              attributes={`py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px] ${
+                isWishlistRunning && "opacity-50"
+              }`}
               isLoading={isLibraryRunning}
             />
           )}
@@ -124,12 +126,14 @@ export default function GameButtons({
             />
           ) : (
             <Button
-              handleClick={handleWishlist}
+              handleClick={!isLibraryRunning ? handleWishlist : null}
               text="add to wishlist"
               icon={"/wishlist-icon-dark.png"}
               lightIcon={"/wishlist-icon.png"}
               variant={"secondary"}
-              attributes="py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px]"
+              attributes={`py-[10px] px-[15px] text-[12px] font-semibold tracking-[0.72px] ${
+                isLibraryRunning && "opacity-50"
+              }`}
               isLoading={isWishlistRunning}
             />
           )}
