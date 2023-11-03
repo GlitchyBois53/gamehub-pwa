@@ -20,6 +20,8 @@ export default function Head() {
       <title>
         {pathname === "/"
           ? "Home - GameHub"
+          : pathname.includes("/games") && pathname !== "/games"
+          ? `${path} - GameHub`
           : path[0].toUpperCase() + path.slice(1).toLowerCase() + " - GameHub"}
       </title>
       {/* TODO: add SEO if needed */}
