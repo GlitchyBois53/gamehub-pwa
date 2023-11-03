@@ -85,9 +85,9 @@ export default async function Game({ params }) {
     "games",
     `
     fields name, genres, total_rating, first_release_date, slug, cover; 
-    where id = (${developerObj?.[0]?.developed}) & id != ${game?.id} & version_parent = null & category = (0, 8, 9, 10) & cover != null; 
+    where id = (${developerObj?.[0]?.developed}) & id != ${game?.id} & version_parent = null & category = (0, 8, 9, 10) & cover != null & total_rating_count != null; 
     limit 20;
-    sort first_release_date desc;
+    sort total_rating_count desc;
     `
   );
 
