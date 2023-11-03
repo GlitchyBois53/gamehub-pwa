@@ -20,6 +20,8 @@ export default function SearchContainer({
   // state to control whether the filters are open or not
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
+  const activeFilterCheck = searchParams.search || isPersonalPage;
+
   return (
     <>
       <div
@@ -60,7 +62,7 @@ export default function SearchContainer({
           isPersonalPage={isPersonalPage}
         />
       </div>
-      {searchParams.search || isPersonalPage && <ActiveFilters searchParams={searchParams} />}
+      {activeFilterCheck && <ActiveFilters searchParams={searchParams} />}
     </>
   );
 }
