@@ -20,8 +20,7 @@ export default async function Home() {
   // import userdata from clerk, to check whether the user is logged in or not
   const clerkUser = await currentUser();
   let dbUser = null;
-  const defaultGenres = ["5", "12", "31"];
-
+  
   // if the user is logged in, check whether the user is onboarded or not
   if (clerkUser) {
     dbUser = await fetchUser(clerkUser.id);
@@ -33,7 +32,8 @@ export default async function Home() {
       redirect("/onboarding/profile-setup");
     }
   }
-
+  
+  const defaultGenres = ["5", "12", "31"];
   const genreIdArr = dbUser?.genres.map((genre) => genre.genreId);
   const genreChoices = genreIdArr || defaultGenres;
 

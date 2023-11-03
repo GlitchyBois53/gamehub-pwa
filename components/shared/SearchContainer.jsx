@@ -60,7 +60,7 @@ export default function SearchContainer({
           isPersonalPage={isPersonalPage}
         />
       </div>
-      {searchParams.search && <ActiveFilters searchParams={searchParams} />}
+      {searchParams.search || isPersonalPage && <ActiveFilters searchParams={searchParams} />}
     </>
   );
 }

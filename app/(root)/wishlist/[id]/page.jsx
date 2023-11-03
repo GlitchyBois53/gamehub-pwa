@@ -17,8 +17,6 @@ export default async function Wishlist({ params, searchParams }) {
   const user = await fetchUser(params.id);
   const wishlistIdArr = user?.wishlist?.map((game) => game.gameId);
 
-  console.log(wishlistIdArr);
-
   const clerkUser = await currentUser();
 
   // Setting the search params for filtering

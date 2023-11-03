@@ -14,8 +14,8 @@ export default async function Profile({ params }) {
   const user = await fetchUser(params.id);
 
   const genreIdArr = user?.genres?.map((genre) => genre.genreId);
-  const libraryIdArr = user?.library?.map((game) => game.gameId);
   const wishlistIdArr = user?.wishlist?.map((game) => game.gameId);
+  const libraryIdArr = user?.library?.map((game) => game.gameId);
 
   let library = [];
   // Fetching the games in the user's library

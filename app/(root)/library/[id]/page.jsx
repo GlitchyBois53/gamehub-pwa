@@ -45,26 +45,20 @@ export default async function Library({ params, searchParams }) {
     games = await fetchGameData(
       "games",
       `
-    fields name, rating, genres, total_rating, first_release_date, slug, cover;
-    where
-    id = (${libraryIdArr}) &
-    ${search ? `name ~ *"${search}"* &` : ""} cover != null ${
-        platforms ? `& platforms = (${platforms})` : ""
-      }
-    ${
-      years
-        ? `& first_release_date >= ${yearsSplit[0]} & first_release_date <= ${yearsSplit[1]}`
-        : ""
-    }
-    ${genres ? `& genres = (${genres})` : ""}
-    ${themes ? `& themes = (${themes})` : ""}
-    ${ratings ? `& total_rating >= ${ratings}` : ""}
-    ${modes ? `& game_modes = (${modes})` : ""}
-    ; 
-    limit ${resultsPerPage};
-    offset ${offset}; 
-    sort ${sort} ${order};
-    `
+      fields name, rating, genres, total_rating, first_release_date, slug, cover;
+      where
+      id = (${libraryIdArr}) &
+      ${search ? `name ~ *"${search}"* &` : ""} cover != null 
+      ${platforms ? `& platforms = (${platforms})` : ""}
+      ${years ? `& first_release_date >= ${yearsSplit[0]} & first_release_date <= ${yearsSplit[1]}` : ""}
+      ${genres ? `& genres = (${genres})` : ""}
+      ${themes ? `& themes = (${themes})` : ""}
+      ${ratings ? `& total_rating >= ${ratings}` : ""}
+      ${modes ? `& game_modes = (${modes})` : ""}; 
+      limit ${resultsPerPage};
+      offset ${offset}; 
+      sort ${sort} ${order};
+      `
     );
   }
 
