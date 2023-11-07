@@ -10,7 +10,7 @@ export default async function SimilarGames({ gameIds }) {
     "games",
     `
     fields name, genres, total_rating, first_release_date, slug, cover;
-    where id = (${gameIds}) & screenshots != null & involved_companies != null & version_parent = null & first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10); 
+    where id = (${gameIds}) & screenshots != null & cover != null & involved_companies != null & version_parent = null & first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10); 
     limit 20; 
     sort first_release_date desc;
     `
