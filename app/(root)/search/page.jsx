@@ -40,7 +40,7 @@ export default async function Search({ searchParams }) {
         ? "rating != null & rating_count > 3 &"
         : ""
     } 
-   first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 8, 9, 10) ${
+   first_release_date != null & keywords != (2004, 24124, 25522, 33402, 1603, 4472) & category = (0, 4, 8, 9, 10) ${
      platforms ? `& platforms = (${platforms})` : ""
    }
     ${
