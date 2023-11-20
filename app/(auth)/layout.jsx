@@ -13,6 +13,10 @@ const barlow = Barlow({
   weight: ['400', '500', '600', '700'],
 });
 
+export const metadata = {
+  manifest: '/manifest.json',
+};
+
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
